@@ -3,7 +3,8 @@
 &lt;p&gt;[toc]&lt;/p&gt;
 &lt;h1 id="spring的bean管理"&gt;Spring的Bean管理&lt;/h1&gt;
 &lt;blockquote&gt;
-&lt;p&gt;本博客基于&lt;a href="https://github.com/LongyunYao/SpringSourceCodeTest"&gt;SpringSourceCodeTest&lt;/a&gt;仓库中【SpringDemo1.0】tag进行的编写。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;本博客基于&lt;a href="https://github.com/LongyunYao/SpringSourceCodeTest"&gt;SpringSourceCodeTest&lt;/a&gt;仓库中【SpringDemo1.0】tag进行的编写。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;基于配置文件进行bean管理的方案是Spring初期推行的方式，在历史比较悠久的Spring项目中比较常见。&lt;/p&gt;
 &lt;h2 id="基于扫描的方式装载bean"&gt;基于扫描的方式装载bean&lt;/h2&gt;
 &lt;p&gt;一个比较典型的配置文件通常包含&lt;code&gt;&amp;lt;context&amp;gt;&lt;/code&gt;标签， &lt;code&gt;&amp;lt;context&amp;gt;&lt;/code&gt;用来表示该项目中哪些包中的bean需要被进行生命周期管理。&lt;/p&gt;
@@ -76,4 +77,5 @@
 &lt;p&gt;本次更新计划按照系列更新的方式进行更新，因此这篇文章只是作为综述，详细点在各个文章中更新。&lt;/p&gt;
 &lt;p&gt;相关文章：&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;a href="https://blog.csdn.net/Michael753951/article/details/106578817"&gt;《自定义注解并且进行扫描解析》&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;</description></item></channel></rss>
+&lt;p&gt;&lt;a href="https://blog.csdn.net/Michael753951/article/details/106578817"&gt;《自定义注解并且进行扫描解析》&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</description></item></channel></rss>

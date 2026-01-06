@@ -17,14 +17,17 @@
 &lt;h2 id="智力题"&gt;智力题&lt;/h2&gt;
 &lt;p&gt;接下来是智力题。是我很不擅长的数字推理题。题目我在后来找到了原题，大致如下：&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;AB两男士女奇问C女士年龄，C女士将给出11个可能答案，35，36，38，42，45，46，51，55，57，61，62。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;AB两男士女奇问C女士年龄，C女士将给出11个可能答案，35，36，38，42，45，46，51，55，57，61，62。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;C女士将十位数告诉A，将个位数告诉B
 A男士说，我不知道C女士年龄，我想B也不知道。
 B男士说，原本我不知道C女士年龄，但现在知道了。
-A男士说现在我也知道了&lt;/p&gt;&lt;/blockquote&gt;
+A男士说现在我也知道了&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;blockquote&gt;
-&lt;p&gt;请问C女士年龄多少&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;请问C女士年龄多少&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;题目大致如此，我思考了一会，没有头绪，于是口头向面试官表示暂时可能解不出来，然后又大致讲了一下当前我已经思考到哪，以及我当前的推理逻辑。面试官听了一会，点了一下，然后开始让我做简单的代码实现题。&lt;/p&gt;
 &lt;p&gt;这时候我开始有点紧张了，因为担心这一关是不是没有发挥好，或者是否哪里有逻辑漏洞。&lt;/p&gt;
 &lt;h2 id="简单代码题"&gt;简单代码题&lt;/h2&gt;

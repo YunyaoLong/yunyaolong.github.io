@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>RFID on Chinese</title><link>https://yaoyl.cn/tags/rfid/</link><description>Recent content in RFID on Chinese</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>Copyright © 2017–2025, Yunyao Long and the Hugo Authors; 粤ICP备-17050867-1号</copyright><lastBuildDate>Tue, 23 May 2017 01:19:42 +0000</lastBuildDate><atom:link href="https://yaoyl.cn/tags/rfid/index.xml" rel="self" type="application/rss+xml"/><item><title>RFID实验三总结</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/rfid%E5%AE%9E%E9%AA%8C%E4%B8%89%E6%80%BB%E7%BB%93/</link><pubDate>Tue, 23 May 2017 01:19:42 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/rfid%E5%AE%9E%E9%AA%8C%E4%B8%89%E6%80%BB%E7%BB%93/</guid><description>
 &lt;blockquote&gt;
-&lt;p&gt;一次debug到哭泣的经历。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;一次debug到哭泣的经历。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;&lt;strong&gt;龙云尧个人博客，转载请注明出处。&lt;/strong&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;CSDN地址：http://blog.csdn.net/michael753951
-个人blog地址：http://yaoyl.cn&lt;/p&gt;&lt;/blockquote&gt;
+个人blog地址：http://yaoyl.cn&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;在实验过程中，需要不断翻阅实验课PPT之**《04 电子钱包的功能》&lt;strong&gt;，word之&lt;/strong&gt;《实验3文档》**，以及不知名大佬的&lt;a href="http://www.tqcto.com/article/software/83894.html"&gt;课程总代码&lt;/a&gt;，CSDN大佬吕浪的&lt;a href="http://blog.csdn.net/lv_victor/article/details/51028930"&gt;Java card开发系列文章&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;本次实验和前两次实验相比，代码量多&lt;strong&gt;很多&lt;/strong&gt;，并且&lt;strong&gt;实验思路稍有区别&lt;/strong&gt;。实验之前可以不太懂实验流程（主要是因为流程本身就太复杂了），但是一定要&lt;strong&gt;一遍又一遍阅读源代码&lt;/strong&gt;，只有在读源码的过程中，才能体会整个验证过程，对项目中涉及到的函数方法的使用才能有一个更加深入的了解。接着自己不断重写代码，理解整个实现过程，才能对这个课程实验有较为深入的了解。&lt;/p&gt;
 &lt;p&gt;最终的代码地址：https://github.com/LongyunYao/RFID_lab/&lt;/p&gt;
@@ -137,9 +139,13 @@ src="https://yaoyl.cn/"
 &lt;/picture&gt;
 &lt;/figure&gt;
 &lt;/p&gt;
-&lt;p&gt;step4：&lt;strong&gt;IC使用同样的算法计算MAC2，如果计算结果和终端返回的MAC2一致，就说明终端的身份合法。IC卡就会执行圈存命令。同时返回TAC。其中TAC计算时，输入数据为[电子钱包余额（交易后）||电子钱包联机交易序号（加１前）||交易金额||交易类型标识||终端机编号||交易日期（主机）||交易时间（主机）]，密钥为TAC密码最左8个字节与TAC密码最右8个字节异或的结果。&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>RFID实验二总结</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/rfid%E5%AE%9E%E9%AA%8C%E4%BA%8C%E6%80%BB%E7%BB%93/</link><pubDate>Sun, 21 May 2017 02:55:05 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/rfid%E5%AE%9E%E9%AA%8C%E4%BA%8C%E6%80%BB%E7%BB%93/</guid><description>
+&lt;p&gt;step4：&lt;strong&gt;IC使用同样的算法计算MAC2，如果计算结果和终端返回的MAC2一致，就说明终端的身份合法。IC卡就会执行圈存命令。同时返回TAC。其中TAC计算时，输入数据为[电子钱包余额（交易后）||电子钱包联机交易序号（加１前）||交易金额||交易类型标识||终端机编号||交易日期（主机）||交易时间（主机）]，密钥为TAC密码最左8个字节与TAC密码最右8个字节异或的结果。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;到这里整个圈存过程就结束了。消费以及查询和圈存的实现原理一致，这里就不赘述了。&lt;/p&gt;
+&lt;h2 id="读代码"&gt;读代码&lt;/h2&gt;
+&lt;p&gt;前面的分析中，我们已经对本次实验有了大致的了解，接下来就是开始&lt;strong&gt;读源码&lt;/strong&gt;的过程了。不过本次实验中，因为我们只需要对IC卡的系统进行编程实现，而对终端机需要靠人脑完成，所以我们重心就会放在圈存的初始化和圈存的执行上面了。&lt;/p&gt;</description></item><item><title>RFID实验二总结</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/rfid%E5%AE%9E%E9%AA%8C%E4%BA%8C%E6%80%BB%E7%BB%93/</link><pubDate>Sun, 21 May 2017 02:55:05 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/rfid%E5%AE%9E%E9%AA%8C%E4%BA%8C%E6%80%BB%E7%BB%93/</guid><description>
 &lt;blockquote&gt;
-&lt;p&gt;没见过debug还这么麻烦的。。。。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;没见过debug还这么麻烦的。。。。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;&lt;strong&gt;龙云尧个人博客，转载请注明出处。&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;CSDN地址：http://blog.csdn.net/michael753951/article/details/70307683&lt;/p&gt;
 &lt;p&gt;个人blog地址：http://123.207.243.115:81/rfidshi-yan-er-zong-jie-2/&lt;/p&gt;
@@ -281,7 +287,9 @@ src="https://yaoyl.cn/"
 &lt;/p&gt;
 &lt;p&gt;这几个函数就是我们本此实验需要填写的函数了。第一个gen_SESPK是过程秘钥生成函数，后面3个都是MAC或者TAC生成中需要使用的函数。&lt;/p&gt;
 &lt;h2 id="开始打码"&gt;开始打码&lt;/h2&gt;
-&lt;p&gt;前面的分析中，我们已经对本次实验有了大致的了解，接下来就是开始打码的过程了。&lt;/p&gt;</description></item><item><title>RFID实验一总结</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/rfid%E5%AE%9E%E9%AA%8C%E4%B8%80%E6%80%BB%E7%BB%93/</link><pubDate>Sat, 20 May 2017 14:11:32 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/rfid%E5%AE%9E%E9%AA%8C%E4%B8%80%E6%80%BB%E7%BB%93/</guid><description>
+&lt;p&gt;前面的分析中，我们已经对本次实验有了大致的了解，接下来就是开始打码的过程了。&lt;/p&gt;
+&lt;h3 id="过程秘钥的产生"&gt;过程秘钥的产生&lt;/h3&gt;
+&lt;p&gt;我们在PPT《03 电子钱包的安全管理》中已经知道了过程秘钥分为3步，分别是&lt;strong&gt;子秘钥左半部分加密&lt;/strong&gt;，&lt;strong&gt;子秘钥右半部分解密&lt;/strong&gt;，&lt;strong&gt;子秘钥左半部分解密&lt;/strong&gt;。在仔细查看&lt;code&gt;gen_SESPK&lt;/code&gt;函数传入参数的各种意义，以及&lt;code&gt;cdes&lt;/code&gt;函数的参数意义以后，我们就可以调用cdes实现3步产生秘钥了。&lt;/p&gt;</description></item><item><title>RFID实验一总结</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/rfid%E5%AE%9E%E9%AA%8C%E4%B8%80%E6%80%BB%E7%BB%93/</link><pubDate>Sat, 20 May 2017 14:11:32 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/rfid%E5%AE%9E%E9%AA%8C%E4%B8%80%E6%80%BB%E7%BB%93/</guid><description>
 &lt;p&gt;刚接到这个课程项目的时候，是一脸懵逼的。毕竟是第一次接触JavaCard编程（其实就是自己没认真听课）。不过在围观各路大佬的博客之后，总算对整个项目有了较为深入的了解。&lt;/p&gt;
 &lt;p&gt;在实验过程中，需要不断翻阅实验课PPT之《01 Java智能卡之概述》，《02 电子钱包的文件系统》，《实验2文档》，以及不知名大佬的&lt;a href="http://www.tqcto.com/article/software/83894.html"&gt;课程总代码&lt;/a&gt;，CSDN大佬吕浪的&lt;a href="http://blog.csdn.net/lv_victor/article/details/51028930"&gt;Java card开发系列文章&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;然后再自己不断重写代码，理解整个实现过程，才能对这个课程实验有较为深入的了解。&lt;/p&gt;

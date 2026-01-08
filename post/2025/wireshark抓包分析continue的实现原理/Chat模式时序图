@@ -1,0 +1,27 @@
+@startuml
+title Continue Chat模式交互时序图
+
+autonumber
+
+actor "User" as U
+participant "VSCode" as VS
+participant "Continue Plugin" as CP
+database "Message History Storage" as DB
+participant "Ollama API" as OLLAMA
+participant "Local LLM" as LLM
+
+U -> VS++: 输入聊天消息
+VS -> CP++: 调用Continue API
+CP -> DB++: 读取历史消息
+return: 返回历史消息
+CP -> CP: 组装完整对话上下文(系统提示词+历史消息+当前消息)
+CP -> OLLAMA++: 发送完整对话上下文到Ollama
+OLLAMA -> LLM++: 调用本地模型
+return: 返回模型响应
+return: 返回API响应
+CP -> DB++: 更新持久化内容，将本次响应结果追加更新到会话历史中（如果会话过长，还需要做上下文内容压缩）
+return
+return: 处理并显示响应
+return: 显示聊天结果
+
+@enduml

@@ -1,0 +1,37 @@
+@startuml
+title Continue Agent模式交互时序图
+
+autonumber
+
+skinparam state {
+BorderColor black
+BorderThickness 1
+}
+
+actor "User" as U
+participant "VSCode" as VS
+participant "Continue Plugin" as CP
+participant "Ollama API" as OLLAMA
+participant "Local LLM" as LLM
+
+U -> VS++: 请求Agent模式执行
+VS -> CP++: 调用Agent API
+CP -> OLLAMA++: 发送Agent模式的提示词，同时提供了一些读写tools
+OLLAMA -> LLM++: 调用本地模型生成计划
+alt 如果需要调用tools
+LLM --> OLLAMA: 返回tools列表和每一个tool的调用参数
+OLLAMA --> CP: 返回tools列表和每一个tool的调用参数
+    loop 分布执行每一个tools
+        ...重复直到所有子任务完成...
+        CP -> CP: 分步骤执行每一个tools，并且将执行结果追加到会话中
+        note over CP: 这里可能有读文件或者写文件操作
+    end
+CP -> OLLAMA: 重新发送整个会话内容
+OLLAMA -> LLM: 调用本地模型
+end
+LLM -> OLLAMA: 返回最终的规划结果
+OLLAMA -> CP: 返回子任务响应
+CP -> VS: 汇总所有结果
+VS -> U: 显示最终结果
+
+@enduml

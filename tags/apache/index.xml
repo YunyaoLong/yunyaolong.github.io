@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Apache on Chinese</title><link>https://yaoyl.cn/tags/apache/</link><description>Recent content in Apache on Chinese</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>Copyright © 2017–2025, Yunyao Long and the Hugo Authors; 粤ICP备-17050867-1号</copyright><lastBuildDate>Thu, 21 Dec 2017 11:35:49 +0000</lastBuildDate><atom:link href="https://yaoyl.cn/tags/apache/index.xml" rel="self" type="application/rss+xml"/><item><title>关于Apache HTTPD 2.2.15的部分漏洞修复建议</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E5%85%B3%E4%BA%8Eapache-httpd-2.2.15%E7%9A%84%E9%83%A8%E5%88%86%E6%BC%8F%E6%B4%9E%E4%BF%AE%E5%A4%8D%E5%BB%BA%E8%AE%AE/</link><pubDate>Thu, 21 Dec 2017 11:35:49 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E5%85%B3%E4%BA%8Eapache-httpd-2.2.15%E7%9A%84%E9%83%A8%E5%88%86%E6%BC%8F%E6%B4%9E%E4%BF%AE%E5%A4%8D%E5%BB%BA%E8%AE%AE/</guid><description>
-&lt;p&gt;龙云尧个人博客，转载请注明出处。&lt;/p&gt;
-&lt;p&gt;CSDN地址：http://blog.csdn.net/Michael753951/article/details/78861876&lt;/p&gt;
-&lt;p&gt;个人blog地址：http://yaoyl.cn/guan-yu-apache-httpd-2-2-15-de-bu-fen-lou-dong-xiu-fu-jian-yi/&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id="修复apache-http-server畸形range和range-request选项处理远程拒绝服务漏洞"&gt;修复Apache HTTP Server畸形Range和Range-Request选项处理远程拒绝服务漏洞&lt;/h1&gt;
-&lt;p&gt;该漏洞有如下几种修补方法&lt;/p&gt;
-&lt;h2 id="方式1"&gt;方式1：&lt;/h2&gt;
-&lt;p&gt;升级Apache httpd至2.2.21及以上版本&lt;/p&gt;
-&lt;p&gt;##方式2：
-可以从官网&lt;a href="http://www.apache.org/dist/httpd/patches/apply_to_2.2.19/CVE-2011-3192-2.2.19-byterange-fixes.patch"&gt;下载补丁包&lt;/a&gt;，重新打包编译Apache。&lt;/p&gt;
-&lt;p&gt;##方式3：&lt;/p&gt;
-&lt;p&gt;修改httpd.conf文件（一般位于&lt;code&gt;/usr/local/apache2/conf/httpd.conf&lt;/code&gt;，具体视安装Apache时的配置而定），相关配置参考&lt;a href="https://httpd.apache.org/security/CVE-2011-3192.txt"&gt;Apache官方关于该漏洞的修复建议&lt;/a&gt;，（绿盟也有&lt;a href="http://www.nsfocus.net/index.php?act=sec_bug&amp;amp;do=view&amp;amp;bug_id=17605"&gt;对官方建议的中文翻译&lt;/a&gt; ，不过翻译并不准确，不建议参考），这里使用官方建议的修复方式2&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Step1.&lt;/strong&gt; 引入mod_rewrite和mod_headers模块，这里去掉两个模块的默认的注释即可&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+&lt;p>龙云尧个人博客，转载请注明出处。&lt;/p>
+&lt;p>CSDN地址：http://blog.csdn.net/Michael753951/article/details/78861876&lt;/p>
+&lt;p>个人blog地址：http://yaoyl.cn/guan-yu-apache-httpd-2-2-15-de-bu-fen-lou-dong-xiu-fu-jian-yi/&lt;/p>
+&lt;hr>
+&lt;h1 id="修复apache-http-server畸形range和range-request选项处理远程拒绝服务漏洞">修复Apache HTTP Server畸形Range和Range-Request选项处理远程拒绝服务漏洞&lt;/h1>
+&lt;p>该漏洞有如下几种修补方法&lt;/p>
+&lt;h2 id="方式1">方式1：&lt;/h2>
+&lt;p>升级Apache httpd至2.2.21及以上版本&lt;/p>
+&lt;p>##方式2：
+可以从官网&lt;a href="http://www.apache.org/dist/httpd/patches/apply_to_2.2.19/CVE-2011-3192-2.2.19-byterange-fixes.patch">下载补丁包&lt;/a>，重新打包编译Apache。&lt;/p>
+&lt;p>##方式3：&lt;/p>
+&lt;p>修改httpd.conf文件（一般位于&lt;code>/usr/local/apache2/conf/httpd.conf&lt;/code>，具体视安装Apache时的配置而定），相关配置参考&lt;a href="https://httpd.apache.org/security/CVE-2011-3192.txt">Apache官方关于该漏洞的修复建议&lt;/a>，（绿盟也有&lt;a href="http://www.nsfocus.net/index.php?act=sec_bug&amp;amp;do=view&amp;amp;bug_id=17605">对官方建议的中文翻译&lt;/a> ，不过翻译并不准确，不建议参考），这里使用官方建议的修复方式2&lt;/p>
+&lt;p>&lt;strong>Step1.&lt;/strong> 引入mod_rewrite和mod_headers模块，这里去掉两个模块的默认的注释即可&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
@@ -22,24 +22,24 @@ class="image_figure image_external image_processed"
 width="467"
 height="446"
 src="https://yaoyl.cn/images/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcxMjIxMTEwMDQ1Njk5_8918633681367883446.png"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Step2.&lt;/strong&gt; 在正文部分引入如下配置（配置说明：Range:标头中超过5个范围时即拒绝请求，并且总是丢弃Request-Range，因为是旧版的）&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 1&lt;/span&gt;&lt;span class="cl"&gt;&amp;lt;IfModule rewrite_module&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 2&lt;/span&gt;&lt;span class="cl"&gt;&amp;lt;IfModule mod_headers&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 3&lt;/span&gt;&lt;span class="cl"&gt; # Reject request when more than 5 ranges in the Range: header.
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 4&lt;/span&gt;&lt;span class="cl"&gt; # CVE-2011-3192
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 5&lt;/span&gt;&lt;span class="cl"&gt; #
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 6&lt;/span&gt;&lt;span class="cl"&gt; RewriteEngine on
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 7&lt;/span&gt;&lt;span class="cl"&gt; RewriteCond %{HTTP:range} !(^bytes=[^,]+(,[^,]+){0,4}$|^$) [NC]
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 8&lt;/span&gt;&lt;span class="cl"&gt; RewriteRule .* - [F]
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 9&lt;/span&gt;&lt;span class="cl"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;10&lt;/span&gt;&lt;span class="cl"&gt; # We always drop Request-Range; as this is a legacy
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;11&lt;/span&gt;&lt;span class="cl"&gt; # dating back to MSIE3 and Netscape 2 and 3.
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;12&lt;/span&gt;&lt;span class="cl"&gt; #
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;13&lt;/span&gt;&lt;span class="cl"&gt; RequestHeader unset Request-Range
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;14&lt;/span&gt;&lt;span class="cl"&gt;&amp;lt;/IfModule&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;15&lt;/span&gt;&lt;span class="cl"&gt;&amp;lt;/IfModule&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Step3：&lt;/strong&gt; 重启Apache httpd&lt;/p&gt;</description></item></channel></rss>
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>&lt;strong>Step2.&lt;/strong> 在正文部分引入如下配置（配置说明：Range:标头中超过5个范围时即拒绝请求，并且总是丢弃Request-Range，因为是旧版的）&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="ln"> 1&lt;/span>&lt;span class="cl">&amp;lt;IfModule rewrite_module&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 2&lt;/span>&lt;span class="cl">&amp;lt;IfModule mod_headers&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 3&lt;/span>&lt;span class="cl"> # Reject request when more than 5 ranges in the Range: header.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 4&lt;/span>&lt;span class="cl"> # CVE-2011-3192
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 5&lt;/span>&lt;span class="cl"> #
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 6&lt;/span>&lt;span class="cl"> RewriteEngine on
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 7&lt;/span>&lt;span class="cl"> RewriteCond %{HTTP:range} !(^bytes=[^,]+(,[^,]+){0,4}$|^$) [NC]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 8&lt;/span>&lt;span class="cl"> RewriteRule .* - [F]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 9&lt;/span>&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">10&lt;/span>&lt;span class="cl"> # We always drop Request-Range; as this is a legacy
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">11&lt;/span>&lt;span class="cl"> # dating back to MSIE3 and Netscape 2 and 3.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">12&lt;/span>&lt;span class="cl"> #
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">13&lt;/span>&lt;span class="cl"> RequestHeader unset Request-Range
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">14&lt;/span>&lt;span class="cl">&amp;lt;/IfModule&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">15&lt;/span>&lt;span class="cl">&amp;lt;/IfModule&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Step3：&lt;/strong> 重启Apache httpd&lt;/p></description></item></channel></rss>

@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ubuntu on Chinese</title><link>https://yaoyl.cn/categories/ubuntu/</link><description>Recent content in Ubuntu on Chinese</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>Copyright © 2017–2025, Yunyao Long and the Hugo Authors; 粤ICP备-17050867-1号</copyright><lastBuildDate>Fri, 19 May 2017 17:05:46 +0000</lastBuildDate><atom:link href="https://yaoyl.cn/categories/ubuntu/index.xml" rel="self" type="application/rss+xml"/><item><title>双系统安装Ubuntu的初始化</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E5%8F%8C%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85ubuntu%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/</link><pubDate>Fri, 19 May 2017 17:05:46 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E5%8F%8C%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85ubuntu%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/</guid><description>
-&lt;p&gt;&lt;strong&gt;龙云尧个人博客，转载请注明出处。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;CSDN地址：http://blog.csdn.net/michael753951/article/details/72547775&lt;/p&gt;
-&lt;p&gt;个人blog地址：http://http://yaoyl.cn/ubuntu-huan-jing-pei-zhi/&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id="起源"&gt;起源&lt;/h1&gt;
-&lt;p&gt;一方面由于实验室开发的要求，另一方面由于自己想搞Linux服务器，于是在自己的电脑上装了双系统——Ubuntu 16.04 + Windows10。其中Win10是PC自身的系统，Ubuntu为后期装入，本篇博客将稍微记录一下我对整个系统的UI优化以及部分必要的软件配置。&lt;/p&gt;
-&lt;h1 id="必要软件安装"&gt;必要软件安装&lt;/h1&gt;
-&lt;h2 id="输入法"&gt;输入法&lt;/h2&gt;
-&lt;p&gt;首先需要安装的最最重要的当然是输入法了，这里我选用的是搜狗输入法，直接从官网下载安装包即可。（Ubuntu 版本的 搜狗输入法翻页是用 - 和 = 而不是 { 和 }）另外，在Ubuntu中切换输入法的快捷键是 Ctrl + Space 。&lt;/p&gt;
-&lt;h2 id="编辑器"&gt;编辑器&lt;/h2&gt;
-&lt;p&gt;然后是编辑器，我依然选用的是Sublime，这个网上教程很多，上官网下载安装包，激活，配置环境教程太多了。&lt;/p&gt;
-&lt;h2 id="ide"&gt;IDE&lt;/h2&gt;
-&lt;p&gt;另外，考虑到我有C++的开发需求，我是用了网上比较推荐的 CodeBlocks ，软件安装教程网上很多。&lt;/p&gt;
-&lt;h2 id="上网"&gt;上网&lt;/h2&gt;
-&lt;p&gt;再然后就是上网了。毕竟我们不可能永远待在实验室或者图书馆或者蹭别人的WiFi，但是很可惜的是，学校的iNode 64位版本并不好用，官方也没有相对应的安装教程，网上有一些教程，但是都是讲如何在64位Ubuntu系统中使用32位iNode进行上网验证。这种方法并不推荐，因为库依赖太多，而且很难成功，教程也是很多年以前的教程，现如今并不太适用。在和网络中心交流几天之后，他们给我推荐了一款非官方的软件 YaH3C 。详见 &lt;a href="https://github.com/humiaozuzu/YaH3C"&gt;https://github.com/humiaozuzu/YaH3C&lt;/a&gt; 。上面有安装教程。&lt;/p&gt;
-&lt;p&gt;需要注意的是，安装教程中，默认的网卡为 eth0 ，但是在我的电脑上其实并不是，这个问题在一开始直接导致我一直配置不好环境。后面发现应该按照控制台中显示的网卡名称进行配置，否则会出现登录异常。&lt;/p&gt;
-&lt;p&gt;如下图所示，左边控制台中显示，我的默认网卡其实是 “enp4s0f2” ，所以在配置的时候，我就需要在网卡上填写 “enp4s0f2” 而不是教程中的 “eth0”。&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+&lt;p>&lt;strong>龙云尧个人博客，转载请注明出处。&lt;/strong>&lt;/p>
+&lt;p>CSDN地址：http://blog.csdn.net/michael753951/article/details/72547775&lt;/p>
+&lt;p>个人blog地址：http://http://yaoyl.cn/ubuntu-huan-jing-pei-zhi/&lt;/p>
+&lt;hr>
+&lt;h1 id="起源">起源&lt;/h1>
+&lt;p>一方面由于实验室开发的要求，另一方面由于自己想搞Linux服务器，于是在自己的电脑上装了双系统——Ubuntu 16.04 + Windows10。其中Win10是PC自身的系统，Ubuntu为后期装入，本篇博客将稍微记录一下我对整个系统的UI优化以及部分必要的软件配置。&lt;/p>
+&lt;h1 id="必要软件安装">必要软件安装&lt;/h1>
+&lt;h2 id="输入法">输入法&lt;/h2>
+&lt;p>首先需要安装的最最重要的当然是输入法了，这里我选用的是搜狗输入法，直接从官网下载安装包即可。（Ubuntu 版本的 搜狗输入法翻页是用 - 和 = 而不是 { 和 }）另外，在Ubuntu中切换输入法的快捷键是 Ctrl + Space 。&lt;/p>
+&lt;h2 id="编辑器">编辑器&lt;/h2>
+&lt;p>然后是编辑器，我依然选用的是Sublime，这个网上教程很多，上官网下载安装包，激活，配置环境教程太多了。&lt;/p>
+&lt;h2 id="ide">IDE&lt;/h2>
+&lt;p>另外，考虑到我有C++的开发需求，我是用了网上比较推荐的 CodeBlocks ，软件安装教程网上很多。&lt;/p>
+&lt;h2 id="上网">上网&lt;/h2>
+&lt;p>再然后就是上网了。毕竟我们不可能永远待在实验室或者图书馆或者蹭别人的WiFi，但是很可惜的是，学校的iNode 64位版本并不好用，官方也没有相对应的安装教程，网上有一些教程，但是都是讲如何在64位Ubuntu系统中使用32位iNode进行上网验证。这种方法并不推荐，因为库依赖太多，而且很难成功，教程也是很多年以前的教程，现如今并不太适用。在和网络中心交流几天之后，他们给我推荐了一款非官方的软件 YaH3C 。详见 &lt;a href="https://github.com/humiaozuzu/YaH3C">https://github.com/humiaozuzu/YaH3C&lt;/a> 。上面有安装教程。&lt;/p>
+&lt;p>需要注意的是，安装教程中，默认的网卡为 eth0 ，但是在我的电脑上其实并不是，这个问题在一开始直接导致我一直配置不好环境。后面发现应该按照控制台中显示的网卡名称进行配置，否则会出现登录异常。&lt;/p>
+&lt;p>如下图所示，左边控制台中显示，我的默认网卡其实是 “enp4s0f2” ，所以在配置的时候，我就需要在网卡上填写 “enp4s0f2” 而不是教程中的 “eth0”。&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
 alt="网卡"
 class="image_figure image_internal image_unprocessed"
 src="https://yaoyl.cn/"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;配置完成以后，执行&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;1&lt;/span&gt;&lt;span class="cl"&gt;sudo yah3c
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后选择正确的网卡（我是按1），验证成功以后就能够正常上网了。&lt;/p&gt;
-&lt;h2 id="wifi"&gt;WiFi&lt;/h2&gt;
-&lt;p&gt;在WiFi开启这个问题上，Ubuntu下面还是很好解决的，因为系统本身就支持直接进行无线网络共享，我们就不再需要安装各种乱七八糟的WiFi共享软件啦。这里我推荐一个比较靠谱的配置教程&lt;a href="http://www.cnblogs.com/weiweisuhe/p/5635298.html"&gt;【ubuntu 16.04 设置位wifi热点 方法】&lt;/a&gt;。其他的网络教程在我的系统中并不能够配置出一个靠谱的WiFi。&lt;/p&gt;
-&lt;h1 id="ui设置"&gt;UI设置&lt;/h1&gt;
-&lt;h2 id="tweak"&gt;Tweak&lt;/h2&gt;
-&lt;p&gt;UI方面，我使用的网上普遍推荐的 Ubuntu Tweak 进行优化，安装教程网上很多，也忘记保存书签，安装的时候可以自行搜索。&lt;/p&gt;
-&lt;p&gt;主题方面，“GTK主题”我选择的是“Radiance”，“图标主题”我选择的是“Ultra-Flat”，“光标主题”我选择的是“DMZ-Black”，“窗口主题”我选择的是“Radiance”。&lt;/p&gt;
-&lt;p&gt;字体方面，我的设置为，“默认字体”为“Ubuntu Regular”，“桌面字体”为“Sans Regular”，“等宽字体”为“Ubuntu Mono Regular”，“文档字体”为“Sans Regular”，“窗口标题字体”为“FreeSans Bold”，其他的可以自行调整。&lt;/p&gt;</description></item></channel></rss>
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>配置完成以后，执行&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="ln">1&lt;/span>&lt;span class="cl">sudo yah3c
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后选择正确的网卡（我是按1），验证成功以后就能够正常上网了。&lt;/p>
+&lt;h2 id="wifi">WiFi&lt;/h2>
+&lt;p>在WiFi开启这个问题上，Ubuntu下面还是很好解决的，因为系统本身就支持直接进行无线网络共享，我们就不再需要安装各种乱七八糟的WiFi共享软件啦。这里我推荐一个比较靠谱的配置教程&lt;a href="http://www.cnblogs.com/weiweisuhe/p/5635298.html">【ubuntu 16.04 设置位wifi热点 方法】&lt;/a>。其他的网络教程在我的系统中并不能够配置出一个靠谱的WiFi。&lt;/p>
+&lt;h1 id="ui设置">UI设置&lt;/h1>
+&lt;h2 id="tweak">Tweak&lt;/h2>
+&lt;p>UI方面，我使用的网上普遍推荐的 Ubuntu Tweak 进行优化，安装教程网上很多，也忘记保存书签，安装的时候可以自行搜索。&lt;/p>
+&lt;p>主题方面，“GTK主题”我选择的是“Radiance”，“图标主题”我选择的是“Ultra-Flat”，“光标主题”我选择的是“DMZ-Black”，“窗口主题”我选择的是“Radiance”。&lt;/p>
+&lt;p>字体方面，我的设置为，“默认字体”为“Ubuntu Regular”，“桌面字体”为“Sans Regular”，“等宽字体”为“Ubuntu Mono Regular”，“文档字体”为“Sans Regular”，“窗口标题字体”为“FreeSans Bold”，其他的可以自行调整。&lt;/p></description></item></channel></rss>

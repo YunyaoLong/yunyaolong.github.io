@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>架构 on Chinese</title><link>https://yaoyl.cn/categories/%E6%9E%B6%E6%9E%84/</link><description>Recent content in 架构 on Chinese</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>Copyright © 2017–2025, Yunyao Long and the Hugo Authors; 粤ICP备-17050867-1号</copyright><lastBuildDate>Sun, 19 Jul 2020 16:28:45 +0000</lastBuildDate><atom:link href="https://yaoyl.cn/categories/%E6%9E%B6%E6%9E%84/index.xml" rel="self" type="application/rss+xml"/><item><title>UML类图绘制实例</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/uml%E7%B1%BB%E5%9B%BE%E7%BB%98%E5%88%B6%E5%AE%9E%E4%BE%8B/</link><pubDate>Sun, 19 Jul 2020 16:28:45 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/uml%E7%B1%BB%E5%9B%BE%E7%BB%98%E5%88%B6%E5%AE%9E%E4%BE%8B/</guid><description>
-&lt;h1 id="uml类图绘制实例"&gt;UML类图绘制实例&lt;/h1&gt;
-&lt;p&gt;下面将使用如属官的借阅管理系统做一个图书馆管理系统的UML类图。参考自*&lt;a href="https://www.uml-diagrams.org/library-domain-uml-class-diagram-example.html"&gt;Library Domain Model&lt;/a&gt;*&lt;/p&gt;
-&lt;p&gt;最终的绘制结果大致如下：&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+&lt;h1 id="uml类图绘制实例">UML类图绘制实例&lt;/h1>
+&lt;p>下面将使用如属官的借阅管理系统做一个图书馆管理系统的UML类图。参考自*&lt;a href="https://www.uml-diagrams.org/library-domain-uml-class-diagram-example.html">Library Domain Model&lt;/a>*&lt;/p>
+&lt;p>最终的绘制结果大致如下：&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
@@ -12,14 +12,14 @@ class="image_figure image_external image_processed"
 width="822"
 height="700"
 src="https://yaoyl.cn/images/class-example-library-domain_2398916653974515336.png"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;h1 id="前期建模"&gt;前期建模&lt;/h1&gt;
-&lt;p&gt;对于图书馆的借阅系统的建模，首先我们把所有需要定义的基础类定义出来。分别是Book(书籍)、Library(图书馆)、Patron(顾客)、Librarian(图书管理员)四个基础的对象。&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;h1 id="前期建模">前期建模&lt;/h1>
+&lt;p>对于图书馆的借阅系统的建模，首先我们把所有需要定义的基础类定义出来。分别是Book(书籍)、Library(图书馆)、Patron(顾客)、Librarian(图书管理员)四个基础的对象。&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
@@ -28,13 +28,13 @@ class="image_figure image_external image_processed"
 width="827"
 height="217"
 src="https://yaoyl.cn/images/97611489-36dc1c00-1a51-11eb-856c-cf2280df1f06_3742796301368316937.png"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;我们尝试将四个基础类进行关系连接，最后的到的关系图如下（注，就算没有图书，图书馆也不会消失，因此使用空心的关联关系：&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>我们尝试将四个基础类进行关系连接，最后的到的关系图如下（注，就算没有图书，图书馆也不会消失，因此使用空心的关联关系：&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
@@ -43,16 +43,16 @@ class="image_figure image_external image_processed"
 width="1039"
 height="306"
 src="https://yaoyl.cn/images/97611044-a1408c80-1a50-11eb-8013-273235d04c70_13782265216704952398.png"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;h1 id="业务扩展"&gt;业务扩展&lt;/h1&gt;
-&lt;h2 id="增加用户账号管理"&gt;增加用户账号管理&lt;/h2&gt;
-&lt;p&gt;由于客户借还书籍过程中，图书馆里系统的后台会希望能够查看该顾客的曾借用书籍，已借阅待还书籍，以及当前客户是否有权限进行新书的借阅。&lt;/p&gt;
-&lt;p&gt;因此我们需要在图书馆管理系统中，引入**Account（账户系统）**作为代理，用于方便关联借阅的顾客和馆中的书籍。&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;h1 id="业务扩展">业务扩展&lt;/h1>
+&lt;h2 id="增加用户账号管理">增加用户账号管理&lt;/h2>
+&lt;p>由于客户借还书籍过程中，图书馆里系统的后台会希望能够查看该顾客的曾借用书籍，已借阅待还书籍，以及当前客户是否有权限进行新书的借阅。&lt;/p>
+&lt;p>因此我们需要在图书馆管理系统中，引入**Account（账户系统）**作为代理，用于方便关联借阅的顾客和馆中的书籍。&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
@@ -61,17 +61,17 @@ class="image_figure image_external image_processed"
 width="1053"
 height="448"
 src="https://yaoyl.cn/images/97615370-2ed2ab00-1a56-11eb-838e-df7262399d9e_9832865924313917040.png"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;该UML中，图书馆持有多个账号，这个不难理解；每个账号代理以前每一个借书者去依赖书，也不难理解；账号有指向Partron的关联关系我们也不难理解，毕竟账户作为代理方，肯定需要有被代理的人的信息；但是可能存在的困惑点在于Account和Patron之间的&lt;strong&gt;聚合&lt;/strong&gt;关系，这里我理解是因为在本项目设计中，账号被设计成了可以回收利用的号码，因此如果该账号闲置的时候，是可以不&lt;strong&gt;关联&lt;/strong&gt;任何用户的，直到账号被下一次利用重新分发给新人。&lt;/p&gt;
-&lt;h2 id="增加书籍借阅信息"&gt;增加书籍借阅信息&lt;/h2&gt;
-&lt;p&gt;管理好了借书的人，我们的图书馆管理系统还需要增加书籍管理系统，用来标记每本书籍自身的状态，比如该书籍的条码、RFID中的信息、是否允许借出图书馆、图书的类别、图书的借出时间、图书的借阅周期（时长）、图书的应归还时期等等信息。这些都是图书馆自身作图书管理所需要信息而非书籍本身的信息。&lt;/p&gt;
-&lt;p&gt;因此我们需要在原始图书的基础之上扩展一个图书馆的书目实体Book Item，里面除了书籍自身的信息之外，还包含了该书管理过程中的信息。&lt;/p&gt;
-&lt;p&gt;更新之后的UML如下：&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>该UML中，图书馆持有多个账号，这个不难理解；每个账号代理以前每一个借书者去依赖书，也不难理解；账号有指向Partron的关联关系我们也不难理解，毕竟账户作为代理方，肯定需要有被代理的人的信息；但是可能存在的困惑点在于Account和Patron之间的&lt;strong>聚合&lt;/strong>关系，这里我理解是因为在本项目设计中，账号被设计成了可以回收利用的号码，因此如果该账号闲置的时候，是可以不&lt;strong>关联&lt;/strong>任何用户的，直到账号被下一次利用重新分发给新人。&lt;/p>
+&lt;h2 id="增加书籍借阅信息">增加书籍借阅信息&lt;/h2>
+&lt;p>管理好了借书的人，我们的图书馆管理系统还需要增加书籍管理系统，用来标记每本书籍自身的状态，比如该书籍的条码、RFID中的信息、是否允许借出图书馆、图书的类别、图书的借出时间、图书的借阅周期（时长）、图书的应归还时期等等信息。这些都是图书馆自身作图书管理所需要信息而非书籍本身的信息。&lt;/p>
+&lt;p>因此我们需要在原始图书的基础之上扩展一个图书馆的书目实体Book Item，里面除了书籍自身的信息之外，还包含了该书管理过程中的信息。&lt;/p>
+&lt;p>更新之后的UML如下：&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
@@ -80,16 +80,16 @@ class="image_figure image_external image_processed"
 width="1026"
 height="558"
 src="https://yaoyl.cn/images/97619039-b3bfc380-1a5a-11eb-8346-d96986ebd9c6_5740602031243574121.png"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;h2 id="增加检索和管理功能"&gt;增加检索和管理功能&lt;/h2&gt;
-&lt;p&gt;随着图书馆书籍越来越多，图书馆管理员需要对这些书籍进行分类有序放置、对特定的书目进行查找，顾客需要根据条件检索自己需要的书目。因此我们需要继续扩展我们的Book Item类，给其更多的信息便于分类：比如定义其书籍语言、书籍名称、总页数、书目类别等等信息。&lt;/p&gt;
-&lt;p&gt;此外我们扩展了原始书籍的作者信息，虽然作者通常是在书籍分类时才会使用，但是其本身作为书籍的通识信息，因此在类设计时，将其关联Book而非Book Item。&lt;/p&gt;
-&lt;p&gt;同时我们需要对图书馆内所有的图书都进行完整的归档管理，所以需要新增一个Catalog类来统一管理。&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;h2 id="增加检索和管理功能">增加检索和管理功能&lt;/h2>
+&lt;p>随着图书馆书籍越来越多，图书馆管理员需要对这些书籍进行分类有序放置、对特定的书目进行查找，顾客需要根据条件检索自己需要的书目。因此我们需要继续扩展我们的Book Item类，给其更多的信息便于分类：比如定义其书籍语言、书籍名称、总页数、书目类别等等信息。&lt;/p>
+&lt;p>此外我们扩展了原始书籍的作者信息，虽然作者通常是在书籍分类时才会使用，但是其本身作为书籍的通识信息，因此在类设计时，将其关联Book而非Book Item。&lt;/p>
+&lt;p>同时我们需要对图书馆内所有的图书都进行完整的归档管理，所以需要新增一个Catalog类来统一管理。&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
@@ -98,10 +98,10 @@ class="image_figure image_external image_processed"
 width="1069"
 height="668"
 src="https://yaoyl.cn/images/97621925-8543e780-1a5e-11eb-868e-cf053d39d649_8578078723728345691.png"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;这里，因为我们现在已经完成了Book Item的属性扩展，同时建立了Catalog用于专门的图书管理机制，Catalog本身虽然不受是否有书的影响，但是图书馆的管理和检索的规则，是一定建立在我们的Catalog之上的，因此这里使用&lt;strong&gt;组合&lt;/strong&gt;关系。&lt;/p&gt;
-&lt;p&gt;由于赋予了顾客检索的功能，也赋予了图书馆管理员检索和管理图书的功能。这里我们不难发现两种不同的角色都有一个重复的操作——查找search。同时因为这个Search其实仅仅只和图书馆的目录Catalog相关，无论谁来这个图书馆，他们其实只关心能不能找到自己需要的书，至于怎么从Catalog中找到这本书，以及Catalog是怎么维护所有数目的，对于查找的人来说其实并不需要关心。&lt;/p&gt;
-&lt;p&gt;因此外部的调用方（比如Patron、Librarian）其实只需要调用这个系统提供的API（也即接口）即可，这个API是一个大家对齐过的统一的规范，比如search就是查找本座图书馆有没有某本书，manage就是管理这本书。外部只需要直到调用这个api可以达到这个目的，而至于怎么达到这个目的则由图书馆的Catalog自行决定和具体实现。&lt;/p&gt;</description></item></channel></rss>
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>这里，因为我们现在已经完成了Book Item的属性扩展，同时建立了Catalog用于专门的图书管理机制，Catalog本身虽然不受是否有书的影响，但是图书馆的管理和检索的规则，是一定建立在我们的Catalog之上的，因此这里使用&lt;strong>组合&lt;/strong>关系。&lt;/p>
+&lt;p>由于赋予了顾客检索的功能，也赋予了图书馆管理员检索和管理图书的功能。这里我们不难发现两种不同的角色都有一个重复的操作——查找search。同时因为这个Search其实仅仅只和图书馆的目录Catalog相关，无论谁来这个图书馆，他们其实只关心能不能找到自己需要的书，至于怎么从Catalog中找到这本书，以及Catalog是怎么维护所有数目的，对于查找的人来说其实并不需要关心。&lt;/p>
+&lt;p>因此外部的调用方（比如Patron、Librarian）其实只需要调用这个系统提供的API（也即接口）即可，这个API是一个大家对齐过的统一的规范，比如search就是查找本座图书馆有没有某本书，manage就是管理这本书。外部只需要直到调用这个api可以达到这个目的，而至于怎么达到这个目的则由图书馆的Catalog自行决定和具体实现。&lt;/p></description></item></channel></rss>

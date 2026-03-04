@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Socket on Chinese</title><link>https://yaoyl.cn/tags/socket/</link><description>Recent content in Socket on Chinese</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>Copyright © 2017–2025, Yunyao Long and the Hugo Authors; 粤ICP备-17050867-1号</copyright><lastBuildDate>Sat, 10 Jun 2017 15:36:19 +0000</lastBuildDate><atom:link href="https://yaoyl.cn/tags/socket/index.xml" rel="self" type="application/rss+xml"/><item><title>Socket编程小结</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/socket%E7%BC%96%E7%A8%8B%E5%B0%8F%E7%BB%93/</link><pubDate>Sat, 10 Jun 2017 15:36:19 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/socket%E7%BC%96%E7%A8%8B%E5%B0%8F%E7%BB%93/</guid><description>
-&lt;p&gt;&lt;strong&gt;龙云尧个人博客，转载请注明出处。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;CSDN地址：http://blog.csdn.net/Michael753951/article/details/72990141&lt;/p&gt;
-&lt;p&gt;个人blog地址：http://yaoyl.cn/socketbian-cheng-xiao-jie/&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;本部分内容是对之前博客&lt;a href="http://blog.csdn.net/michael753951/article/details/72553287"&gt;【 Ubuntu下进行Socket编程】&lt;/a&gt;中的补充说明，在这篇博客中，我将详细解释Socket编程的代码，分析编程的流程和思想。&lt;/p&gt;
-&lt;p&gt;**声明：**本部分代码分别引用自&lt;a href="http://www.cnblogs.com/xudong-bupt/archive/2013/12/29/3483059.html"&gt;【Linux C Socket编程原理及简单实例】&lt;/a&gt;以及&lt;a href="http://blog.csdn.net/lisonglisonglisong/article/details/22699675"&gt;【Linux网络编程：socket文件传输范例】&lt;/a&gt;。&lt;/p&gt;
-&lt;p&gt;首先我们先分析第一份较为简单的代码，使用Socket编程完成一个两个控制台窗口之间通信的demo。&lt;/p&gt;
-&lt;h1 id="简单通信"&gt;简单通信&lt;/h1&gt;
-&lt;p&gt;在分析之前，我推荐你先看一下这篇博客&lt;a href="http://www.cnblogs.com/dolphinX/p/3460545.html"&gt;【简单理解Socket】&lt;/a&gt;，上面很详细的解释说明了Socket编程的过程中，服务器端和客户端分别需要调用的函数和调用流程。比如博客中下面这张图，很重要也很直观的。&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+&lt;p>&lt;strong>龙云尧个人博客，转载请注明出处。&lt;/strong>&lt;/p>
+&lt;p>CSDN地址：http://blog.csdn.net/Michael753951/article/details/72990141&lt;/p>
+&lt;p>个人blog地址：http://yaoyl.cn/socketbian-cheng-xiao-jie/&lt;/p>
+&lt;hr>
+&lt;p>本部分内容是对之前博客&lt;a href="http://blog.csdn.net/michael753951/article/details/72553287">【 Ubuntu下进行Socket编程】&lt;/a>中的补充说明，在这篇博客中，我将详细解释Socket编程的代码，分析编程的流程和思想。&lt;/p>
+&lt;p>**声明：**本部分代码分别引用自&lt;a href="http://www.cnblogs.com/xudong-bupt/archive/2013/12/29/3483059.html">【Linux C Socket编程原理及简单实例】&lt;/a>以及&lt;a href="http://blog.csdn.net/lisonglisonglisong/article/details/22699675">【Linux网络编程：socket文件传输范例】&lt;/a>。&lt;/p>
+&lt;p>首先我们先分析第一份较为简单的代码，使用Socket编程完成一个两个控制台窗口之间通信的demo。&lt;/p>
+&lt;h1 id="简单通信">简单通信&lt;/h1>
+&lt;p>在分析之前，我推荐你先看一下这篇博客&lt;a href="http://www.cnblogs.com/dolphinX/p/3460545.html">【简单理解Socket】&lt;/a>，上面很详细的解释说明了Socket编程的过程中，服务器端和客户端分别需要调用的函数和调用流程。比如博客中下面这张图，很重要也很直观的。&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
@@ -18,127 +18,127 @@ class="image_figure image_external image_processed"
 width="554"
 height="327"
 src="https://yaoyl.cn/images/05232335-fb19fc7527e944d4845ef40831da4ec2_17119697933846672127.png"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;接下来我们开始分析代码，看代码的过程中，我们需要不断回头看看上面这张流程图，方便对整个代码进行理解剖析。&lt;/p&gt;
-&lt;p&gt;服务器端代码如下。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-c" data-lang="c"&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 1&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;sys/types.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 2&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;sys/socket.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 3&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 4&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;netinet/in.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 5&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;arpa/inet.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 6&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;unistd.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 7&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;string.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 8&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;stdlib.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 9&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;fcntl.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;10&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;sys/shm.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;11&lt;/span&gt;&lt;span class="cl"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;12&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;#define MYPORT 8887
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;13&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;#define QUEUE 20
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;14&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;#define BUFFER_SIZE 1024
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;15&lt;/span&gt;&lt;span class="cl"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;16&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;17&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;18&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;///获得sockfd
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;19&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// SOCK_STREAM 表明使用TCP协议（有序，流）
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;20&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// 参考地址 http://baike.baidu.com/link?url=msvzh3jij6QHrqSMUVsst9P7o0wCNRJFS2qwZ_G5uu0hBL090wOB-4Nfgv7ye2-ZlQ3ZnnR4tqueYg6ThnqXSNP6aRe371EX2dhl5uYZ_jm
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;21&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;server_sockfd&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nf"&gt;socket&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;AF_INET&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;SOCK_STREAM&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;22&lt;/span&gt;&lt;span class="cl"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;23&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;///定义sockaddr_in，用来表示接受方的IP地址
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;24&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;sockaddr_in&lt;/span&gt; &lt;span class="n"&gt;server_sockaddr&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;25&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;server_sockaddr&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sin_family&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;AF_INET&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// 设置地址家族
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;26&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// htons是将整型变量从主机字节顺序转变成网络字节顺序， 就是整数在地址空间存储方式变为：高位字节存放在内存的低地址处。 参考地址：http://baike.baidu.com/link?url=QUJ7h2uCP-Fag7xTlSgVCsZyGFr-hqJuaO-L5wRHbH7ODChk-vsHwsiipqVqIiJeNf1dCz4aeJ7SEvC-324Hfa
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;27&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// 绑定端口号至8887号
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;28&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;server_sockaddr&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sin_port&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nf"&gt;htons&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;MYPORT&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;// 设置端口
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;29&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// htonl将主机数转换成无符号长整型的网络字节顺序。本函数将一个32位数从主机字节顺序转换成网络字节顺序。
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;30&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// INADDR_ANY就是指定地址为0.0.0.0的地址，这个地址事实上表示不确定地址，或“所有地址”、“任意地址”。 一般来说，在各个系统中均定义成为0值。 参考地址：http://baike.baidu.com/link?url=UnkEXjpR6yhwsqWJ9d_77IzqsbEPaiO_e8WI355TORvFwpgf9zO4sQcBLilHuKxTYEOanDCWxGedtp_8-7BfVDZwyjN8ZDJDLrXitPwr49Bf5E7OwvEKHQj6EjZQHGcPU8DpDDsdeixUmYnZxgJMya
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;31&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;server_sockaddr&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sin_addr&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;s_addr&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nf"&gt;htonl&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;INADDR_ANY&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;// 设置地址
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;32&lt;/span&gt;&lt;span class="cl"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;33&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;///bind，成功返回0，出错返回-1
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;34&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;bind&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;server_sockfd&lt;/span&gt;&lt;span class="p"&gt;,(&lt;/span&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;sockaddr&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;server_sockaddr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="k"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;server_sockaddr&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="o"&gt;==-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;35&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;36&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="nf"&gt;perror&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;bind&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;37&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="nf"&gt;exit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;38&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;39&lt;/span&gt;&lt;span class="cl"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;40&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;///listen，成功返回0，出错返回-1
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;41&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// 消息队列长度为20
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;42&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;listen&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;server_sockfd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;QUEUE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;43&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;44&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="nf"&gt;perror&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;listen&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;45&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="nf"&gt;exit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;46&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;47&lt;/span&gt;&lt;span class="cl"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;48&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;///客户端套接字
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;49&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;BUFFER_SIZE&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;50&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;sockaddr_in&lt;/span&gt; &lt;span class="n"&gt;client_addr&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;51&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="kt"&gt;socklen_t&lt;/span&gt; &lt;span class="n"&gt;length&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;client_addr&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;52&lt;/span&gt;&lt;span class="cl"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;53&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;///成功返回非负描述字，出错返回-1
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;54&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;conn&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nf"&gt;accept&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;server_sockfd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;sockaddr&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;client_addr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;length&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;55&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;conn&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;56&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;57&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="nf"&gt;perror&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;connect&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;58&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="nf"&gt;exit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;59&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;60&lt;/span&gt;&lt;span class="cl"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;61&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;while&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;62&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;63&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="nf"&gt;memset&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="k"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;64&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;len&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nf"&gt;recv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;conn&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;sizeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;65&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;strcmp&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;exit&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;66&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;67&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="nf"&gt;fputs&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;stdout&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;68&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="nf"&gt;send&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;conn&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;buffer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;len&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;69&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;70&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="nf"&gt;close&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;conn&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;71&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="nf"&gt;close&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;server_sockfd&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;72&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;73&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;仔细查看代码，各种参数的设置原因我已经写在注释中了，就不再赘述。稍加注意我们便可以发现服务器端代码中，依次调用了socket, bind, listen, accept, recv, close。整个流程是符合我们之前放出来的那张图的，我们在计算机网络中也学习过，5层网络模型中，socket套接字担任了应用层和网络层之间通信的任务，我们也知道了每个socket套接字会绑定一个特定的端口，从而接受这个端口传入的讯息。&lt;/p&gt;</description></item><item><title>Ubuntu下进行Socket编程</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/ubuntu%E4%B8%8B%E8%BF%9B%E8%A1%8Csocket%E7%BC%96%E7%A8%8B/</link><pubDate>Fri, 19 May 2017 19:28:45 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/ubuntu%E4%B8%8B%E8%BF%9B%E8%A1%8Csocket%E7%BC%96%E7%A8%8B/</guid><description>
-&lt;p&gt;&lt;strong&gt;龙云尧个人博客，转载请注明出处。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;CSDN地址：http://blog.csdn.net/Michael753951/article/details/72553287&lt;/p&gt;
-&lt;p&gt;个人blog地址：http://yaoyl.cn/ubuntu-xia-jin-xing-socket-bian-cheng/&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;这是第一次进行网络编程，献给Ubuntu了。&lt;/p&gt;
-&lt;p&gt;由于需要结合OpenGL搭建的虚拟环境进行实验，为了将虚拟环境中的实验参数传送至另一台PC机协同工作。我们选择使用网络编程进行数据通行。本次博客先运行两个demo体会一下利用C++进行Socket编程。&lt;/p&gt;
-&lt;h1 id="实验进行"&gt;实验进行&lt;/h1&gt;
-&lt;p&gt;我们在本次实验中将运行两个demo，第一个demo用来进行文件传输，第二个demo用来进行窗口对话。&lt;/p&gt;
-&lt;h2 id="demo1"&gt;demo1&lt;/h2&gt;
-&lt;p&gt;本次demo采用TCP流，demo代码来自&lt;a href="http://blog.csdn.net/lisonglisonglisong/article/details/22699675"&gt;【 Linux网络编程：socket文件传输范例 】&lt;/a&gt;。&lt;/p&gt;
-&lt;h3 id="代码编写"&gt;代码编写&lt;/h3&gt;
-&lt;p&gt;我们打开codeblocks，建立两个项目(project)，新建的时候选择控制台(console)程序。第一个项目命名为“TCP_client”，第二个项目命名为“TCP_server”。然后将博客中的代码拷贝进main.cpp中，ctrl+F9进行编译。&lt;/p&gt;
-&lt;p&gt;注意，在这里当我们编译到 &lt;code&gt;close(new_server_socket_fd);&lt;/code&gt; 的时候，编译器会报错 &lt;code&gt;error: ‘close’ was not declared in this scope&lt;/code&gt;。如下图所示。&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>接下来我们开始分析代码，看代码的过程中，我们需要不断回头看看上面这张流程图，方便对整个代码进行理解剖析。&lt;/p>
+&lt;p>服务器端代码如下。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="ln"> 1&lt;/span>&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;sys/types.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 2&lt;/span>&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;sys/socket.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 3&lt;/span>&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;stdio.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 4&lt;/span>&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;netinet/in.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 5&lt;/span>&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;arpa/inet.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 6&lt;/span>&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;unistd.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 7&lt;/span>&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;string.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 8&lt;/span>&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;stdlib.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 9&lt;/span>&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;fcntl.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">10&lt;/span>&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;sys/shm.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">11&lt;/span>&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">12&lt;/span>&lt;span class="cl">&lt;span class="cp">#define MYPORT 8887
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">13&lt;/span>&lt;span class="cl">&lt;span class="cp">#define QUEUE 20
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">14&lt;/span>&lt;span class="cl">&lt;span class="cp">#define BUFFER_SIZE 1024
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">15&lt;/span>&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">16&lt;/span>&lt;span class="cl">&lt;span class="kt">int&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">17&lt;/span>&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">18&lt;/span>&lt;span class="cl"> &lt;span class="c1">///获得sockfd
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">19&lt;/span>&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// SOCK_STREAM 表明使用TCP协议（有序，流）
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">20&lt;/span>&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// 参考地址 http://baike.baidu.com/link?url=msvzh3jij6QHrqSMUVsst9P7o0wCNRJFS2qwZ_G5uu0hBL090wOB-4Nfgv7ye2-ZlQ3ZnnR4tqueYg6ThnqXSNP6aRe371EX2dhl5uYZ_jm
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">21&lt;/span>&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">server_sockfd&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">socket&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">AF_INET&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">SOCK_STREAM&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">22&lt;/span>&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">23&lt;/span>&lt;span class="cl"> &lt;span class="c1">///定义sockaddr_in，用来表示接受方的IP地址
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">24&lt;/span>&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">struct&lt;/span> &lt;span class="n">sockaddr_in&lt;/span> &lt;span class="n">server_sockaddr&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">25&lt;/span>&lt;span class="cl"> &lt;span class="n">server_sockaddr&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">sin_family&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">AF_INET&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 设置地址家族
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">26&lt;/span>&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// htons是将整型变量从主机字节顺序转变成网络字节顺序， 就是整数在地址空间存储方式变为：高位字节存放在内存的低地址处。 参考地址：http://baike.baidu.com/link?url=QUJ7h2uCP-Fag7xTlSgVCsZyGFr-hqJuaO-L5wRHbH7ODChk-vsHwsiipqVqIiJeNf1dCz4aeJ7SEvC-324Hfa
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">27&lt;/span>&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// 绑定端口号至8887号
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">28&lt;/span>&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="n">server_sockaddr&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">sin_port&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">htons&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">MYPORT&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 设置端口
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">29&lt;/span>&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// htonl将主机数转换成无符号长整型的网络字节顺序。本函数将一个32位数从主机字节顺序转换成网络字节顺序。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">30&lt;/span>&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// INADDR_ANY就是指定地址为0.0.0.0的地址，这个地址事实上表示不确定地址，或“所有地址”、“任意地址”。 一般来说，在各个系统中均定义成为0值。 参考地址：http://baike.baidu.com/link?url=UnkEXjpR6yhwsqWJ9d_77IzqsbEPaiO_e8WI355TORvFwpgf9zO4sQcBLilHuKxTYEOanDCWxGedtp_8-7BfVDZwyjN8ZDJDLrXitPwr49Bf5E7OwvEKHQj6EjZQHGcPU8DpDDsdeixUmYnZxgJMya
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">31&lt;/span>&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="n">server_sockaddr&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">sin_addr&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">s_addr&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">htonl&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">INADDR_ANY&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 设置地址
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">32&lt;/span>&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">33&lt;/span>&lt;span class="cl"> &lt;span class="c1">///bind，成功返回0，出错返回-1
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">34&lt;/span>&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">bind&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">server_sockfd&lt;/span>&lt;span class="p">,(&lt;/span>&lt;span class="k">struct&lt;/span> &lt;span class="n">sockaddr&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">server_sockaddr&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="k">sizeof&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">server_sockaddr&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="o">==-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">35&lt;/span>&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">36&lt;/span>&lt;span class="cl"> &lt;span class="nf">perror&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;bind&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">37&lt;/span>&lt;span class="cl"> &lt;span class="nf">exit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">38&lt;/span>&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">39&lt;/span>&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">40&lt;/span>&lt;span class="cl"> &lt;span class="c1">///listen，成功返回0，出错返回-1
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">41&lt;/span>&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// 消息队列长度为20
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">42&lt;/span>&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">listen&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">server_sockfd&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">QUEUE&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">43&lt;/span>&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">44&lt;/span>&lt;span class="cl"> &lt;span class="nf">perror&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;listen&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">45&lt;/span>&lt;span class="cl"> &lt;span class="nf">exit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">46&lt;/span>&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">47&lt;/span>&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">48&lt;/span>&lt;span class="cl"> &lt;span class="c1">///客户端套接字
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">49&lt;/span>&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kt">char&lt;/span> &lt;span class="n">buffer&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">BUFFER_SIZE&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">50&lt;/span>&lt;span class="cl"> &lt;span class="k">struct&lt;/span> &lt;span class="n">sockaddr_in&lt;/span> &lt;span class="n">client_addr&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">51&lt;/span>&lt;span class="cl"> &lt;span class="kt">socklen_t&lt;/span> &lt;span class="n">length&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">sizeof&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">client_addr&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">52&lt;/span>&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">53&lt;/span>&lt;span class="cl"> &lt;span class="c1">///成功返回非负描述字，出错返回-1
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">54&lt;/span>&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">conn&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">accept&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">server_sockfd&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="k">struct&lt;/span> &lt;span class="n">sockaddr&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">client_addr&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">length&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">55&lt;/span>&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">conn&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">56&lt;/span>&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">57&lt;/span>&lt;span class="cl"> &lt;span class="nf">perror&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;connect&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">58&lt;/span>&lt;span class="cl"> &lt;span class="nf">exit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">59&lt;/span>&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">60&lt;/span>&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">61&lt;/span>&lt;span class="cl"> &lt;span class="k">while&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">62&lt;/span>&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">63&lt;/span>&lt;span class="cl"> &lt;span class="nf">memset&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">buffer&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="k">sizeof&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">buffer&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">64&lt;/span>&lt;span class="cl"> &lt;span class="kt">int&lt;/span> &lt;span class="n">len&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">recv&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">conn&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">buffer&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">sizeof&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">buffer&lt;/span>&lt;span class="p">),&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">65&lt;/span>&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">strcmp&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">buffer&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s">&amp;#34;exit&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">==&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">66&lt;/span>&lt;span class="cl"> &lt;span class="k">break&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">67&lt;/span>&lt;span class="cl"> &lt;span class="nf">fputs&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">buffer&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">stdout&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">68&lt;/span>&lt;span class="cl"> &lt;span class="nf">send&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">conn&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">buffer&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">len&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">69&lt;/span>&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">70&lt;/span>&lt;span class="cl"> &lt;span class="nf">close&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">conn&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">71&lt;/span>&lt;span class="cl"> &lt;span class="nf">close&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">server_sockfd&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">72&lt;/span>&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">73&lt;/span>&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>仔细查看代码，各种参数的设置原因我已经写在注释中了，就不再赘述。稍加注意我们便可以发现服务器端代码中，依次调用了socket, bind, listen, accept, recv, close。整个流程是符合我们之前放出来的那张图的，我们在计算机网络中也学习过，5层网络模型中，socket套接字担任了应用层和网络层之间通信的任务，我们也知道了每个socket套接字会绑定一个特定的端口，从而接受这个端口传入的讯息。&lt;/p></description></item><item><title>Ubuntu下进行Socket编程</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/ubuntu%E4%B8%8B%E8%BF%9B%E8%A1%8Csocket%E7%BC%96%E7%A8%8B/</link><pubDate>Fri, 19 May 2017 19:28:45 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/ubuntu%E4%B8%8B%E8%BF%9B%E8%A1%8Csocket%E7%BC%96%E7%A8%8B/</guid><description>
+&lt;p>&lt;strong>龙云尧个人博客，转载请注明出处。&lt;/strong>&lt;/p>
+&lt;p>CSDN地址：http://blog.csdn.net/Michael753951/article/details/72553287&lt;/p>
+&lt;p>个人blog地址：http://yaoyl.cn/ubuntu-xia-jin-xing-socket-bian-cheng/&lt;/p>
+&lt;hr>
+&lt;p>这是第一次进行网络编程，献给Ubuntu了。&lt;/p>
+&lt;p>由于需要结合OpenGL搭建的虚拟环境进行实验，为了将虚拟环境中的实验参数传送至另一台PC机协同工作。我们选择使用网络编程进行数据通行。本次博客先运行两个demo体会一下利用C++进行Socket编程。&lt;/p>
+&lt;h1 id="实验进行">实验进行&lt;/h1>
+&lt;p>我们在本次实验中将运行两个demo，第一个demo用来进行文件传输，第二个demo用来进行窗口对话。&lt;/p>
+&lt;h2 id="demo1">demo1&lt;/h2>
+&lt;p>本次demo采用TCP流，demo代码来自&lt;a href="http://blog.csdn.net/lisonglisonglisong/article/details/22699675">【 Linux网络编程：socket文件传输范例 】&lt;/a>。&lt;/p>
+&lt;h3 id="代码编写">代码编写&lt;/h3>
+&lt;p>我们打开codeblocks，建立两个项目(project)，新建的时候选择控制台(console)程序。第一个项目命名为“TCP_client”，第二个项目命名为“TCP_server”。然后将博客中的代码拷贝进main.cpp中，ctrl+F9进行编译。&lt;/p>
+&lt;p>注意，在这里当我们编译到 &lt;code>close(new_server_socket_fd);&lt;/code> 的时候，编译器会报错 &lt;code>error: ‘close’ was not declared in this scope&lt;/code>。如下图所示。&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
 alt="tcp_server_error"
 class="image_figure image_internal image_unprocessed"
 src="https://yaoyl.cn/"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;我参考CSDN中&lt;a href="http://blog.csdn.net/lanyang123456/article/details/40631453"&gt;【‘close’ was not declared in this scope 】&lt;/a&gt;添加了unistd.h库头，编译成功。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-c" data-lang="c"&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;1&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;#include&lt;/span&gt;&lt;span class="cpf"&gt;&amp;lt;unistd.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在TCP_server编译成功之后，我们开始编译TCP_client。同样在将客户端复制下来之后，我们首先添加unistd.h库头，接着我们直接编译。&lt;/p&gt;
-&lt;p&gt;首先是在编译到&lt;code&gt;if(inet_pton(AF_INET, &amp;quot;127.0.0.1&amp;quot;, &amp;amp;server_addr.sin_addr) == 0)&lt;/code&gt;的时候，编译器报&lt;code&gt;error: ‘inet_pton’ was not declared in this scope&lt;/code&gt;错误如下图所示。&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>我参考CSDN中&lt;a href="http://blog.csdn.net/lanyang123456/article/details/40631453">【‘close’ was not declared in this scope 】&lt;/a>添加了unistd.h库头，编译成功。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="ln">1&lt;/span>&lt;span class="cl">&lt;span class="cp">#include&lt;/span>&lt;span class="cpf">&amp;lt;unistd.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>在TCP_server编译成功之后，我们开始编译TCP_client。同样在将客户端复制下来之后，我们首先添加unistd.h库头，接着我们直接编译。&lt;/p>
+&lt;p>首先是在编译到&lt;code>if(inet_pton(AF_INET, &amp;quot;127.0.0.1&amp;quot;, &amp;amp;server_addr.sin_addr) == 0)&lt;/code>的时候，编译器报&lt;code>error: ‘inet_pton’ was not declared in this scope&lt;/code>错误如下图所示。&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
 alt="tcp_client_error_1"
 class="image_figure image_internal image_unprocessed"
 src="https://yaoyl.cn/"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;我参考了CSDN中&lt;a href="http://blog.csdn.net/zdyueguanyun/article/details/51352453"&gt;【‘inet_pton’ was not declared in this scope 】&lt;/a&gt;添加了arpa/inet.h库头。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-c" data-lang="c"&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;1&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;arpa/inet.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;再次编译的时候，依然遇到了报错。此时在编译到&lt;code&gt;close(fp);&lt;/code&gt;的时候报错&lt;code&gt;error: invalid conversion from ‘FILE* {aka _IO_FILE*}’ to ‘int’ [-fpermissive]&lt;/code&gt;。如下图所示。&lt;/p&gt;</description></item></channel></rss>
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>我参考了CSDN中&lt;a href="http://blog.csdn.net/zdyueguanyun/article/details/51352453">【‘inet_pton’ was not declared in this scope 】&lt;/a>添加了arpa/inet.h库头。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="ln">1&lt;/span>&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;arpa/inet.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>再次编译的时候，依然遇到了报错。此时在编译到&lt;code>close(fp);&lt;/code>的时候报错&lt;code>error: invalid conversion from ‘FILE* {aka _IO_FILE*}’ to ‘int’ [-fpermissive]&lt;/code>。如下图所示。&lt;/p></description></item></channel></rss>

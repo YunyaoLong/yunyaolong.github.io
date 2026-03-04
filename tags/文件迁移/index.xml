@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>文件迁移 on Chinese</title><link>https://yaoyl.cn/tags/%E6%96%87%E4%BB%B6%E8%BF%81%E7%A7%BB/</link><description>Recent content in 文件迁移 on Chinese</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>Copyright © 2017–2025, Yunyao Long and the Hugo Authors; 粤ICP备-17050867-1号</copyright><lastBuildDate>Fri, 19 May 2017 02:29:18 +0000</lastBuildDate><atom:link href="https://yaoyl.cn/tags/%E6%96%87%E4%BB%B6%E8%BF%81%E7%A7%BB/index.xml" rel="self" type="application/rss+xml"/><item><title>blog的文件迁移</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/ghostblog%E7%9A%84%E6%96%87%E4%BB%B6%E8%BF%81%E7%A7%BB/</link><pubDate>Fri, 19 May 2017 02:29:18 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/ghostblog%E7%9A%84%E6%96%87%E4%BB%B6%E8%BF%81%E7%A7%BB/</guid><description>
-&lt;p&gt;因为头一次自己搭建博客服务器，对平台的选用并不清楚。知乎上误打误撞碰见了Ghost，也就用着试试看了。&lt;/p&gt;
-&lt;h2 id="事件起因"&gt;事件起因&lt;/h2&gt;
-&lt;p&gt;由于我的服务器本来部署在自己寝室的PC上，部分blog也提前写在了本地文件夹中，无奈一直找不到文件的存放位置。所以博客的迁移一直让我头疼。&lt;/p&gt;
-&lt;h2 id="迁移过程"&gt;迁移过程&lt;/h2&gt;
-&lt;p&gt;整个迁移过程完全按照官方手册给的知道方法来——虽然官方手册藏得比较深。&lt;/p&gt;
-&lt;p&gt;官方手册地址：&lt;a href="https://help.ghost.org/hc/en-us/articles/224112927-Import-Export-Data"&gt;https://help.ghost.org/hc/en-us/articles/224112927-Import-Export-Data&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;具体步骤为：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;进入需要备份的服务器后台管理界面&lt;/li&gt;
-&lt;li&gt;进入Labs&lt;/li&gt;
-&lt;li&gt;选择导出成json文件&lt;/li&gt;
-&lt;li&gt;进入需要导入的服务器的后台管理界面&lt;/li&gt;
-&lt;li&gt;进入Labs，选择import&lt;/li&gt;
-&lt;li&gt;可能在import的时候，选择（.所有文件），否则找不到json文件&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;另，附上Ghost的中文网址：&lt;a href="http://www.ghostchina.com/"&gt;http://www.ghostchina.com/&lt;/a&gt;&lt;/p&gt;</description></item></channel></rss>
+&lt;p>因为头一次自己搭建博客服务器，对平台的选用并不清楚。知乎上误打误撞碰见了Ghost，也就用着试试看了。&lt;/p>
+&lt;h2 id="事件起因">事件起因&lt;/h2>
+&lt;p>由于我的服务器本来部署在自己寝室的PC上，部分blog也提前写在了本地文件夹中，无奈一直找不到文件的存放位置。所以博客的迁移一直让我头疼。&lt;/p>
+&lt;h2 id="迁移过程">迁移过程&lt;/h2>
+&lt;p>整个迁移过程完全按照官方手册给的知道方法来——虽然官方手册藏得比较深。&lt;/p>
+&lt;p>官方手册地址：&lt;a href="https://help.ghost.org/hc/en-us/articles/224112927-Import-Export-Data">https://help.ghost.org/hc/en-us/articles/224112927-Import-Export-Data&lt;/a>&lt;/p>
+&lt;p>具体步骤为：&lt;/p>
+&lt;ul>
+&lt;li>进入需要备份的服务器后台管理界面&lt;/li>
+&lt;li>进入Labs&lt;/li>
+&lt;li>选择导出成json文件&lt;/li>
+&lt;li>进入需要导入的服务器的后台管理界面&lt;/li>
+&lt;li>进入Labs，选择import&lt;/li>
+&lt;li>可能在import的时候，选择（.所有文件），否则找不到json文件&lt;/li>
+&lt;/ul>
+&lt;p>另，附上Ghost的中文网址：&lt;a href="http://www.ghostchina.com/">http://www.ghostchina.com/&lt;/a>&lt;/p></description></item></channel></rss>

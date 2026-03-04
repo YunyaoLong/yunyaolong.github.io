@@ -1,248 +1,244 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>面试 on Chinese</title><link>https://yaoyl.cn/categories/%E9%9D%A2%E8%AF%95/</link><description>Recent content in 面试 on Chinese</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>Copyright © 2017–2025, Yunyao Long and the Hugo Authors; 粤ICP备-17050867-1号</copyright><lastBuildDate>Thu, 12 Oct 2017 02:28:17 +0000</lastBuildDate><atom:link href="https://yaoyl.cn/categories/%E9%9D%A2%E8%AF%95/index.xml" rel="self" type="application/rss+xml"/><item><title>华为初面+综合面试（技术面）</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E5%8D%8E%E4%B8%BA%E5%88%9D%E9%9D%A2+%E7%BB%BC%E5%90%88%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%9D%A2/</link><pubDate>Thu, 12 Oct 2017 02:28:17 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E5%8D%8E%E4%B8%BA%E5%88%9D%E9%9D%A2+%E7%BB%BC%E5%90%88%E9%9D%A2%E8%AF%95%E6%8A%80%E6%9C%AF%E9%9D%A2/</guid><description>
-&lt;p&gt;华为面试整体流程大致分为&lt;strong&gt;笔试，性格测试，面试，综合面试&lt;/strong&gt;，回学校等结果。笔试来说，华为的难度较中等，选择题难度和网易腾讯差不多。最后的代码题，相比下来就简单很多，一共3道题目，前2题很容易就AC，题目已经记不太清楚，不过难度确实不大。最后一题最后提交的代码过了75%的样例，一直没有发现剩下的25%可能存在什么坑。&lt;/p&gt;
-&lt;p&gt;笔试部分太久远，我就不怎么回忆了。直接将面试。&lt;/p&gt;
-&lt;h1 id="面试"&gt;面试&lt;/h1&gt;
-&lt;p&gt;如果说腾讯的面试是挥金如土（毕竟每个面试官都配了一件单独的房间），那华为就是戒奢宁俭。两个大会议厅坐满了面试官，其中一个是初面面试区，另一边是综合面试区。初面区的面试官会来等待区一个一个叫我们过去面试。&lt;/p&gt;
-&lt;p&gt;面试桌采取一对一的形式，技术岗的面试通知短信虽然没有通知说要带简历，但是仍然带了一份以免中途需要。（事实证明这是一个明智的选择）&lt;/p&gt;
-&lt;h2 id="初面"&gt;初面&lt;/h2&gt;
-&lt;p&gt;初面面试官点到我的名字之后，我跟着面试官去他的那个位置。&lt;/p&gt;
-&lt;p&gt;面试流程和大多数互联网公司流程差不多，首先让自己介绍一个比较满意的项目。（可能想通过这个项目了解我们的技能程度）在我面试准备时，其实我就纠结过这个问题。因为在我的项目中，有两个项目是我比较满意的，第一个主要做后台，第二个主要做虚拟环境和数据交互。&lt;/p&gt;
-&lt;p&gt;“我有两个项目是比较满意的”，我先抛出这句话，希望面试官能够给机会让我将两个项目都讲一下，“我先讲一下第一个我们当时做的换课平台，当时本来是一个课程项目，但是我们在这个课程项目之上，结合当时校内急需换课这个需求，做出了这么一个换课平台”,&lt;strong&gt;（首先提出项目目的）&lt;/strong&gt;，“然后这个项目大概实现了一个怎样怎样的功能”&lt;strong&gt;（抛出产品功能）&lt;/strong&gt;，“我在项目中主要负责后台开发和数据库交互功能”&lt;strong&gt;（说下在项目中的角色）&lt;/strong&gt;，“整个项目的架构大致如下。。。。”&lt;strong&gt;（项目如何实现）&lt;/strong&gt;，我拿着纸笔在草稿上给面试官画着后台所有的系统架构和数据流动方式，同时将涉及到的重要点的技术点都说了下。&lt;/p&gt;
-&lt;p&gt;按照之前整理过的描述流程，我将整个换课平台项目描述了一遍，中途偶尔面试官会问一下技术细节，不过都不是很难，可能因为我没有使用“SSH”三大框架，而是使用纯JSP进行的底层开发，所以面试官也不是太好提问。&lt;/p&gt;
-&lt;p&gt;不过有意思的是，在我介绍到项目中实现了实时聊天的时候，面试官提了两个小问题，是我之前项目中没碰到，而实际生产产品中可能遇到的问题：第一，我们的实时聊天是直接P2P，这样需要双方在同一子网下，那如果现在双方不在同一子网下，外网某个移动端客户A可以访问后台服务器B，这时候某个web端C同时也可以访问服务器，这个时候A和C是互相不同的，现在如果我们仍然想让他们通信怎么办；第二，考虑大量用户同时访问后台服务器的时候，该如何处理。&lt;/p&gt;
-&lt;p&gt;第一个我首先考虑到用服务器作为中介，但是当时老是想着可能打两个聊天信息会对服务器造成压力，所以一直很犹豫要不要用后台服务器作为中转，以及，作为中转该如何操作。不过面试官稍微提醒我可以用服务器作为中转，这时候我突然意识到只要服务器收到之后，立刻将消息转发出去就可以了，不用走数据库。这时候我也才一直到为什么我以前分析微信的聊天服务时，会将所有的文本消息和图片消息发送到微信的后台服务器，而且简单的直接P2P对话，主要还是为了克服网络问题&lt;/p&gt;
-&lt;p&gt;第二个不难，考虑云计算中的负载均衡，我大致说了下思路，选取一台主机作为负载均衡调度机，其他的作为工作机即可。&lt;/p&gt;
-&lt;p&gt;第一个项目大概讲了十分钟，不知道是因为刚开始面试还是我项目确实对面试官的胃口。&lt;/p&gt;
-&lt;p&gt;第一个项目完了以后，面试官翻了下我的简历，“你要不说下你另一个项目？”我有blabla说了一通。&lt;/p&gt;
-&lt;p&gt;“有什么难点？”“项目中遇到过哪些问题？”&lt;/p&gt;
-&lt;p&gt;说完之后，初面基本也就结束了，整个过程十分和谐（可能我遇到的面试官比较nice）。最后让我提一个问题，我大概问了下投递的这个岗位今后具体会是什么工作，面试官大致给我讲了下。（我投递的云计算开发岗，PaaS方向）&lt;/p&gt;
-&lt;h2 id="综合面试"&gt;综合面试&lt;/h2&gt;
-&lt;p&gt;初面完之后，面试官指引我去综合面试区等待综合面试。&lt;/p&gt;
-&lt;p&gt;综合面试整体感觉和初面差不多，不过在综合面试阶段面试官首先问了我的籍贯，工作意向和理想的工作地点。&lt;/p&gt;
-&lt;p&gt;这里我表示并不挑，因为作为一个外省人，自从一个人出省读书以后，就已经对在哪生活在哪上班没有太多顾虑。&lt;/p&gt;
-&lt;p&gt;接着面试官问了我一些成绩怎样，家庭情况之类问题之后，开始问我的项目经验。（虽然我不太明白，为什么综合面试还会问初面中问过的关于项目经验的问题）这里我就不在重复了，何处是一样，我大致和面试官交流了一下我们的项目内容。&lt;/p&gt;
-&lt;p&gt;这一块内容完成之后，感觉综合面试整个流程已经基本结束了，面试官开始跟我介绍他们项目组的工作地点（深圳），工作内容，以及平常的一些工作，同时还给我介绍了一些将来工作中需要了解的基本知识——比如docker容器，k8s，部分国内国外的公有云的运行原理，让我回去之后提前自学一下。（到这里我开始感觉有戏了）&lt;/p&gt;
-&lt;p&gt;其实，综面和初面差别其实没有太大，不过感觉这还是和面试官有关系，因为在我同行的队友中，他们有的就被问到了一些比较底层的知识点比如Java有什么特点之类，也有被问及面向对象的优点等等（这些我都没被问到）。&lt;/p&gt;
-&lt;h1 id="综述"&gt;综述&lt;/h1&gt;
-&lt;p&gt;总的来说，其实华为的面试并没有我想象中的困难（因为听说华为今年缩招，我还以为面试会故意很难）。&lt;strong&gt;简历准备很重要， 尤其是项目经历，个人blog，github这类容易加分的内容，最好能够写出来&lt;/strong&gt;。两场面试相比较同伴更加顺利，有一定程度上就是简历给我加了分。&lt;/p&gt;
-&lt;p&gt;因为我面试的是云计算开发岗，所以我在项目中重新添加了很多Java相关的项目经历，虽然不是很重要，但是至少能让面试官从中了解我在Java方面有不少经验。&lt;/p&gt;
-&lt;p&gt;面试时候不用太紧张，在之前腾讯面试中我就明显很紧张，脑子一片发蒙，而这次华为面试就感觉稍微舒服很多，不知道是因为已经经历过几次面试，还是因为面试官带动的比较好。&lt;/p&gt;
-&lt;p&gt;最后还挺重要的要能够及时清楚地描述自己想说的内容。毕竟将来工作岗位中，少不了和同事的交流。另外清晰的描诉对面试官了解你，了解你的项目会很有帮助。因此，不论是在给面试官讲述自己项目的时候，还是在回答面试官问题，亦或是想表达自己观点的时候，都需要清晰的表达。如果一时语塞，可以尝试停顿一下，整理下思路然后重新描述，只要面试官能够理解你的话，一般有些停顿是不会有什么大碍。&lt;/p&gt;
-&lt;p&gt;最后的最后，希望能够收到华为的offer吧_(:зゝ∠)_目前正在“排队待录取”中。&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;更新：&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;10月10号面试&lt;/li&gt;
-&lt;li&gt;10月17日收到进入资源池通知&lt;/li&gt;
-&lt;li&gt;10月24日收到offer短信，通知27日签约（估计是两方协议）。&lt;/li&gt;
-&lt;li&gt;27日签约，同时决定结束持续了6个月的备考生活，准备工作。&lt;/li&gt;
-&lt;/ul&gt;</description></item><item><title>腾讯初试（技术面）</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E8%85%BE%E8%AE%AF%E5%88%9D%E8%AF%95%E6%8A%80%E6%9C%AF%E9%9D%A2/</link><pubDate>Wed, 11 Oct 2017 01:45:58 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E8%85%BE%E8%AE%AF%E5%88%9D%E8%AF%95%E6%8A%80%E6%9C%AF%E9%9D%A2/</guid><description>
-&lt;p&gt;腾讯笔试因为比较久远，而且最后的代码题没有成功AC，所以已经记不太清楚。这里主要讲一下面试经历吧。&lt;/p&gt;
-&lt;p&gt;（听说鹅厂的简历关和笔试关都很松，几乎不卡人。这大概是我认为已经失败的情况下依然受到面试通知的原因吧。）&lt;/p&gt;
-&lt;h1 id="面试"&gt;面试&lt;/h1&gt;
-&lt;p&gt;鹅厂的初试其实还是比较面向学生的，可能考虑到在校生没有接触太多工程项目，一般都是简单问一下项目经历，然后开始问智力题和简单编程题。&lt;/p&gt;
-&lt;p&gt;面试之前我还是准备了挺久，看了不上网上关于腾讯面试的面经，看了很多以前的面试题，大致准备的内容如下吧。&lt;/p&gt;
-&lt;p&gt;[外链图片转存中...(img-ACk3dKWt-1595021180397)]&lt;/p&gt;
-&lt;p&gt;图片来自抱团面试小队。&lt;/p&gt;
-&lt;p&gt;然而在我面试的时候，上面问题全部没有问到。。。可能是我最后花费的时间太长，表现的不好，面试官对我兴趣不大。也有可能是不同面试官问的问题不一样（因为小队里，有人面试鹅厂的被问到了该图中某几个问题）。&lt;/p&gt;
-&lt;h2 id="项目经历"&gt;项目经历&lt;/h2&gt;
-&lt;p&gt;项目经历这一块，个人感觉其实还是很重要的。因为在面试官和你开始讲话之前，ta对你可以说没有一点了解，你擅长什么，你做过什么，你能做什么，你团队能力之类的怎样，这些都是需要通过你的项目经历来了解的。&lt;/p&gt;
-&lt;p&gt;因为我在以前网易实习面试中，吃过项目经历删减太多，导致最后面试官已经没问题可问的尴尬。这次面试中我将大三之后，不是很水的项目经历，比赛经历，实验室项目经历都写在了简历上。&lt;strong&gt;一共一页半&lt;/strong&gt;（本来是两页，不过删掉了半页感觉太水的项目）。&lt;/p&gt;
-&lt;p&gt;到达酒店扫码签到之后，等待面试短信告知面试地点在哪（鹅厂还是挺壕的，一个面试官包了一个房间）。&lt;/p&gt;
-&lt;p&gt;上去首先递上自己的简历。面试官开始询问我的项目经历，我投的是后台开发岗位，所以讲的是大三下的时候，和3个小伙伴做的一个换课系统。我大致讲述了一下整个项目的创建目的，实现的功能（&lt;strong&gt;这部分我拿笔在草稿上将设备的部署，设备之间的连接以及通信方式全部画出来，以便解释说明，个人觉得这是个好习惯&lt;/strong&gt;），以及在整个项目中的难点和个人承担的角色。&lt;/p&gt;
-&lt;p&gt;面试官一边听我讲诉，中途会偶尔插一两句话，比如某个功能是怎样实现，以及这个功能实现的时候是否有什么难点和在实现这个项目的时候担任了什么功能。不过总体不是很难。&lt;/p&gt;
-&lt;p&gt;不知道是因为面试官对我的项目兴趣不大，或者对我负责的这一块不是很了解。这一部分面试官问的比较少。&lt;/p&gt;
-&lt;h2 id="智力题"&gt;智力题&lt;/h2&gt;
-&lt;p&gt;接下来是智力题。是我很不擅长的数字推理题。题目我在后来找到了原题，大致如下：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;AB两男士女奇问C女士年龄，C女士将给出11个可能答案，35，36，38，42，45，46，51，55，57，61，62。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;C女士将十位数告诉A，将个位数告诉B
+&lt;p>华为面试整体流程大致分为&lt;strong>笔试，性格测试，面试，综合面试&lt;/strong>，回学校等结果。笔试来说，华为的难度较中等，选择题难度和网易腾讯差不多。最后的代码题，相比下来就简单很多，一共3道题目，前2题很容易就AC，题目已经记不太清楚，不过难度确实不大。最后一题最后提交的代码过了75%的样例，一直没有发现剩下的25%可能存在什么坑。&lt;/p>
+&lt;p>笔试部分太久远，我就不怎么回忆了。直接将面试。&lt;/p>
+&lt;h1 id="面试">面试&lt;/h1>
+&lt;p>如果说腾讯的面试是挥金如土（毕竟每个面试官都配了一件单独的房间），那华为就是戒奢宁俭。两个大会议厅坐满了面试官，其中一个是初面面试区，另一边是综合面试区。初面区的面试官会来等待区一个一个叫我们过去面试。&lt;/p>
+&lt;p>面试桌采取一对一的形式，技术岗的面试通知短信虽然没有通知说要带简历，但是仍然带了一份以免中途需要。（事实证明这是一个明智的选择）&lt;/p>
+&lt;h2 id="初面">初面&lt;/h2>
+&lt;p>初面面试官点到我的名字之后，我跟着面试官去他的那个位置。&lt;/p>
+&lt;p>面试流程和大多数互联网公司流程差不多，首先让自己介绍一个比较满意的项目。（可能想通过这个项目了解我们的技能程度）在我面试准备时，其实我就纠结过这个问题。因为在我的项目中，有两个项目是我比较满意的，第一个主要做后台，第二个主要做虚拟环境和数据交互。&lt;/p>
+&lt;p>“我有两个项目是比较满意的”，我先抛出这句话，希望面试官能够给机会让我将两个项目都讲一下，“我先讲一下第一个我们当时做的换课平台，当时本来是一个课程项目，但是我们在这个课程项目之上，结合当时校内急需换课这个需求，做出了这么一个换课平台”,&lt;strong>（首先提出项目目的）&lt;/strong>，“然后这个项目大概实现了一个怎样怎样的功能”&lt;strong>（抛出产品功能）&lt;/strong>，“我在项目中主要负责后台开发和数据库交互功能”&lt;strong>（说下在项目中的角色）&lt;/strong>，“整个项目的架构大致如下。。。。”&lt;strong>（项目如何实现）&lt;/strong>，我拿着纸笔在草稿上给面试官画着后台所有的系统架构和数据流动方式，同时将涉及到的重要点的技术点都说了下。&lt;/p>
+&lt;p>按照之前整理过的描述流程，我将整个换课平台项目描述了一遍，中途偶尔面试官会问一下技术细节，不过都不是很难，可能因为我没有使用“SSH”三大框架，而是使用纯JSP进行的底层开发，所以面试官也不是太好提问。&lt;/p>
+&lt;p>不过有意思的是，在我介绍到项目中实现了实时聊天的时候，面试官提了两个小问题，是我之前项目中没碰到，而实际生产产品中可能遇到的问题：第一，我们的实时聊天是直接P2P，这样需要双方在同一子网下，那如果现在双方不在同一子网下，外网某个移动端客户A可以访问后台服务器B，这时候某个web端C同时也可以访问服务器，这个时候A和C是互相不同的，现在如果我们仍然想让他们通信怎么办；第二，考虑大量用户同时访问后台服务器的时候，该如何处理。&lt;/p>
+&lt;p>第一个我首先考虑到用服务器作为中介，但是当时老是想着可能打两个聊天信息会对服务器造成压力，所以一直很犹豫要不要用后台服务器作为中转，以及，作为中转该如何操作。不过面试官稍微提醒我可以用服务器作为中转，这时候我突然意识到只要服务器收到之后，立刻将消息转发出去就可以了，不用走数据库。这时候我也才一直到为什么我以前分析微信的聊天服务时，会将所有的文本消息和图片消息发送到微信的后台服务器，而且简单的直接P2P对话，主要还是为了克服网络问题&lt;/p>
+&lt;p>第二个不难，考虑云计算中的负载均衡，我大致说了下思路，选取一台主机作为负载均衡调度机，其他的作为工作机即可。&lt;/p>
+&lt;p>第一个项目大概讲了十分钟，不知道是因为刚开始面试还是我项目确实对面试官的胃口。&lt;/p>
+&lt;p>第一个项目完了以后，面试官翻了下我的简历，“你要不说下你另一个项目？”我有blabla说了一通。&lt;/p>
+&lt;p>“有什么难点？”“项目中遇到过哪些问题？”&lt;/p>
+&lt;p>说完之后，初面基本也就结束了，整个过程十分和谐（可能我遇到的面试官比较nice）。最后让我提一个问题，我大概问了下投递的这个岗位今后具体会是什么工作，面试官大致给我讲了下。（我投递的云计算开发岗，PaaS方向）&lt;/p>
+&lt;h2 id="综合面试">综合面试&lt;/h2>
+&lt;p>初面完之后，面试官指引我去综合面试区等待综合面试。&lt;/p>
+&lt;p>综合面试整体感觉和初面差不多，不过在综合面试阶段面试官首先问了我的籍贯，工作意向和理想的工作地点。&lt;/p>
+&lt;p>这里我表示并不挑，因为作为一个外省人，自从一个人出省读书以后，就已经对在哪生活在哪上班没有太多顾虑。&lt;/p>
+&lt;p>接着面试官问了我一些成绩怎样，家庭情况之类问题之后，开始问我的项目经验。（虽然我不太明白，为什么综合面试还会问初面中问过的关于项目经验的问题）这里我就不在重复了，何处是一样，我大致和面试官交流了一下我们的项目内容。&lt;/p>
+&lt;p>这一块内容完成之后，感觉综合面试整个流程已经基本结束了，面试官开始跟我介绍他们项目组的工作地点（深圳），工作内容，以及平常的一些工作，同时还给我介绍了一些将来工作中需要了解的基本知识——比如docker容器，k8s，部分国内国外的公有云的运行原理，让我回去之后提前自学一下。（到这里我开始感觉有戏了）&lt;/p>
+&lt;p>其实，综面和初面差别其实没有太大，不过感觉这还是和面试官有关系，因为在我同行的队友中，他们有的就被问到了一些比较底层的知识点比如Java有什么特点之类，也有被问及面向对象的优点等等（这些我都没被问到）。&lt;/p>
+&lt;h1 id="综述">综述&lt;/h1>
+&lt;p>总的来说，其实华为的面试并没有我想象中的困难（因为听说华为今年缩招，我还以为面试会故意很难）。&lt;strong>简历准备很重要， 尤其是项目经历，个人blog，github这类容易加分的内容，最好能够写出来&lt;/strong>。两场面试相比较同伴更加顺利，有一定程度上就是简历给我加了分。&lt;/p>
+&lt;p>因为我面试的是云计算开发岗，所以我在项目中重新添加了很多Java相关的项目经历，虽然不是很重要，但是至少能让面试官从中了解我在Java方面有不少经验。&lt;/p>
+&lt;p>面试时候不用太紧张，在之前腾讯面试中我就明显很紧张，脑子一片发蒙，而这次华为面试就感觉稍微舒服很多，不知道是因为已经经历过几次面试，还是因为面试官带动的比较好。&lt;/p>
+&lt;p>最后还挺重要的要能够及时清楚地描述自己想说的内容。毕竟将来工作岗位中，少不了和同事的交流。另外清晰的描诉对面试官了解你，了解你的项目会很有帮助。因此，不论是在给面试官讲述自己项目的时候，还是在回答面试官问题，亦或是想表达自己观点的时候，都需要清晰的表达。如果一时语塞，可以尝试停顿一下，整理下思路然后重新描述，只要面试官能够理解你的话，一般有些停顿是不会有什么大碍。&lt;/p>
+&lt;p>最后的最后，希望能够收到华为的offer吧_(:зゝ∠)_目前正在“排队待录取”中。&lt;/p>
+&lt;hr>
+&lt;p>&lt;strong>更新：&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>10月10号面试&lt;/li>
+&lt;li>10月17日收到进入资源池通知&lt;/li>
+&lt;li>10月24日收到offer短信，通知27日签约（估计是两方协议）。&lt;/li>
+&lt;li>27日签约，同时决定结束持续了6个月的备考生活，准备工作。&lt;/li>
+&lt;/ul></description></item><item><title>腾讯初试（技术面）</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E8%85%BE%E8%AE%AF%E5%88%9D%E8%AF%95%E6%8A%80%E6%9C%AF%E9%9D%A2/</link><pubDate>Wed, 11 Oct 2017 01:45:58 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E8%85%BE%E8%AE%AF%E5%88%9D%E8%AF%95%E6%8A%80%E6%9C%AF%E9%9D%A2/</guid><description>
+&lt;p>腾讯笔试因为比较久远，而且最后的代码题没有成功AC，所以已经记不太清楚。这里主要讲一下面试经历吧。&lt;/p>
+&lt;p>（听说鹅厂的简历关和笔试关都很松，几乎不卡人。这大概是我认为已经失败的情况下依然受到面试通知的原因吧。）&lt;/p>
+&lt;h1 id="面试">面试&lt;/h1>
+&lt;p>鹅厂的初试其实还是比较面向学生的，可能考虑到在校生没有接触太多工程项目，一般都是简单问一下项目经历，然后开始问智力题和简单编程题。&lt;/p>
+&lt;p>面试之前我还是准备了挺久，看了不上网上关于腾讯面试的面经，看了很多以前的面试题，大致准备的内容如下吧。&lt;/p>
+&lt;p>[外链图片转存中...(img-ACk3dKWt-1595021180397)]&lt;/p>
+&lt;p>图片来自抱团面试小队。&lt;/p>
+&lt;p>然而在我面试的时候，上面问题全部没有问到。。。可能是我最后花费的时间太长，表现的不好，面试官对我兴趣不大。也有可能是不同面试官问的问题不一样（因为小队里，有人面试鹅厂的被问到了该图中某几个问题）。&lt;/p>
+&lt;h2 id="项目经历">项目经历&lt;/h2>
+&lt;p>项目经历这一块，个人感觉其实还是很重要的。因为在面试官和你开始讲话之前，ta对你可以说没有一点了解，你擅长什么，你做过什么，你能做什么，你团队能力之类的怎样，这些都是需要通过你的项目经历来了解的。&lt;/p>
+&lt;p>因为我在以前网易实习面试中，吃过项目经历删减太多，导致最后面试官已经没问题可问的尴尬。这次面试中我将大三之后，不是很水的项目经历，比赛经历，实验室项目经历都写在了简历上。&lt;strong>一共一页半&lt;/strong>（本来是两页，不过删掉了半页感觉太水的项目）。&lt;/p>
+&lt;p>到达酒店扫码签到之后，等待面试短信告知面试地点在哪（鹅厂还是挺壕的，一个面试官包了一个房间）。&lt;/p>
+&lt;p>上去首先递上自己的简历。面试官开始询问我的项目经历，我投的是后台开发岗位，所以讲的是大三下的时候，和3个小伙伴做的一个换课系统。我大致讲述了一下整个项目的创建目的，实现的功能（&lt;strong>这部分我拿笔在草稿上将设备的部署，设备之间的连接以及通信方式全部画出来，以便解释说明，个人觉得这是个好习惯&lt;/strong>），以及在整个项目中的难点和个人承担的角色。&lt;/p>
+&lt;p>面试官一边听我讲诉，中途会偶尔插一两句话，比如某个功能是怎样实现，以及这个功能实现的时候是否有什么难点和在实现这个项目的时候担任了什么功能。不过总体不是很难。&lt;/p>
+&lt;p>不知道是因为面试官对我的项目兴趣不大，或者对我负责的这一块不是很了解。这一部分面试官问的比较少。&lt;/p>
+&lt;h2 id="智力题">智力题&lt;/h2>
+&lt;p>接下来是智力题。是我很不擅长的数字推理题。题目我在后来找到了原题，大致如下：&lt;/p>
+&lt;blockquote>
+&lt;p>AB两男士女奇问C女士年龄，C女士将给出11个可能答案，35，36，38，42，45，46，51，55，57，61，62。&lt;/p>&lt;/blockquote>
+&lt;blockquote>
+&lt;p>C女士将十位数告诉A，将个位数告诉B
 A男士说，我不知道C女士年龄，我想B也不知道。
 B男士说，原本我不知道C女士年龄，但现在知道了。
-A男士说现在我也知道了&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;请问C女士年龄多少&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;题目大致如此，我思考了一会，没有头绪，于是口头向面试官表示暂时可能解不出来，然后又大致讲了一下当前我已经思考到哪，以及我当前的推理逻辑。面试官听了一会，点了一下，然后开始让我做简单的代码实现题。&lt;/p&gt;
-&lt;p&gt;这时候我开始有点紧张了，因为担心这一关是不是没有发挥好，或者是否哪里有逻辑漏洞。&lt;/p&gt;
-&lt;h2 id="简单代码题"&gt;简单代码题&lt;/h2&gt;
-&lt;p&gt;题目确实很简单。&lt;/p&gt;
-&lt;p&gt;面试官从她的题库中挑选了两道题目，第一道题目是看代码让我描述这段代码的功能，以及生么样的输入会带来什么样的输出。感觉实在考验我们的代码阅读能力。整段代码不长，30行左右，大致功能是将一个long型十进制整数转成字符串，然后逐位取出，统计该位出现次数，如果为3就会有特定输出。就是一个简单的桶排思想，认真看懂的话不难。&lt;/p&gt;
-&lt;p&gt;第二道题是编程题，面试官让我实现一个功能函数，输入一个字符数组的头指针，让我实现一个功能函数将字符数组中的空格全部去掉。&lt;/p&gt;
-&lt;p&gt;很简单吧？然而我想复杂了。&lt;/p&gt;
-&lt;p&gt;太久没有写这种很基础的功能函数，加上有些紧张，我当时想的越来越复杂，以至于最后想出来的方法是&lt;strong&gt;开辟一个bool型的标志数组标识当前位是否为空格，然后重新开辟一个数组空间，将传入的字符串一个一个字符数组遍历一次，如果是空格就跳过，如果不是就取出来放进新的数组空间，最后free掉指针指向的以前的数组空间，重新指向当前开辟的新空间。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;其实这是一种舍近求远的想法，这种思路直接让本来码代码就不是很快的我写了差不多十分钟才写完（感觉面试官已经等的有点不耐烦），最后实现的代码量也是很冗长，同时其实最后还是有bug。函数中new的数组空间在返回后是会被del掉了（这部分栈空间被回收掉了），这样我们操作完成的数组其实已经不存在了，原始数组也不存在了。但是当时我想法太乱，明明知道会有这种问题，但还是硬着头皮写了。&lt;/p&gt;
-&lt;p&gt;写完面试官让我分析代码的时间复杂度和空间复杂度，然后问我还有什么问题想提问的，便让我回去等通知。&lt;/p&gt;
-&lt;p&gt;回来的路上，我和朋友一起回学校的时候，才想起来，明明去空格可以很简单的实现，&lt;strong&gt;只需将原数组中非空格的字符向前移动，直到遍历完成，然后手动添加\0结束&lt;/strong&gt;就行了，只是我当时想的太复杂。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-c" data-lang="c"&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;1&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;del_blank_space&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;char&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;pStr&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;2&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;temp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pStr&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;3&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;while&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;temp&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;4&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;temp&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="sc"&gt;&amp;#39; &amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="n"&gt;temp&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;continue&lt;/span&gt;&lt;span class="p"&gt;;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;5&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;pStr&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;temp&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;6&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;7&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;pStr&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="sc"&gt;&amp;#39;\0&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;8&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;就这么简单，然而我当时脑子蒙了。鹅厂面试也就只能草草收场。&lt;/p&gt;</description></item><item><title>2018网易校招运营开发工程师编程第一题</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/2018%E7%BD%91%E6%98%93%E6%A0%A1%E6%8B%9B%E8%BF%90%E8%90%A5%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%BC%96%E7%A8%8B%E7%AC%AC%E4%B8%80%E9%A2%98/</link><pubDate>Sat, 16 Sep 2017 22:38:56 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/2018%E7%BD%91%E6%98%93%E6%A0%A1%E6%8B%9B%E8%BF%90%E8%90%A5%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%BC%96%E7%A8%8B%E7%AC%AC%E4%B8%80%E9%A2%98/</guid><description>
-&lt;p&gt;由于之前准备不充分，没有做大量的编程练习，在实际编程过程中算法设计出现疏漏，最终导致结果没有AC。&lt;/p&gt;
-&lt;p&gt;题目很简单，字符串编码问题。 &lt;strong&gt;一个长度不超过6的字符串，内部不会重复且所有字母已经按照字典序排好。接下来按照字典序从短到长对这些字符串进行编码，接下来让你输入一个字符串，输出对应的编码即可。&lt;/strong&gt; eg: a为1，z为26，ab为27，az为51，bc为52。。。&lt;/p&gt;
-&lt;p&gt;思路和之前在牛客网做过的编码题类似，&lt;strong&gt;跳过某些的字符串，直到定位到该字符串为止&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;举个例子：&lt;/p&gt;
-&lt;p&gt;字符串为forx。它&lt;strong&gt;跳过了所有的长度为1，长度为2，长度为3的字符串&lt;/strong&gt;，以及&lt;strong&gt;所有长度为4的字符串中a&lt;del&gt;e开头的，fg&lt;/del&gt;fn开头的，fop~foq开头的字符串&lt;/strong&gt;。最后检查从fors到forx的序号就行了。&lt;/p&gt;
-&lt;p&gt;刚开始思路出了点问题，跳过的过程中，我跳过了fa~fn这类包括了fa但是不可能出现的情况，结果导致最后的算法出来的结果并不如意，并且一直很异常。直到笔试结束，我也没及时跳出这个坑。&lt;/p&gt;
-&lt;p&gt;笔试结束后我重新审查我的算法才发现了这个bug，并最终解决。最终的代码如下：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-c" data-lang="c"&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 1&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 2&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;using&lt;/span&gt; &lt;span class="n"&gt;namespace&lt;/span&gt; &lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 3&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;C_a_b&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 4&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 5&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;result&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;num&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 6&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;while&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;num&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 7&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;result&lt;/span&gt; &lt;span class="o"&gt;*=&lt;/span&gt; &lt;span class="n"&gt;num&lt;/span&gt;&lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 8&lt;/span&gt;&lt;span class="cl"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 9&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;num&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;10&lt;/span&gt;&lt;span class="cl"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;11&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;while&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;num&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;result&lt;/span&gt; &lt;span class="o"&gt;/=&lt;/span&gt; &lt;span class="n"&gt;num&lt;/span&gt;&lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;12&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;13&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;14&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;15&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;16&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;len&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;number&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;17&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;string&lt;/span&gt; &lt;span class="n"&gt;input_str&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;18&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;cin&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;19&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;while&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;20&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;number&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;21&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;cin&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;input_str&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;22&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;len&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;input_str&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;length&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;23&lt;/span&gt;&lt;span class="cl"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;24&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;len&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;25&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;input_str&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="sc"&gt;&amp;#39;a&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;26&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;continue&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;27&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;28&lt;/span&gt;&lt;span class="cl"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;29&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// 跳过所有长度小于该字符串的数目
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;30&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;len&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;31&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;number&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="nf"&gt;C_a_b&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;26&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;32&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;33&lt;/span&gt;&lt;span class="cl"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;34&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// 逐次跳过，eg：forx，首先跳过a开头的到e开头的所有长度为4的字符串（C_25_3累加到C_21_3）
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;35&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// 然后跳过fg开头到fn的所有长度为3的字符串（C_19_2累加到C_12_2）
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;36&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// 然后跳过fop到foq（C_10_1累加到C_9）
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;37&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;len&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;25&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;38&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="p"&gt;(;&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="sc"&gt;&amp;#39;z&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;input_str&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;len&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;39&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;number&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="nf"&gt;C_a_b&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;40&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;41&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;42&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;43&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// 将最后一位的值算出来。eg：forx，则先算出从fors开始计数到forx时，对应的值
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;44&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;number&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;input_str&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;len&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;input_str&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;len&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]);&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;45&lt;/span&gt;&lt;span class="cl"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;46&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;number&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;47&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;48&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;目测应该没够ac。特殊测试样例为a，z，ab，az，bc（和前面样例差一），bz，yz，abc（和前面样例差一），abz，acd（和前面样例差一）&lt;/p&gt;</description></item><item><title>网易复试（技术面）</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E7%BD%91%E6%98%93%E5%A4%8D%E8%AF%95%E6%8A%80%E6%9C%AF%E9%9D%A2/</link><pubDate>Thu, 27 Apr 2017 03:33:47 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E7%BD%91%E6%98%93%E5%A4%8D%E8%AF%95%E6%8A%80%E6%9C%AF%E9%9D%A2/</guid><description>
-&lt;p&gt;&lt;strong&gt;龙云尧个人博客，转载请注明出处。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;CSDN地址：http://blog.csdn.net/michael753951/article/details/70837240&lt;/p&gt;
-&lt;p&gt;个人blog地址：http://yaoyl.cn/wang_yi_fu_shi_ji_shu_mian/&lt;/p&gt;
-&lt;hr&gt;
-&lt;blockquote&gt;
-&lt;p&gt;这篇博客还可以有个别称，网易复试被教做人。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;比较幸运的通过了初试。这周周三又去网易大厦参加了网易直播开发的复试面试。依然是技术面。&lt;/p&gt;
-&lt;p&gt;一开始收到复试短信的时候，心情其实还蛮激动的，毕竟人生第一次实习面试，来的还算比较顺利。&lt;/p&gt;
-&lt;p&gt;短信中没有提到要带简历，所以在收到通知后，我便以为这一次要问后台开发或者服务器相关的问题了。所以面试之前又临时补了一下网络编程（对，就是上次被问到的东西），然后又复习了一下排序+搜索，仔细看了**《程序员面宝典》**中面向对象以及继承与接口两个章节。&lt;/p&gt;
-&lt;p&gt;带着100次/秒的心跳来到网易大厦。整个人紧张的不行，上一次还看到两个本科生，这一次本科生都没看见，上一次还看到一个我们级的同学，这一次也没看见过来。周围全是学硕大佬，听着他们讲着听不懂的项目名词，我越来越忐忑。&lt;/p&gt;
-&lt;h1 id="正式面试"&gt;正式面试&lt;/h1&gt;
-&lt;p&gt;小姐姐给我打印了一张简历（因为我以为这一次不用带也就没带了），还是上次的小姐姐带我们去的面试小房间，房间里面依然还是两名面试官（和上一次不一样），不过两个人年龄差不多，不过不同的是，这一次两个人年龄都不大，30不到的样子。&lt;/p&gt;
-&lt;p&gt;面试官拿着我的简历，以及我的笔试试卷，开始看起来。&lt;/p&gt;
-&lt;p&gt;？？？竟然还是和初试一样的内容？？？&lt;/p&gt;
-&lt;p&gt;接着面试官开始从我简历中第一个项目开始，从上往下一个一个问（跳过了Hadoop）。询问过程很细致，感觉主要在考验我的表达能力和对编程的理解能力。同时每个项目还问了我详细的设计思路（和上一次面试差不多）。另外还会从这个项目开始挖掘你对一些基础知识的了解程度。&lt;/p&gt;
-&lt;p&gt;比如说在问我一个C++项目经验的时候，问了我使用了哪些特殊的东西（算法），大致上答完以后开始问我很基础的知识——C++中，如果两个头文件中有同名函数的时候，同时include这两个头文件会不会报错，以及会报何种错，如何解决这种错误。前两问问得我有点蒙，肯定会报错我知道，但是回报什么错我就不太知道了，每次编译都是看error信息，但是从没可以注意错误信息有哪些种类。我打的有点不好。&lt;/p&gt;
-&lt;p&gt;至于解决方案，根绝我以前的项目经验，我果断说出了曾经使用过的&lt;code&gt;ifndef&lt;/code&gt;。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-c" data-lang="c"&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;1&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;#ifndef XXX
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;2&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;#define XXX
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;3&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;fun1&lt;/span&gt;&lt;span class="p"&gt;(){}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;4&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;fun2&lt;/span&gt;&lt;span class="p"&gt;(){}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;5&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;fun3&lt;/span&gt;&lt;span class="p"&gt;(){}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;6&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;#endif
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;“&lt;strong&gt;不能使用ifndef&lt;/strong&gt;”。“那就&lt;strong&gt;封装成类&lt;/strong&gt;。”“也&lt;strong&gt;不能封装成类&lt;/strong&gt;。”&lt;/p&gt;
-&lt;p&gt;我开始蒙了，这个问题的解决办法我从来没想过，一直以来，为了良好的封装性，避免不同包头之间&lt;code&gt;include&lt;/code&gt;出问题，我都严格的控制函数名和变量名。但是怎么解决却没怎么注意过。&lt;/p&gt;
-&lt;p&gt;回来之后，饭局上问了下老师，加上自己在网上查阅了相关资料，我找到了第三种解决办法，那就是使用命名空间namespace解决，具体结局方案可以参考&lt;a href="http://www.cnblogs.com/zhoug2020/p/5972439.html"&gt;【C++命名空间 namespace的作用和使用解析】&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;回到面试上。&lt;/p&gt;
-&lt;p&gt;感觉简历太苍白，面试官看着我的简历似乎不太好。他继续往下提问，美赛的经历和算法设计过程。二维码图像识别中的实现方法和难点。&lt;/p&gt;
-&lt;p&gt;最后在我们之前一个多平台项目中又开始了基础知识的提问。http请求报文中，第一行内容是什么，我开始又犯蒙，先回答了一个肯定会有的&lt;code&gt;request&lt;/code&gt;标识符。其他的还有什么，当时计网没要求记，我就跳过了，现在问起来，我有点犯难。想了半天我勉强想起来似乎有一个http版本。其它的又开始犯难了。&lt;/p&gt;
-&lt;p&gt;以前使用jsp的时候都是使用已经封装好的库头，现在突然问我这个，我就有点想不起来了。根据我上个星期学python的时候网络处理部分的东西，我开始艰难的回忆，最后猜了一个ip地址和端口号。其他的也没觉得有什么东西了。&lt;/p&gt;
-&lt;p&gt;然后面试官问了一个关于JavaXXX（一个没听过的名词，不是JavaScript）多线程的问题，我表示没听过这个名词之后，面试官也就停止提问了。&lt;/p&gt;
-&lt;p&gt;接着面试官问我为什么在外网中无法访问内网的网站。这一点我在前期准备过程中，LDNS看的比较多，所以顺口就说了出来。当然，这个答案可能存在一定问题，欢迎指正。&lt;/p&gt;
-&lt;p&gt;最后面试官问了我一些我的试卷上那些错题是怎么错的，错在哪。这些还好我在笔试那天回寝室之后和舍友讨论过，自己也到查过，所以基本上都能讲出来。&lt;/p&gt;
-&lt;h1 id="面试总结"&gt;面试总结&lt;/h1&gt;
-&lt;p&gt;感觉复试过程明显就没有初试的时候顺利了。面试过程磕磕绊绊，挺多东西不知道，加上自己本身紧张，所以答得并不好。&lt;/p&gt;
-&lt;p&gt;总结一下，在准备方面：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;二面和一面内容上其实差不多，可能面试官也知道我们对相关岗位的知识并不是很熟，所以就不会问太深入的东西，基本上都是稍微试探一下，如果你不会也就停止了。&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;前期准备还是需要对着自己的简历准备，因为面试官还是会对着你的简历进行提问，而且二面明显感觉比一面更加重基础，反而不问任何算法知识。&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;心态还是很重要，紧张很容易导致自己犯下不该犯的错误。&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;面试官对你的了解仅仅只有那十几分钟，怎么在短短的十几分钟之内将自己的有点展示出来，需要在面试前做好比较好的准备，同事面试的时候，要适当的带面试官走。&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;最后，希望我还有机会写一个HR终面总结吧。&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;更新，归咎于自己的技术底子是在不好，我还是没有成功闯过复试关。&lt;/p&gt;</description></item><item><title>网易初面（技术面）</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E7%BD%91%E6%98%93%E5%88%9D%E9%9D%A2%E6%8A%80%E6%9C%AF%E9%9D%A2/</link><pubDate>Sat, 22 Apr 2017 23:22:08 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E7%BD%91%E6%98%93%E5%88%9D%E9%9D%A2%E6%8A%80%E6%9C%AF%E9%9D%A2/</guid><description>
-&lt;p&gt;昨天我正在怼RFID第三次实验的圈存，消费和查询功能，丝毫没注意有短信，直到我出门准备拿快递查短信的时候才发现。。。&lt;/p&gt;
-&lt;p&gt;于是今天什么都没准备的去猪场（网易）面试，不过还好对面两个面试官人比较好，并没有怼我什么。&lt;/p&gt;
-&lt;h1 id="笔试"&gt;笔试&lt;/h1&gt;
-&lt;p&gt;上周四，网易在中大场的宣讲结束以后，便同时进行了一场笔试。&lt;strong&gt;笔试题目较难&lt;/strong&gt;。题目&lt;strong&gt;满分一百分，前60分选择以及计算填空题，后40分编程&lt;/strong&gt;。&lt;/p&gt;
-&lt;h2 id="前60分"&gt;前60分&lt;/h2&gt;
-&lt;p&gt;前面60分里面主要是&lt;strong&gt;理论算法题&lt;/strong&gt;，还夹杂一些&lt;strong&gt;操作系统题目&lt;/strong&gt;和&lt;strong&gt;计算机网络题目&lt;/strong&gt;，以及部分&lt;strong&gt;和岗位有关的内容&lt;/strong&gt;（比如我面试的是直播开发，试卷上就有问视频格式不包括下面中的哪一个），另外选择题里面&lt;strong&gt;少量数据库&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;现在还记得的比如很经典的&lt;strong&gt;2017!的结构末尾有多少个0&lt;/strong&gt;, &lt;strong&gt;7^2017%5结果为多少&lt;/strong&gt;啊，&lt;strong&gt;第一趟快排结果&lt;/strong&gt;怎样，&lt;strong&gt;堆排调整结果怎样&lt;/strong&gt;，&lt;strong&gt;OS的内存置换算法&lt;/strong&gt;，还有一些暂时想不起来的题目。&lt;/p&gt;
-&lt;p&gt;题目&lt;strong&gt;难度有点大&lt;/strong&gt;，对&lt;strong&gt;基础的算法&lt;/strong&gt;要求比较高，同时还要求被试者记得&lt;strong&gt;OS&lt;/strong&gt;，&lt;strong&gt;计网&lt;/strong&gt;知识等。如果以后有人打算去网易的话，遇到笔试前最好去&lt;a href="https://www.nowcoder.com/"&gt;&lt;strong&gt;牛客网&lt;/strong&gt;&lt;/a&gt;刷一套或者几套网易的笔试题感受一下。笔试的时候才更加适应网易的套路，&lt;strong&gt;运气好的话还有可能遇到原题&lt;/strong&gt;。（我遇到一个比较简单的原题，还有一个一起考试的碰到了移到算法计算题的原题）。&lt;/p&gt;
-&lt;p&gt;这部分答题过程中，我思路比较清楚。可能因为不少题目在以前上机测试或者其他算法书中遇到过，所以不是特别偏的算法还是会的（比如有一道三进制的题，当时怎么都不会，现在时间太久也忘了）。经常打算法的人应该完成难度不大。&lt;/p&gt;
-&lt;h2 id="后40分"&gt;后40分&lt;/h2&gt;
-&lt;p&gt;40分一共&lt;strong&gt;有两道手写编程题&lt;/strong&gt;，&lt;strong&gt;第一题10分比较简单&lt;/strong&gt;，&lt;strong&gt;第二题会难一点30分&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;在这次考试中，第一题是&lt;strong&gt;求最大公因数和最小公倍数&lt;/strong&gt;。第一题题目要求数据大小在1~2^32-1之间。这两个算法的实现我就不说了，因为已经算是算法入门级的代码了。但是很傻的是，我在计算最大公倍数时，return的结果只开到了undesigned int，这个估计会扣不少分。其实应该开到long long才能不溢出。&lt;/p&gt;
-&lt;p&gt;第二题，是一道&lt;strong&gt;0-1背包问题，DP可解&lt;/strong&gt;。但是因为时间不够，加上笔试前没有准备关于DP和背包问题，所以空出来了。题目大概意思是，在线直播平台上有各种打赏，比如打赏1（分数100）、打赏2（200）、打赏3（300），每种打赏收费标准不一样。相当于背包问题中的物品。一个用户想给主播发礼品，怎样做才能既将手中的钱花完，主播收到的积分也能最多。（题目大致应该是这样的，时间有点久了，记不是很清楚。）&lt;/p&gt;
-&lt;p&gt;然后在面试过程中，我瞟到了我的试卷，前面60分拿了36。这个能理解，我在那天回寝室，回想题目的时候，就发想算法填空题里面，有几道题手算出错了。页面置换的题目里面，将LRU（Least Recently Used, 最近最久未使用，可以实际应用），错用成了OPT（Optimal，最佳置换，理论上的置换方法）。其他的错在哪就可能自己事后都没发现吧。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;编程只拿到了4分&lt;/strong&gt;（还是6分？）。羞耻= =，全是在那一道10分题中拿到的，除了long long之外不知道其他分数扣在哪，有可能是因为我当时图快使用的是递归求解，效率赶不上迭代，也有可能是犯了其他某些错误。30分的DP一分没拿到，毕竟我一行代码都没写= =。只有一行注释说“背包问题，可以用DP求解”。&lt;/p&gt;
-&lt;p&gt;总的来说，当时笔试完自我感觉并不好。本来以为不会过，等了快一周还没收到短信，所以都已经准备放弃希望了。直到昨天翻快递短信的时候，看到了网易的短信通知，说我笔试过了，可以参加初面了。&lt;/p&gt;
-&lt;h1 id="初面"&gt;初面&lt;/h1&gt;
-&lt;h2 id="裸面"&gt;裸面&lt;/h2&gt;
-&lt;p&gt;初面来的猝不及防，没有一点点心理准备的我，在收到短信的当天都还在淡定撸RFID的课程项目代码。结果一下午都在debug，晚上10点才搞完。当时觉得，“完了完了，明天得裸面了”。&lt;/p&gt;
-&lt;p&gt;半夜看了一会&lt;a href="http://chenbowen.baijia.baidu.com/article/472127"&gt;直播相关的技术帖&lt;/a&gt;，白天精力消耗太大，爬上床睡了。&lt;/p&gt;
-&lt;p&gt;第二天早上7点多就爬起来继续看了一会，毕竟自己以前没怎么学过这一块，就按照计网知识，再加上自己以前学图像处理时对音频的知识，勉强硬啃下来了。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;但是我忘记了，校招一般不会问太多和工作岗位相关的工作，他们往往问的比较基础。比如最经典的8排序3搜索，比如OOP的虚类，虚函数，继承之类的基础知识。尤其是我简历里面还说了我主力代码是C/C++，之后是Java。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;抱着裸面的心态去的网易大厦。今天的人还不少，不过脸熟的没多少，可能我们院（指我们软件工程（移动信息工程），而不是整个数据科学院啦）的人有的上午就面过了，或者没什么人投这边。整场面试下来就碰到一个认识的人。&lt;/p&gt;
-&lt;p&gt;进去之后人挺多了，我们在网易大厦一楼一个放映室等待，然后被一波一波叫出去等待面试。等不多一会，一个应该是HR的小姐姐带我们上了四楼（直播平台开发所在的楼层），十几个人在一个会议室等着被喊去面试。&lt;/p&gt;
-&lt;p&gt;全是中大人，我们这一波十几个人就仨本科生，其他都是研究生，我开始有点怂了。。。。那个时候，对面一个研二师姐说上次面试就是手写搜索算法，我才突然想到，我光看直播技术贴，排序搜索什么的都没看= =&lt;/p&gt;
-&lt;p&gt;临时用手机翻了一点关于排序和搜索的算法，看了一下时间复杂度，被叫去面试。&lt;/p&gt;
-&lt;h2 id="面试"&gt;面试&lt;/h2&gt;
-&lt;p&gt;面试环境还好，空间虽然小了点，但是因为是透明玻璃墙，所以也就没有显得拥挤，房间里面有&lt;strong&gt;两个面试官&lt;/strong&gt;。年轻的面试官主要提问算法和其他工程上的问题，另一位大叔感觉像是HR或者主管之类的管理者。&lt;/p&gt;
-&lt;p&gt;首先是自我介绍啦，稍微讲一下自己的情况就好（我就讲了讲我来自哪，目前情况怎么样之类的，半分钟就没词了= =）。&lt;/p&gt;
-&lt;p&gt;之后试官首先问我兴趣点，因为这个岗位进去之后还是有很多方向，比如&lt;strong&gt;前端 ，服务器，移动端&lt;/strong&gt;之类。我说的是服务器，一方面是因为自己确实对前段没什么兴趣，另一方面去年和今年项目做得多了，就越来越觉得服务器挺重要的，毕竟很多前端的动态处理，移动端的服务，都得靠服务器端进行处理。&lt;/p&gt;
-&lt;p&gt;接着面试开始问我的项目经验。年轻面试官从我的简历里面抽了大二时候做的用哈希表实现词典查询的项目进行提问。&lt;/p&gt;
-&lt;p&gt;一脸懵逼，两脸茫然，猝不及防。我以为会问我直播技术有哪些瓶颈，我以为会问我怎么降低网络延迟，我以为会问我直播使用什么协议，分别有哪些优缺点，我以为会问我云计算课程实现的利用MapReduce分布式项目，我以为。。。&lt;/p&gt;
-&lt;p&gt;然而，他竟然问我大二的项目= =&lt;/p&gt;
-&lt;p&gt;还好当时自己在那个项目上折腾了好几天，依稀记得使用&lt;strong&gt;Map方法+链表&lt;/strong&gt;实现的查询功能。然后我开始&lt;strong&gt;在草稿上回忆项目思路，一边回忆一遍和面试官口述&lt;/strong&gt;（虽然一开始有点紧张还回忆错了，面试官仔细听了以后，对我查询方式提了一点质疑，我才重新想起来当时的项目内容。）口述完自己当时的项目之后，考官问我对这个项目有什么&lt;strong&gt;改进的想法&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;改进的想法？？？刚刚回忆完整个项目的我又开始陷入了沉思。我开始吧这个项目和这个岗位可能需要的地方开始考虑。&lt;/p&gt;
-&lt;p&gt;这个岗位不是应该对分布式要求对点么，那就分布式搜索？？&lt;strong&gt;没听说过，不能瞎说&lt;/strong&gt;。自己唯一写过的分布式架构的也就&lt;strong&gt;MapReduce实现的线性回归&lt;/strong&gt;，自己也暂时没想带怎么使用分布式进行搜索的方法。突然我想到，提问过程中，面试官似乎问过我&lt;strong&gt;处理的信息量&lt;/strong&gt;，&lt;strong&gt;我那种实现方法需要将所有数据写进内存，很费空间，这一点似乎可以优化&lt;/strong&gt;。于是我就根据操作系统里面内存的的&lt;strong&gt;多级检索&lt;/strong&gt;，大致讲了一下在大量数据情况下，减少内存消耗的方法。&lt;/p&gt;
-&lt;p&gt;接下来面试官又从我项目经验中挑了一个二维码识别的项目。这个虽然是团队项目，但是前半部分我和队友一人一半，后半部分一人单挑，再加上是上个学期的项目，所以讲起来比较轻松。大致讲了一下自己当时实现的原理（直线在极坐标中的表示，点光源影响去除之类的）。&lt;/p&gt;
-&lt;p&gt;又谈了一点项目经验，面试官开始问我主要擅长的领域。&lt;/p&gt;
-&lt;p&gt;擅长的领域？？？又开始茫然，大学3年下来，基本都是按照课程项目走过来的，学的很散，也没有做过很成熟的项目。知识面有点广度，但是没有几个领域有深度，开始打算个人项目也是在上周四被网易理论试题打击以后，突然开始搞的。&lt;/p&gt;
-&lt;p&gt;那就&lt;strong&gt;算法&lt;/strong&gt;吧，再加个&lt;strong&gt;计网&lt;/strong&gt;。仔细想了想自己的两年半多，算法自己从大一下怼到大二下，一年半下来，&lt;strong&gt;比赛奖项也集中在算法比赛上&lt;/strong&gt;，就提了下自己的比较擅长算法。然后又想到我们上学期我&lt;strong&gt;计网理论&lt;/strong&gt;学的还行，实验课怼交换机也贡献了大部分力气。这两个合起来对我拿到这份offer会不会有帮助。&lt;/p&gt;
-&lt;p&gt;面试官开始问我关于&lt;strong&gt;网络编程的问题&lt;/strong&gt;（当时的问题是，&lt;strong&gt;tcp编程的时候，什么时候会有time_ wait&lt;/strong&gt;）。但是我没经历过网络编程啊，上个学期交换器和路由器的实验全部重在配置，在控制台输指令的那种。网络编程这一块我就没接触过啊，我就试探了一下说是不是在网络用塞的时候，因为听到这个变量我以为是TCP的连接超时。面试官否决了我的回答，我只能如实说自己没做过相关项目，面试官说了真确答案是断开连接的时候。（&lt;strong&gt;回来查了一下相关知识，time _wait确实是在TCP的四次挥手的时候用到的，拥塞控制是tcp _timestamps，&lt;/strong&gt;&lt;a href="http://blog.csdn.net/qq100440110/article/details/52267708"&gt;&lt;strong&gt;知识来源&lt;/strong&gt;&lt;/a&gt;）&lt;/p&gt;
-&lt;p&gt;接着面试官开始问我&lt;strong&gt;算法题&lt;/strong&gt;，比如&lt;strong&gt;堆排和快排的对比，两种算法的应用场景之类&lt;/strong&gt;。我大致分析了一下快排的缺点是&lt;strong&gt;最坏情况时间复杂度&lt;/strong&gt;是(On^2), 堆排整理需要(Onlgn)，但是忘记分析堆排和快拍的&lt;strong&gt;空间消耗&lt;/strong&gt;（自己平时从来没注意过），&lt;strong&gt;是否乱序&lt;/strong&gt;方面也忘记分析了（其实两者都会乱序）。终究还是自己平时项目做得少了，算法也看的少了。。。。&lt;/p&gt;
-&lt;p&gt;然后面试官问了我&lt;strong&gt;快排的实现方法&lt;/strong&gt;，我在纸上大致说了一种刚刚在网上看到，回忆起来的教科书上的快排。这种方法对最后的标志位在一开始是不明确的。我看考官没怎么说话，就默默在纸上再说了一下整个整理过程。看完考官提问，没有标志位的么。我就又说了在大一的时候学的预先定位标志位进行快排整理的方法，考官这次就似乎比较满意。&lt;/p&gt;
-&lt;p&gt;再接着面试官问了一下&lt;strong&gt;STL中Map是用什么实现的&lt;/strong&gt;。因为我第一个项目中，就是使用的标准STL Map，而不是自己实现。我答了&lt;strong&gt;红黑树&lt;/strong&gt;，这个在很久以前某篇文章中看到过。&lt;/p&gt;
-&lt;p&gt;最后就是大叔面试官问，&lt;strong&gt;我还想说些什么&lt;/strong&gt;。（大叔面试官全程比较少提问，感觉他应该是坐在主管位置，年轻的小哥面试官则应该是主要带项目什么的了）我大致说了一下&lt;strong&gt;自己在投简历和面试过程中对这个岗位产生的疑问，以及问了下我能够学到什么&lt;/strong&gt;，基本面试也就结束了。&lt;/p&gt;
-&lt;h2 id="面试总结"&gt;面试总结&lt;/h2&gt;
-&lt;p&gt;总的来说，网易的&lt;strong&gt;笔试确实有难度，面试关反而没有那么难了&lt;/strong&gt;，主要重在&lt;strong&gt;项目&lt;/strong&gt;和你&lt;strong&gt;擅长的方向&lt;/strong&gt;的了解。&lt;/p&gt;
-&lt;p&gt;在准备方面&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;我笔试40分都有机会拿到面试机会，如果有机会参加笔试机会的人可以有信心了。&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;简历上的项目一定要是你有参与或者主持或者独自完成的项目。混水的项目就不要写上去了，以免面试官问起来自己一脸茫然。&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;面试前最好准备一下基础的算法知识。因为自己面的是开发岗，所以对算法要求还是比较高的。基本的8大查找，3大搜索要知道。&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;网易的面试方面不会太难。提前对自己的项目做好整理，看一下自己的项目报告什么的帮助回忆，也就不会像我这样裸面，在面试的时候一边面试一边回忆了。&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;有些问题还是流程化的，比如对这个工作有什么期待，自我评价（本次面试没有提到），自我介绍什么的。在准备前都好好准备下。&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;网易技术岗的技术面一共有两轮。我目前只经历了第一轮，希望有机会能够接触到第二轮（并不知道会问什么内容），以及最终的HR面。&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;面试官不会很严，技术面也不会压力面试什么的，面试环节还是比较轻松的，不用紧张。&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;最后，希望我还有机会写一个二面以及终面总结吧。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;</description></item></channel></rss>
+A男士说现在我也知道了&lt;/p>&lt;/blockquote>
+&lt;blockquote>
+&lt;p>请问C女士年龄多少&lt;/p>&lt;/blockquote>
+&lt;p>题目大致如此，我思考了一会，没有头绪，于是口头向面试官表示暂时可能解不出来，然后又大致讲了一下当前我已经思考到哪，以及我当前的推理逻辑。面试官听了一会，点了一下，然后开始让我做简单的代码实现题。&lt;/p>
+&lt;p>这时候我开始有点紧张了，因为担心这一关是不是没有发挥好，或者是否哪里有逻辑漏洞。&lt;/p>
+&lt;h2 id="简单代码题">简单代码题&lt;/h2>
+&lt;p>题目确实很简单。&lt;/p>
+&lt;p>面试官从她的题库中挑选了两道题目，第一道题目是看代码让我描述这段代码的功能，以及生么样的输入会带来什么样的输出。感觉实在考验我们的代码阅读能力。整段代码不长，30行左右，大致功能是将一个long型十进制整数转成字符串，然后逐位取出，统计该位出现次数，如果为3就会有特定输出。就是一个简单的桶排思想，认真看懂的话不难。&lt;/p>
+&lt;p>第二道题是编程题，面试官让我实现一个功能函数，输入一个字符数组的头指针，让我实现一个功能函数将字符数组中的空格全部去掉。&lt;/p>
+&lt;p>很简单吧？然而我想复杂了。&lt;/p>
+&lt;p>太久没有写这种很基础的功能函数，加上有些紧张，我当时想的越来越复杂，以至于最后想出来的方法是&lt;strong>开辟一个bool型的标志数组标识当前位是否为空格，然后重新开辟一个数组空间，将传入的字符串一个一个字符数组遍历一次，如果是空格就跳过，如果不是就取出来放进新的数组空间，最后free掉指针指向的以前的数组空间，重新指向当前开辟的新空间。&lt;/strong>&lt;/p>
+&lt;p>其实这是一种舍近求远的想法，这种思路直接让本来码代码就不是很快的我写了差不多十分钟才写完（感觉面试官已经等的有点不耐烦），最后实现的代码量也是很冗长，同时其实最后还是有bug。函数中new的数组空间在返回后是会被del掉了（这部分栈空间被回收掉了），这样我们操作完成的数组其实已经不存在了，原始数组也不存在了。但是当时我想法太乱，明明知道会有这种问题，但还是硬着头皮写了。&lt;/p>
+&lt;p>写完面试官让我分析代码的时间复杂度和空间复杂度，然后问我还有什么问题想提问的，便让我回去等通知。&lt;/p>
+&lt;p>回来的路上，我和朋友一起回学校的时候，才想起来，明明去空格可以很简单的实现，&lt;strong>只需将原数组中非空格的字符向前移动，直到遍历完成，然后手动添加\0结束&lt;/strong>就行了，只是我当时想的太复杂。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="ln">1&lt;/span>&lt;span class="cl">&lt;span class="kt">void&lt;/span> &lt;span class="nf">del_blank_space&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">char&lt;/span>&lt;span class="o">*&lt;/span> &lt;span class="n">pStr&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">2&lt;/span>&lt;span class="cl"> &lt;span class="kt">char&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">temp&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">pStr&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">3&lt;/span>&lt;span class="cl"> &lt;span class="k">while&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">temp&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">4&lt;/span>&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">temp&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="sc">&amp;#39; &amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="n">temp&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">continue&lt;/span>&lt;span class="p">;}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">5&lt;/span>&lt;span class="cl"> &lt;span class="o">*&lt;/span>&lt;span class="n">pStr&lt;/span>&lt;span class="o">++&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">temp&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">6&lt;/span>&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">7&lt;/span>&lt;span class="cl"> &lt;span class="o">*&lt;/span>&lt;span class="n">pStr&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sc">&amp;#39;\0&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">8&lt;/span>&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>就这么简单，然而我当时脑子蒙了。鹅厂面试也就只能草草收场。&lt;/p></description></item><item><title>2018网易校招运营开发工程师编程第一题</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/2018%E7%BD%91%E6%98%93%E6%A0%A1%E6%8B%9B%E8%BF%90%E8%90%A5%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%BC%96%E7%A8%8B%E7%AC%AC%E4%B8%80%E9%A2%98/</link><pubDate>Sat, 16 Sep 2017 22:38:56 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/2018%E7%BD%91%E6%98%93%E6%A0%A1%E6%8B%9B%E8%BF%90%E8%90%A5%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%BC%96%E7%A8%8B%E7%AC%AC%E4%B8%80%E9%A2%98/</guid><description>
+&lt;p>由于之前准备不充分，没有做大量的编程练习，在实际编程过程中算法设计出现疏漏，最终导致结果没有AC。&lt;/p>
+&lt;p>题目很简单，字符串编码问题。 &lt;strong>一个长度不超过6的字符串，内部不会重复且所有字母已经按照字典序排好。接下来按照字典序从短到长对这些字符串进行编码，接下来让你输入一个字符串，输出对应的编码即可。&lt;/strong> eg: a为1，z为26，ab为27，az为51，bc为52。。。&lt;/p>
+&lt;p>思路和之前在牛客网做过的编码题类似，&lt;strong>跳过某些的字符串，直到定位到该字符串为止&lt;/strong>。&lt;/p>
+&lt;p>举个例子：&lt;/p>
+&lt;p>字符串为forx。它&lt;strong>跳过了所有的长度为1，长度为2，长度为3的字符串&lt;/strong>，以及&lt;strong>所有长度为4的字符串中a&lt;del>e开头的，fg&lt;/del>fn开头的，fop~foq开头的字符串&lt;/strong>。最后检查从fors到forx的序号就行了。&lt;/p>
+&lt;p>刚开始思路出了点问题，跳过的过程中，我跳过了fa~fn这类包括了fa但是不可能出现的情况，结果导致最后的算法出来的结果并不如意，并且一直很异常。直到笔试结束，我也没及时跳出这个坑。&lt;/p>
+&lt;p>笔试结束后我重新审查我的算法才发现了这个bug，并最终解决。最终的代码如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="ln"> 1&lt;/span>&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;iostream&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 2&lt;/span>&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="n">using&lt;/span> &lt;span class="n">namespace&lt;/span> &lt;span class="n">std&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 3&lt;/span>&lt;span class="cl">&lt;span class="kt">int&lt;/span> &lt;span class="nf">C_a_b&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 4&lt;/span>&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">b&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 5&lt;/span>&lt;span class="cl"> &lt;span class="kt">int&lt;/span> &lt;span class="n">result&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">num&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">a&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 6&lt;/span>&lt;span class="cl"> &lt;span class="k">while&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">num&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">b&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 7&lt;/span>&lt;span class="cl"> &lt;span class="n">result&lt;/span> &lt;span class="o">*=&lt;/span> &lt;span class="n">num&lt;/span>&lt;span class="o">--&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 8&lt;/span>&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 9&lt;/span>&lt;span class="cl"> &lt;span class="n">num&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">10&lt;/span>&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">11&lt;/span>&lt;span class="cl"> &lt;span class="k">while&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">num&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="n">result&lt;/span> &lt;span class="o">/=&lt;/span> &lt;span class="n">num&lt;/span>&lt;span class="o">--&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">12&lt;/span>&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">result&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">13&lt;/span>&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">14&lt;/span>&lt;span class="cl">&lt;span class="kt">int&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">15&lt;/span>&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">16&lt;/span>&lt;span class="cl"> &lt;span class="kt">int&lt;/span> &lt;span class="n">N&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">len&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">number&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">17&lt;/span>&lt;span class="cl"> &lt;span class="n">string&lt;/span> &lt;span class="n">input_str&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">18&lt;/span>&lt;span class="cl"> &lt;span class="n">cin&lt;/span> &lt;span class="o">&amp;gt;&amp;gt;&lt;/span> &lt;span class="n">N&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">19&lt;/span>&lt;span class="cl"> &lt;span class="k">while&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">N&lt;/span>&lt;span class="o">--&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">20&lt;/span>&lt;span class="cl"> &lt;span class="n">number&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">21&lt;/span>&lt;span class="cl"> &lt;span class="n">cin&lt;/span> &lt;span class="o">&amp;gt;&amp;gt;&lt;/span> &lt;span class="n">input_str&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">22&lt;/span>&lt;span class="cl"> &lt;span class="n">len&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">input_str&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">length&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">23&lt;/span>&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">24&lt;/span>&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">len&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">25&lt;/span>&lt;span class="cl"> &lt;span class="n">cout&lt;/span> &lt;span class="o">&amp;lt;&amp;lt;&lt;/span> &lt;span class="n">input_str&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="sc">&amp;#39;a&amp;#39;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="o">&amp;lt;&amp;lt;&lt;/span> &lt;span class="n">endl&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">26&lt;/span>&lt;span class="cl"> &lt;span class="k">continue&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">27&lt;/span>&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">28&lt;/span>&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">29&lt;/span>&lt;span class="cl"> &lt;span class="c1">// 跳过所有长度小于该字符串的数目
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">30&lt;/span>&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">len&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="o">++&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">31&lt;/span>&lt;span class="cl"> &lt;span class="n">number&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="nf">C_a_b&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">26&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">32&lt;/span>&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">33&lt;/span>&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">34&lt;/span>&lt;span class="cl"> &lt;span class="c1">// 逐次跳过，eg：forx，首先跳过a开头的到e开头的所有长度为4的字符串（C_25_3累加到C_21_3）
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">35&lt;/span>&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// 然后跳过fg开头到fn的所有长度为3的字符串（C_19_2累加到C_12_2）
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">36&lt;/span>&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// 然后跳过fop到foq（C_10_1累加到C_9）
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">37&lt;/span>&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">len&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">j&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">25&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">38&lt;/span>&lt;span class="cl"> &lt;span class="k">for&lt;/span>&lt;span class="p">(;&lt;/span> &lt;span class="n">j&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="sc">&amp;#39;z&amp;#39;&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">input_str&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">len&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">];&lt;/span> &lt;span class="n">j&lt;/span>&lt;span class="o">--&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">39&lt;/span>&lt;span class="cl"> &lt;span class="n">number&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="nf">C_a_b&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">j&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">40&lt;/span>&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">41&lt;/span>&lt;span class="cl"> &lt;span class="n">j&lt;/span>&lt;span class="o">--&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">42&lt;/span>&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">43&lt;/span>&lt;span class="cl"> &lt;span class="c1">// 将最后一位的值算出来。eg：forx，则先算出从fors开始计数到forx时，对应的值
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">44&lt;/span>&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="n">number&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">input_str&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">len&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">input_str&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">len&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">]);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">45&lt;/span>&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">46&lt;/span>&lt;span class="cl"> &lt;span class="n">cout&lt;/span> &lt;span class="o">&amp;lt;&amp;lt;&lt;/span> &lt;span class="n">number&lt;/span> &lt;span class="o">&amp;lt;&amp;lt;&lt;/span> &lt;span class="n">endl&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">47&lt;/span>&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">48&lt;/span>&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>目测应该没够ac。特殊测试样例为a，z，ab，az，bc（和前面样例差一），bz，yz，abc（和前面样例差一），abz，acd（和前面样例差一）&lt;/p></description></item><item><title>网易复试（技术面）</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E7%BD%91%E6%98%93%E5%A4%8D%E8%AF%95%E6%8A%80%E6%9C%AF%E9%9D%A2/</link><pubDate>Thu, 27 Apr 2017 03:33:47 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E7%BD%91%E6%98%93%E5%A4%8D%E8%AF%95%E6%8A%80%E6%9C%AF%E9%9D%A2/</guid><description>
+&lt;p>&lt;strong>龙云尧个人博客，转载请注明出处。&lt;/strong>&lt;/p>
+&lt;p>CSDN地址：http://blog.csdn.net/michael753951/article/details/70837240&lt;/p>
+&lt;p>个人blog地址：http://yaoyl.cn/wang_yi_fu_shi_ji_shu_mian/&lt;/p>
+&lt;hr>
+&lt;blockquote>
+&lt;p>这篇博客还可以有个别称，网易复试被教做人。&lt;/p>&lt;/blockquote>
+&lt;p>比较幸运的通过了初试。这周周三又去网易大厦参加了网易直播开发的复试面试。依然是技术面。&lt;/p>
+&lt;p>一开始收到复试短信的时候，心情其实还蛮激动的，毕竟人生第一次实习面试，来的还算比较顺利。&lt;/p>
+&lt;p>短信中没有提到要带简历，所以在收到通知后，我便以为这一次要问后台开发或者服务器相关的问题了。所以面试之前又临时补了一下网络编程（对，就是上次被问到的东西），然后又复习了一下排序+搜索，仔细看了**《程序员面宝典》**中面向对象以及继承与接口两个章节。&lt;/p>
+&lt;p>带着100次/秒的心跳来到网易大厦。整个人紧张的不行，上一次还看到两个本科生，这一次本科生都没看见，上一次还看到一个我们级的同学，这一次也没看见过来。周围全是学硕大佬，听着他们讲着听不懂的项目名词，我越来越忐忑。&lt;/p>
+&lt;h1 id="正式面试">正式面试&lt;/h1>
+&lt;p>小姐姐给我打印了一张简历（因为我以为这一次不用带也就没带了），还是上次的小姐姐带我们去的面试小房间，房间里面依然还是两名面试官（和上一次不一样），不过两个人年龄差不多，不过不同的是，这一次两个人年龄都不大，30不到的样子。&lt;/p>
+&lt;p>面试官拿着我的简历，以及我的笔试试卷，开始看起来。&lt;/p>
+&lt;p>？？？竟然还是和初试一样的内容？？？&lt;/p>
+&lt;p>接着面试官开始从我简历中第一个项目开始，从上往下一个一个问（跳过了Hadoop）。询问过程很细致，感觉主要在考验我的表达能力和对编程的理解能力。同时每个项目还问了我详细的设计思路（和上一次面试差不多）。另外还会从这个项目开始挖掘你对一些基础知识的了解程度。&lt;/p>
+&lt;p>比如说在问我一个C++项目经验的时候，问了我使用了哪些特殊的东西（算法），大致上答完以后开始问我很基础的知识——C++中，如果两个头文件中有同名函数的时候，同时include这两个头文件会不会报错，以及会报何种错，如何解决这种错误。前两问问得我有点蒙，肯定会报错我知道，但是回报什么错我就不太知道了，每次编译都是看error信息，但是从没可以注意错误信息有哪些种类。我打的有点不好。&lt;/p>
+&lt;p>至于解决方案，根绝我以前的项目经验，我果断说出了曾经使用过的&lt;code>ifndef&lt;/code>。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="ln">1&lt;/span>&lt;span class="cl">&lt;span class="cp">#ifndef XXX
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">2&lt;/span>&lt;span class="cl">&lt;span class="cp">#define XXX
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">3&lt;/span>&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="kt">void&lt;/span> &lt;span class="nf">fun1&lt;/span>&lt;span class="p">(){}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">4&lt;/span>&lt;span class="cl">&lt;span class="kt">void&lt;/span> &lt;span class="nf">fun2&lt;/span>&lt;span class="p">(){}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">5&lt;/span>&lt;span class="cl">&lt;span class="kt">void&lt;/span> &lt;span class="nf">fun3&lt;/span>&lt;span class="p">(){}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">6&lt;/span>&lt;span class="cl">&lt;span class="cp">#endif
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>“&lt;strong>不能使用ifndef&lt;/strong>”。“那就&lt;strong>封装成类&lt;/strong>。”“也&lt;strong>不能封装成类&lt;/strong>。”&lt;/p>
+&lt;p>我开始蒙了，这个问题的解决办法我从来没想过，一直以来，为了良好的封装性，避免不同包头之间&lt;code>include&lt;/code>出问题，我都严格的控制函数名和变量名。但是怎么解决却没怎么注意过。&lt;/p>
+&lt;p>回来之后，饭局上问了下老师，加上自己在网上查阅了相关资料，我找到了第三种解决办法，那就是使用命名空间namespace解决，具体结局方案可以参考&lt;a href="http://www.cnblogs.com/zhoug2020/p/5972439.html">【C++命名空间 namespace的作用和使用解析】&lt;/a>&lt;/p>
+&lt;p>回到面试上。&lt;/p>
+&lt;p>感觉简历太苍白，面试官看着我的简历似乎不太好。他继续往下提问，美赛的经历和算法设计过程。二维码图像识别中的实现方法和难点。&lt;/p>
+&lt;p>最后在我们之前一个多平台项目中又开始了基础知识的提问。http请求报文中，第一行内容是什么，我开始又犯蒙，先回答了一个肯定会有的&lt;code>request&lt;/code>标识符。其他的还有什么，当时计网没要求记，我就跳过了，现在问起来，我有点犯难。想了半天我勉强想起来似乎有一个http版本。其它的又开始犯难了。&lt;/p>
+&lt;p>以前使用jsp的时候都是使用已经封装好的库头，现在突然问我这个，我就有点想不起来了。根据我上个星期学python的时候网络处理部分的东西，我开始艰难的回忆，最后猜了一个ip地址和端口号。其他的也没觉得有什么东西了。&lt;/p>
+&lt;p>然后面试官问了一个关于JavaXXX（一个没听过的名词，不是JavaScript）多线程的问题，我表示没听过这个名词之后，面试官也就停止提问了。&lt;/p>
+&lt;p>接着面试官问我为什么在外网中无法访问内网的网站。这一点我在前期准备过程中，LDNS看的比较多，所以顺口就说了出来。当然，这个答案可能存在一定问题，欢迎指正。&lt;/p>
+&lt;p>最后面试官问了我一些我的试卷上那些错题是怎么错的，错在哪。这些还好我在笔试那天回寝室之后和舍友讨论过，自己也到查过，所以基本上都能讲出来。&lt;/p>
+&lt;h1 id="面试总结">面试总结&lt;/h1>
+&lt;p>感觉复试过程明显就没有初试的时候顺利了。面试过程磕磕绊绊，挺多东西不知道，加上自己本身紧张，所以答得并不好。&lt;/p>
+&lt;p>总结一下，在准备方面：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>二面和一面内容上其实差不多，可能面试官也知道我们对相关岗位的知识并不是很熟，所以就不会问太深入的东西，基本上都是稍微试探一下，如果你不会也就停止了。&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>前期准备还是需要对着自己的简历准备，因为面试官还是会对着你的简历进行提问，而且二面明显感觉比一面更加重基础，反而不问任何算法知识。&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>心态还是很重要，紧张很容易导致自己犯下不该犯的错误。&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>面试官对你的了解仅仅只有那十几分钟，怎么在短短的十几分钟之内将自己的有点展示出来，需要在面试前做好比较好的准备，同事面试的时候，要适当的带面试官走。&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>最后，希望我还有机会写一个HR终面总结吧。&lt;/p>
+&lt;hr>
+&lt;p>更新，归咎于自己的技术底子是在不好，我还是没有成功闯过复试关。&lt;/p></description></item><item><title>网易初面（技术面）</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E7%BD%91%E6%98%93%E5%88%9D%E9%9D%A2%E6%8A%80%E6%9C%AF%E9%9D%A2/</link><pubDate>Sat, 22 Apr 2017 23:22:08 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E7%BD%91%E6%98%93%E5%88%9D%E9%9D%A2%E6%8A%80%E6%9C%AF%E9%9D%A2/</guid><description>
+&lt;p>昨天我正在怼RFID第三次实验的圈存，消费和查询功能，丝毫没注意有短信，直到我出门准备拿快递查短信的时候才发现。。。&lt;/p>
+&lt;p>于是今天什么都没准备的去猪场（网易）面试，不过还好对面两个面试官人比较好，并没有怼我什么。&lt;/p>
+&lt;h1 id="笔试">笔试&lt;/h1>
+&lt;p>上周四，网易在中大场的宣讲结束以后，便同时进行了一场笔试。&lt;strong>笔试题目较难&lt;/strong>。题目&lt;strong>满分一百分，前60分选择以及计算填空题，后40分编程&lt;/strong>。&lt;/p>
+&lt;h2 id="前60分">前60分&lt;/h2>
+&lt;p>前面60分里面主要是&lt;strong>理论算法题&lt;/strong>，还夹杂一些&lt;strong>操作系统题目&lt;/strong>和&lt;strong>计算机网络题目&lt;/strong>，以及部分&lt;strong>和岗位有关的内容&lt;/strong>（比如我面试的是直播开发，试卷上就有问视频格式不包括下面中的哪一个），另外选择题里面&lt;strong>少量数据库&lt;/strong>。&lt;/p>
+&lt;p>现在还记得的比如很经典的&lt;strong>2017!的结构末尾有多少个0&lt;/strong>, &lt;strong>7^2017%5结果为多少&lt;/strong>啊，&lt;strong>第一趟快排结果&lt;/strong>怎样，&lt;strong>堆排调整结果怎样&lt;/strong>，&lt;strong>OS的内存置换算法&lt;/strong>，还有一些暂时想不起来的题目。&lt;/p>
+&lt;p>题目&lt;strong>难度有点大&lt;/strong>，对&lt;strong>基础的算法&lt;/strong>要求比较高，同时还要求被试者记得&lt;strong>OS&lt;/strong>，&lt;strong>计网&lt;/strong>知识等。如果以后有人打算去网易的话，遇到笔试前最好去&lt;a href="https://www.nowcoder.com/">&lt;strong>牛客网&lt;/strong>&lt;/a>刷一套或者几套网易的笔试题感受一下。笔试的时候才更加适应网易的套路，&lt;strong>运气好的话还有可能遇到原题&lt;/strong>。（我遇到一个比较简单的原题，还有一个一起考试的碰到了移到算法计算题的原题）。&lt;/p>
+&lt;p>这部分答题过程中，我思路比较清楚。可能因为不少题目在以前上机测试或者其他算法书中遇到过，所以不是特别偏的算法还是会的（比如有一道三进制的题，当时怎么都不会，现在时间太久也忘了）。经常打算法的人应该完成难度不大。&lt;/p>
+&lt;h2 id="后40分">后40分&lt;/h2>
+&lt;p>40分一共&lt;strong>有两道手写编程题&lt;/strong>，&lt;strong>第一题10分比较简单&lt;/strong>，&lt;strong>第二题会难一点30分&lt;/strong>。&lt;/p>
+&lt;p>在这次考试中，第一题是&lt;strong>求最大公因数和最小公倍数&lt;/strong>。第一题题目要求数据大小在1~2^32-1之间。这两个算法的实现我就不说了，因为已经算是算法入门级的代码了。但是很傻的是，我在计算最大公倍数时，return的结果只开到了undesigned int，这个估计会扣不少分。其实应该开到long long才能不溢出。&lt;/p>
+&lt;p>第二题，是一道&lt;strong>0-1背包问题，DP可解&lt;/strong>。但是因为时间不够，加上笔试前没有准备关于DP和背包问题，所以空出来了。题目大概意思是，在线直播平台上有各种打赏，比如打赏1（分数100）、打赏2（200）、打赏3（300），每种打赏收费标准不一样。相当于背包问题中的物品。一个用户想给主播发礼品，怎样做才能既将手中的钱花完，主播收到的积分也能最多。（题目大致应该是这样的，时间有点久了，记不是很清楚。）&lt;/p>
+&lt;p>然后在面试过程中，我瞟到了我的试卷，前面60分拿了36。这个能理解，我在那天回寝室，回想题目的时候，就发想算法填空题里面，有几道题手算出错了。页面置换的题目里面，将LRU（Least Recently Used, 最近最久未使用，可以实际应用），错用成了OPT（Optimal，最佳置换，理论上的置换方法）。其他的错在哪就可能自己事后都没发现吧。&lt;/p>
+&lt;p>&lt;strong>编程只拿到了4分&lt;/strong>（还是6分？）。羞耻= =，全是在那一道10分题中拿到的，除了long long之外不知道其他分数扣在哪，有可能是因为我当时图快使用的是递归求解，效率赶不上迭代，也有可能是犯了其他某些错误。30分的DP一分没拿到，毕竟我一行代码都没写= =。只有一行注释说“背包问题，可以用DP求解”。&lt;/p>
+&lt;p>总的来说，当时笔试完自我感觉并不好。本来以为不会过，等了快一周还没收到短信，所以都已经准备放弃希望了。直到昨天翻快递短信的时候，看到了网易的短信通知，说我笔试过了，可以参加初面了。&lt;/p>
+&lt;h1 id="初面">初面&lt;/h1>
+&lt;h2 id="裸面">裸面&lt;/h2>
+&lt;p>初面来的猝不及防，没有一点点心理准备的我，在收到短信的当天都还在淡定撸RFID的课程项目代码。结果一下午都在debug，晚上10点才搞完。当时觉得，“完了完了，明天得裸面了”。&lt;/p>
+&lt;p>半夜看了一会&lt;a href="http://chenbowen.baijia.baidu.com/article/472127">直播相关的技术帖&lt;/a>，白天精力消耗太大，爬上床睡了。&lt;/p>
+&lt;p>第二天早上7点多就爬起来继续看了一会，毕竟自己以前没怎么学过这一块，就按照计网知识，再加上自己以前学图像处理时对音频的知识，勉强硬啃下来了。&lt;/p>
+&lt;p>&lt;strong>但是我忘记了，校招一般不会问太多和工作岗位相关的工作，他们往往问的比较基础。比如最经典的8排序3搜索，比如OOP的虚类，虚函数，继承之类的基础知识。尤其是我简历里面还说了我主力代码是C/C++，之后是Java。&lt;/strong>&lt;/p>
+&lt;p>抱着裸面的心态去的网易大厦。今天的人还不少，不过脸熟的没多少，可能我们院（指我们软件工程（移动信息工程），而不是整个数据科学院啦）的人有的上午就面过了，或者没什么人投这边。整场面试下来就碰到一个认识的人。&lt;/p>
+&lt;p>进去之后人挺多了，我们在网易大厦一楼一个放映室等待，然后被一波一波叫出去等待面试。等不多一会，一个应该是HR的小姐姐带我们上了四楼（直播平台开发所在的楼层），十几个人在一个会议室等着被喊去面试。&lt;/p>
+&lt;p>全是中大人，我们这一波十几个人就仨本科生，其他都是研究生，我开始有点怂了。。。。那个时候，对面一个研二师姐说上次面试就是手写搜索算法，我才突然想到，我光看直播技术贴，排序搜索什么的都没看= =&lt;/p>
+&lt;p>临时用手机翻了一点关于排序和搜索的算法，看了一下时间复杂度，被叫去面试。&lt;/p>
+&lt;h2 id="面试">面试&lt;/h2>
+&lt;p>面试环境还好，空间虽然小了点，但是因为是透明玻璃墙，所以也就没有显得拥挤，房间里面有&lt;strong>两个面试官&lt;/strong>。年轻的面试官主要提问算法和其他工程上的问题，另一位大叔感觉像是HR或者主管之类的管理者。&lt;/p>
+&lt;p>首先是自我介绍啦，稍微讲一下自己的情况就好（我就讲了讲我来自哪，目前情况怎么样之类的，半分钟就没词了= =）。&lt;/p>
+&lt;p>之后试官首先问我兴趣点，因为这个岗位进去之后还是有很多方向，比如&lt;strong>前端 ，服务器，移动端&lt;/strong>之类。我说的是服务器，一方面是因为自己确实对前段没什么兴趣，另一方面去年和今年项目做得多了，就越来越觉得服务器挺重要的，毕竟很多前端的动态处理，移动端的服务，都得靠服务器端进行处理。&lt;/p>
+&lt;p>接着面试开始问我的项目经验。年轻面试官从我的简历里面抽了大二时候做的用哈希表实现词典查询的项目进行提问。&lt;/p>
+&lt;p>一脸懵逼，两脸茫然，猝不及防。我以为会问我直播技术有哪些瓶颈，我以为会问我怎么降低网络延迟，我以为会问我直播使用什么协议，分别有哪些优缺点，我以为会问我云计算课程实现的利用MapReduce分布式项目，我以为。。。&lt;/p>
+&lt;p>然而，他竟然问我大二的项目= =&lt;/p>
+&lt;p>还好当时自己在那个项目上折腾了好几天，依稀记得使用&lt;strong>Map方法+链表&lt;/strong>实现的查询功能。然后我开始&lt;strong>在草稿上回忆项目思路，一边回忆一遍和面试官口述&lt;/strong>（虽然一开始有点紧张还回忆错了，面试官仔细听了以后，对我查询方式提了一点质疑，我才重新想起来当时的项目内容。）口述完自己当时的项目之后，考官问我对这个项目有什么&lt;strong>改进的想法&lt;/strong>。&lt;/p>
+&lt;p>改进的想法？？？刚刚回忆完整个项目的我又开始陷入了沉思。我开始吧这个项目和这个岗位可能需要的地方开始考虑。&lt;/p>
+&lt;p>这个岗位不是应该对分布式要求对点么，那就分布式搜索？？&lt;strong>没听说过，不能瞎说&lt;/strong>。自己唯一写过的分布式架构的也就&lt;strong>MapReduce实现的线性回归&lt;/strong>，自己也暂时没想带怎么使用分布式进行搜索的方法。突然我想到，提问过程中，面试官似乎问过我&lt;strong>处理的信息量&lt;/strong>，&lt;strong>我那种实现方法需要将所有数据写进内存，很费空间，这一点似乎可以优化&lt;/strong>。于是我就根据操作系统里面内存的的&lt;strong>多级检索&lt;/strong>，大致讲了一下在大量数据情况下，减少内存消耗的方法。&lt;/p>
+&lt;p>接下来面试官又从我项目经验中挑了一个二维码识别的项目。这个虽然是团队项目，但是前半部分我和队友一人一半，后半部分一人单挑，再加上是上个学期的项目，所以讲起来比较轻松。大致讲了一下自己当时实现的原理（直线在极坐标中的表示，点光源影响去除之类的）。&lt;/p>
+&lt;p>又谈了一点项目经验，面试官开始问我主要擅长的领域。&lt;/p>
+&lt;p>擅长的领域？？？又开始茫然，大学3年下来，基本都是按照课程项目走过来的，学的很散，也没有做过很成熟的项目。知识面有点广度，但是没有几个领域有深度，开始打算个人项目也是在上周四被网易理论试题打击以后，突然开始搞的。&lt;/p>
+&lt;p>那就&lt;strong>算法&lt;/strong>吧，再加个&lt;strong>计网&lt;/strong>。仔细想了想自己的两年半多，算法自己从大一下怼到大二下，一年半下来，&lt;strong>比赛奖项也集中在算法比赛上&lt;/strong>，就提了下自己的比较擅长算法。然后又想到我们上学期我&lt;strong>计网理论&lt;/strong>学的还行，实验课怼交换机也贡献了大部分力气。这两个合起来对我拿到这份offer会不会有帮助。&lt;/p>
+&lt;p>面试官开始问我关于&lt;strong>网络编程的问题&lt;/strong>（当时的问题是，&lt;strong>tcp编程的时候，什么时候会有time_ wait&lt;/strong>）。但是我没经历过网络编程啊，上个学期交换器和路由器的实验全部重在配置，在控制台输指令的那种。网络编程这一块我就没接触过啊，我就试探了一下说是不是在网络用塞的时候，因为听到这个变量我以为是TCP的连接超时。面试官否决了我的回答，我只能如实说自己没做过相关项目，面试官说了真确答案是断开连接的时候。（&lt;strong>回来查了一下相关知识，time _wait确实是在TCP的四次挥手的时候用到的，拥塞控制是tcp _timestamps，&lt;/strong>&lt;a href="http://blog.csdn.net/qq100440110/article/details/52267708">&lt;strong>知识来源&lt;/strong>&lt;/a>）&lt;/p>
+&lt;p>接着面试官开始问我&lt;strong>算法题&lt;/strong>，比如&lt;strong>堆排和快排的对比，两种算法的应用场景之类&lt;/strong>。我大致分析了一下快排的缺点是&lt;strong>最坏情况时间复杂度&lt;/strong>是(On^2), 堆排整理需要(Onlgn)，但是忘记分析堆排和快拍的&lt;strong>空间消耗&lt;/strong>（自己平时从来没注意过），&lt;strong>是否乱序&lt;/strong>方面也忘记分析了（其实两者都会乱序）。终究还是自己平时项目做得少了，算法也看的少了。。。。&lt;/p>
+&lt;p>然后面试官问了我&lt;strong>快排的实现方法&lt;/strong>，我在纸上大致说了一种刚刚在网上看到，回忆起来的教科书上的快排。这种方法对最后的标志位在一开始是不明确的。我看考官没怎么说话，就默默在纸上再说了一下整个整理过程。看完考官提问，没有标志位的么。我就又说了在大一的时候学的预先定位标志位进行快排整理的方法，考官这次就似乎比较满意。&lt;/p>
+&lt;p>再接着面试官问了一下&lt;strong>STL中Map是用什么实现的&lt;/strong>。因为我第一个项目中，就是使用的标准STL Map，而不是自己实现。我答了&lt;strong>红黑树&lt;/strong>，这个在很久以前某篇文章中看到过。&lt;/p>
+&lt;p>最后就是大叔面试官问，&lt;strong>我还想说些什么&lt;/strong>。（大叔面试官全程比较少提问，感觉他应该是坐在主管位置，年轻的小哥面试官则应该是主要带项目什么的了）我大致说了一下&lt;strong>自己在投简历和面试过程中对这个岗位产生的疑问，以及问了下我能够学到什么&lt;/strong>，基本面试也就结束了。&lt;/p>
+&lt;h2 id="面试总结">面试总结&lt;/h2>
+&lt;p>总的来说，网易的&lt;strong>笔试确实有难度，面试关反而没有那么难了&lt;/strong>，主要重在&lt;strong>项目&lt;/strong>和你&lt;strong>擅长的方向&lt;/strong>的了解。&lt;/p>
+&lt;p>在准备方面&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>我笔试40分都有机会拿到面试机会，如果有机会参加笔试机会的人可以有信心了。&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>简历上的项目一定要是你有参与或者主持或者独自完成的项目。混水的项目就不要写上去了，以免面试官问起来自己一脸茫然。&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>面试前最好准备一下基础的算法知识。因为自己面的是开发岗，所以对算法要求还是比较高的。基本的8大查找，3大搜索要知道。&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>网易的面试方面不会太难。提前对自己的项目做好整理，看一下自己的项目报告什么的帮助回忆，也就不会像我这样裸面，在面试的时候一边面试一边回忆了。&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>有些问题还是流程化的，比如对这个工作有什么期待，自我评价（本次面试没有提到），自我介绍什么的。在准备前都好好准备下。&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>网易技术岗的技术面一共有两轮。我目前只经历了第一轮，希望有机会能够接触到第二轮（并不知道会问什么内容），以及最终的HR面。&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>面试官不会很严，技术面也不会压力面试什么的，面试环节还是比较轻松的，不用紧张。&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>&lt;em>最后，希望我还有机会写一个二面以及终面总结吧。&lt;/em>&lt;/strong>&lt;/p></description></item></channel></rss>

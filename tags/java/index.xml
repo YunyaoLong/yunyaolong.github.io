@@ -2,574 +2,564 @@
 从源码层面解读 Thread.start</description></item><item><title>【Java并发 02】Thread由浅入深</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/java%E5%B9%B6%E5%8F%91/java%E5%B9%B6%E5%8F%91-02thread%E7%94%B1%E6%B5%85%E5%85%A5%E6%B7%B1/</link><pubDate>Sat, 30 Jan 2021 03:02:49 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/java%E5%B9%B6%E5%8F%91/java%E5%B9%B6%E5%8F%91-02thread%E7%94%B1%E6%B5%85%E5%85%A5%E6%B7%B1/</guid><description>
 OS和Java中的线程状态转换、通过jstack分析线程状态</description></item><item><title>【Java并发 01】Java线程并发初窥</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/java%E5%B9%B6%E5%8F%91/java%E5%B9%B6%E5%8F%91-01java%E7%BA%BF%E7%A8%8B%E5%B9%B6%E5%8F%91%E5%88%9D%E7%AA%A5/</link><pubDate>Tue, 19 Jan 2021 03:27:12 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/java%E5%B9%B6%E5%8F%91/java%E5%B9%B6%E5%8F%91-01java%E7%BA%BF%E7%A8%8B%E5%B9%B6%E5%8F%91%E5%88%9D%E7%AA%A5/</guid><description>
 从api层面，初窥Java线程并发。</description></item><item><title>设计模式-观察者模式</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/</link><pubDate>Mon, 20 Jul 2020 10:02:28 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/</guid><description>
-&lt;h1 id="设计模式-观察者模式"&gt;设计模式-观察者模式&lt;/h1&gt;
-&lt;h2 id="使用observer和observable组合实现观察者"&gt;使用Observer和Observable组合实现观察者&lt;/h2&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-java" data-lang="java"&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 1&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="kd"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;DataCenter&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;extends&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Observable&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 2&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 3&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;private&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Initial DataCenter&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 4&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 5&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;change&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 6&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;DataCenter has changed&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 7&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 8&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 9&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;changeSomething&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;10&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;change&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;11&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;setChanged&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// 需要首先改变自身的状态，才能提醒观察者自己的状态已经改变了&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;12&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;notifyObservers&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// 表明这是一个拉取的方式，让观察者自己从被观察者中获取数据&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;13&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;14&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;getData&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;15&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;16&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;17&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;18&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;setData&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;19&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;data&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;20&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;21&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;22&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;23&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="kd"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;DigitalDisplay&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;implements&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Observer&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;24&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;private&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;List&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;?&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;extends&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Observable&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;observables&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;25&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;26&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;DigitalDisplay&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;List&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;?&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;extends&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Observable&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;observables&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;27&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;observables&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;observables&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;28&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Observable&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;obs&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;observables&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;29&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;obs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;addObserver&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;30&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;31&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;32&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;33&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nd"&gt;@Override&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;34&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;update&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Observable&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Object&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;arg&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;35&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;instanceof&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;DataCenter&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;36&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;DataCenter&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;dataCenter&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;DataCenter&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;37&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;display&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;dataCenter&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getData&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;38&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;39&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;40&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;41&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;private&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;display&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;42&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;System&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;out&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Observed data: &amp;#34;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;43&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;44&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="优点"&gt;优点&lt;/h3&gt;
-&lt;p&gt;优点显而意见，现成的Observable类已经装箱了注册、注销、主动推送消息以及提示观察者获取消息等基础功能，让使用者能够迅速上手完成观察者模式。&lt;/p&gt;</description></item><item><title>Spring的Bean管理</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/spring%E7%9A%84bean%E7%AE%A1%E7%90%86/</link><pubDate>Sat, 20 Jun 2020 15:45:49 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/spring%E7%9A%84bean%E7%AE%A1%E7%90%86/</guid><description>
-&lt;h1 id="目录"&gt;目录&lt;/h1&gt;
-&lt;p&gt;[toc]&lt;/p&gt;
-&lt;h1 id="spring的bean管理"&gt;Spring的Bean管理&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;本博客基于&lt;a href="https://github.com/LongyunYao/SpringSourceCodeTest"&gt;SpringSourceCodeTest&lt;/a&gt;仓库中【SpringDemo1.0】tag进行的编写。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;基于配置文件进行bean管理的方案是Spring初期推行的方式，在历史比较悠久的Spring项目中比较常见。&lt;/p&gt;
-&lt;h2 id="基于扫描的方式装载bean"&gt;基于扫描的方式装载bean&lt;/h2&gt;
-&lt;p&gt;一个比较典型的配置文件通常包含&lt;code&gt;&amp;lt;context&amp;gt;&lt;/code&gt;标签， &lt;code&gt;&amp;lt;context&amp;gt;&lt;/code&gt;用来表示该项目中哪些包中的bean需要被进行生命周期管理。&lt;/p&gt;
-&lt;p&gt;默认情况下，使用&lt;code&gt;&amp;lt;context&amp;gt;&lt;/code&gt;后，Spring会默认扫描定义的带有如下注解的bean：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;@Component&lt;/li&gt;
-&lt;li&gt;@Repository&lt;/li&gt;
-&lt;li&gt;@Service&lt;/li&gt;
-&lt;li&gt;@Controller&lt;/li&gt;
-&lt;li&gt;@RestController&lt;/li&gt;
-&lt;li&gt;@ControllerAdvice&lt;/li&gt;
-&lt;li&gt;@Configuration&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;参考项目src/main/resources/beans.xml，一个典型的&lt;code&gt;&amp;lt;context&amp;gt;&lt;/code&gt;文件如下：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 1&lt;/span&gt;&lt;span class="cl"&gt;&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 2&lt;/span&gt;&lt;span class="cl"&gt;&amp;lt;beans xmlns=&amp;#34;http://www.springframework.org/schema/beans&amp;#34;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 3&lt;/span&gt;&lt;span class="cl"&gt; xmlns:context=&amp;#34;http://www.springframework.org/schema/context&amp;#34;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 4&lt;/span&gt;&lt;span class="cl"&gt; xmlns:xsi=&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 5&lt;/span&gt;&lt;span class="cl"&gt; xsi:schemaLocation=&amp;#34;http://www.springframework.org/schema/beans
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 6&lt;/span&gt;&lt;span class="cl"&gt; http://www.springframework.org/schema/beans/spring-beans.xsd
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 7&lt;/span&gt;&lt;span class="cl"&gt; http://www.springframework.org/schema/context
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 8&lt;/span&gt;&lt;span class="cl"&gt; http://www.springframework.org/schema/context/spring-context.xsd&amp;#34;&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 9&lt;/span&gt;&lt;span class="cl"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;10&lt;/span&gt;&lt;span class="cl"&gt; &amp;lt;!--默认会扫描包文件下的@Controller, @Service, @Repository, @Component等常见注解--&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;11&lt;/span&gt;&lt;span class="cl"&gt; &amp;lt;context:component-scan base-package=&amp;#34;com.springtest.demo&amp;#34;&amp;gt;&amp;lt;/context:component-scan&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;12&lt;/span&gt;&lt;span class="cl"&gt;&amp;lt;/beans&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="xml格式解读"&gt;XML格式解读&lt;/h3&gt;
-&lt;p&gt;在这份xml中，我们可以稍微简单说明都是做了一些什么事情。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;首先我们定义了一个&lt;code&gt;&amp;lt;beans&amp;gt;&lt;/code&gt;的大标签，用于生命这个配置文件是用于Spring的生命周期管理，因此我们使用Spring-bean提供的命名空间，&lt;code&gt;&amp;quot;xmlns=&amp;quot;http://www.springframework.org/schema/beans&amp;quot;&lt;/code&gt;；&lt;/li&gt;
-&lt;li&gt;在下文中需要使用&lt;code&gt;&amp;lt;context&amp;gt;&lt;/code&gt;标签，因此我们定义context所使用的命名空间&lt;code&gt;xmlns:context=&amp;quot;http://www.springframework.org/schema/context&amp;quot;&lt;/code&gt;；&lt;/li&gt;
-&lt;li&gt;然后我们定义我们需要扫描的包的位置&lt;code&gt;&amp;lt;context:component-scan base-package=&amp;quot;com.springtest.demo&amp;quot;&amp;gt;&amp;lt;/context:component-scan&amp;gt;&lt;/code&gt;；&lt;/li&gt;
-&lt;li&gt;至此我们的xml其实就已经不会报错了，说明此事我们的xml从结构上已经没有明显问题；&lt;/li&gt;
-&lt;li&gt;但是此时启动Spring启动依然会失败并且报错&lt;code&gt;Cannot find the declaration of element 'beans'.&lt;/code&gt;，因此我们需要继续补充这份这份xml的schema文件，用来描述我们的xml中的标签行为；&lt;/li&gt;
-&lt;li&gt;此时我们就需要引入我们的&lt;code&gt;xsi:schemaLocation&lt;/code&gt;属性，为此我们首先需要引入&lt;code&gt;xsi&lt;/code&gt;的前缀命名空间&lt;code&gt;xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;最后我们补充完整的&lt;code&gt;xsi:schemaLocation&lt;/code&gt;解析我们所引用的两个命名空间&lt;code&gt;&amp;quot;http://www.springframework.org/schema/beans&amp;quot;&lt;/code&gt;和&lt;code&gt;&amp;quot;http://www.springframework.org/schema/context&amp;quot;&lt;/code&gt;即可。&lt;/li&gt;
-&lt;li&gt;附：xmlns即xml namespace的缩写; xsi即xml schema instance的缩写; xsd即xml schema definition的缩写&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 1&lt;/span&gt;&lt;span class="cl"&gt;&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 2&lt;/span&gt;&lt;span class="cl"&gt;&amp;lt;beans
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 3&lt;/span&gt;&lt;span class="cl"&gt; &amp;lt;!-- 表明整个beans标签使用的是xmlns所指向的命名空间 --&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 4&lt;/span&gt;&lt;span class="cl"&gt; xmlns=&amp;#34;http://www.springframework.org/schema/beans&amp;#34;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 5&lt;/span&gt;&lt;span class="cl"&gt; &amp;lt;!-- 表明子节点中context标签使用的是xmlns:contex所指向的命名空间 --&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 6&lt;/span&gt;&lt;span class="cl"&gt; xmlns:context=&amp;#34;http://www.springframework.org/schema/context&amp;#34;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 7&lt;/span&gt;&lt;span class="cl"&gt; &amp;lt;!-- 表明xsi属性标签使用的是xmlns:xsi所指向的命名空间 --&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 8&lt;/span&gt;&lt;span class="cl"&gt; xmlns:xsi=&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 9&lt;/span&gt;&lt;span class="cl"&gt; &amp;lt;!-- 表明每一个命名空间具体指向的描述文件(xsd文件) --&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;10&lt;/span&gt;&lt;span class="cl"&gt; xsi:schemaLocation=&amp;#34;http://www.springframework.org/schema/beans
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;11&lt;/span&gt;&lt;span class="cl"&gt; http://www.springframework.org/schema/beans/spring-beans.xsd
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;12&lt;/span&gt;&lt;span class="cl"&gt; http://www.springframework.org/schema/context
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;13&lt;/span&gt;&lt;span class="cl"&gt; http://www.springframework.org/schema/context/spring-context.xsd&amp;#34;&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;14&lt;/span&gt;&lt;span class="cl"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;15&lt;/span&gt;&lt;span class="cl"&gt; &amp;lt;!--默认会扫描包文件下的@Controller, @Service, @Repository, @Component等常见注解--&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;16&lt;/span&gt;&lt;span class="cl"&gt; &amp;lt;context:component-scan base-package=&amp;#34;com.springtest.demo&amp;#34;&amp;gt;&amp;lt;/context:component-scan&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;17&lt;/span&gt;&lt;span class="cl"&gt;&amp;lt;/beans&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="xml内容解读"&gt;XML内容解读&lt;/h3&gt;
-&lt;p&gt;这里&lt;code&gt;context:component-scan&lt;/code&gt;定义了我们的组件扫描的范围，我们直接定义到整个项目的根节点&lt;code&gt;com.springtest.demo&lt;/code&gt;，这样这个包内所有的组件都会被扫描并且组装到上下文中供我们使用。&lt;/p&gt;</description></item><item><title>一点点手写Spring</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E4%B8%80%E7%82%B9%E7%82%B9%E6%89%8B%E5%86%99spring/</link><pubDate>Sat, 20 Jun 2020 10:02:28 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E4%B8%80%E7%82%B9%E7%82%B9%E6%89%8B%E5%86%99spring/</guid><description>
-&lt;h1 id="目录"&gt;目录&lt;/h1&gt;
-&lt;p&gt;[toc]&lt;/p&gt;
-&lt;h1 id="一点点手写spring"&gt;一点点手写Spring&lt;/h1&gt;
-&lt;p&gt;一直有一个小小的计划，做一个完整的系列，从使用Spring，到模拟Spring，到“抄袭”Spring，一点点理解Spring的内在和机制，同时加深自己对Java机制以及设计模式等内在的理解。&lt;/p&gt;
-&lt;p&gt;因为Spring很大，模块很多，这里我计划只关注Spring的core包、bean包和context包，分别对应核心、bean的生命周期管理和Spring上下文的。&lt;/p&gt;
-&lt;p&gt;首先从Spring的基础配置开始，我们现在最经常使用Spring的Bean管理有两种方式：①通过配置文件管理bean; ②通过注解配置类进行bean的扫描管理。&lt;/p&gt;
-&lt;p&gt;我将尝试两种扫描方式都用一次，然后尝试各自复现。基于此来对Spring 使用-模拟-“抄袭”。&lt;/p&gt;
-&lt;h2 id="关于仓库和分支"&gt;关于仓库和分支&lt;/h2&gt;
-&lt;p&gt;相关demo发布在我个人仓库的&lt;a href="https://github.com/LongyunYao/SpringSourceCodeTest"&gt;《SpringSourceCodeTest》&lt;/a&gt; 中，当前已经完成了对Spring的初步使用和模拟。&lt;/p&gt;
-&lt;p&gt;每次有重大特性变动，或者有较大的刷新的时候，我都会打上tag，以此尽可能与博客描述的内容对齐。&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;注：当前博客对应的仓库中的tag为&lt;a href=""&gt;&lt;/a&gt;，可以切换到这个tag同步阅读博客&lt;/em&gt;&lt;/p&gt;
-&lt;h2 id="关于博客分布"&gt;关于博客分布&lt;/h2&gt;
-&lt;p&gt;本次更新计划按照系列更新的方式进行更新，因此这篇文章只是作为综述，详细点在各个文章中更新。&lt;/p&gt;
-&lt;p&gt;相关文章：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;a href="https://blog.csdn.net/Michael753951/article/details/106578817"&gt;《自定义注解并且进行扫描解析》&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;</description></item><item><title>自定义注解并且进行扫描解析</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3%E5%B9%B6%E4%B8%94%E8%BF%9B%E8%A1%8C%E6%89%AB%E6%8F%8F%E8%A7%A3%E6%9E%90/</link><pubDate>Fri, 05 Jun 2020 22:52:22 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3%E5%B9%B6%E4%B8%94%E8%BF%9B%E8%A1%8C%E6%89%AB%E6%8F%8F%E8%A7%A3%E6%9E%90/</guid><description>
-&lt;p&gt;[toc]&lt;/p&gt;
-&lt;h1 id="注解背景"&gt;注解背景&lt;/h1&gt;
-&lt;p&gt;首先我们要知道背景知识：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;每一个注解其实就是一个特殊的接口(带着@符号，其实是语法糖，会被编译器自动编译成继承自Annotation接口)。我们反编译一下class文件就能看出来。&lt;/li&gt;
-&lt;li&gt;注解只是一个标记位，标记了某一个类，某一个字段或者某一个函数之后，我们就可以对被标记的属性进行我们期望的行为——比如运行时动态获取和修改被标记的属性，动态执行被标记的函数等等&lt;/li&gt;
-&lt;li&gt;基于第二点，我们在定义了自己的注解之后，还要定义自己注解的解析类，这样我们才能真正让注解发挥起作用（只标记而不做任何动作就和没标记没任何区别了）&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h1 id="源码解析"&gt;源码解析&lt;/h1&gt;
-&lt;p&gt;废话不说上我自己定义的代码，然后一个一个说明。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-java" data-lang="java"&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 1&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;package&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nn"&gt;com.springtest.demo.annotation&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 2&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 3&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nn"&gt;java.lang.annotation.Documented&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 4&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nn"&gt;java.lang.annotation.ElementType&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 5&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nn"&gt;java.lang.annotation.Retention&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 6&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nn"&gt;java.lang.annotation.RetentionPolicy&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 7&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nn"&gt;java.lang.annotation.Target&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 8&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 9&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="nd"&gt;@Target&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ElementType&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;FIELD&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;10&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="nd"&gt;@Retention&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;RetentionPolicy&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;RUNTIME&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;11&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="nd"&gt;@Documented&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;12&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="kd"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nd"&gt;@interface&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Fruit&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;13&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;value&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;14&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;15&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;name&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;16&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;17&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;enum&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;FruitType&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;18&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;APPLE&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;PEACH&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;PEAR&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;WATERMELON&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;19&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;20&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;21&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;FruitType&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;type&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;FruitType&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;APPLE&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;22&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-java" data-lang="java"&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 1&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;package&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nn"&gt;com.springtest.demo.entity.fruit&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 2&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 3&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nn"&gt;com.springtest.demo.annotation.Fruit&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 4&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nn"&gt;com.springtest.demo.annotation.Scope&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 5&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 6&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="nd"&gt;@Scope&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Scope&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;SCOPE_PROTOTYPE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 7&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="kd"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Pear&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 8&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nd"&gt;@Fruit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;pear&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 9&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;private&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;10&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;11&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nd"&gt;@Fruit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Fruit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;FruitType&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;PEAR&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;12&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;private&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;13&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-java" data-lang="java"&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 1&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 2&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;package&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nn"&gt;com.springtest.demo.entity.fruit&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 3&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 4&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nn"&gt;com.springtest.demo.annotation.Fruit&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 5&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nn"&gt;com.springtest.demo.annotation.Scope&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 6&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 7&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="nd"&gt;@Scope&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Scope&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;SCOPE_PROTOTYPE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 8&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="kd"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Apple&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 9&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nd"&gt;@Fruit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;apple&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;10&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;private&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;11&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;12&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nd"&gt;@Fruit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Fruit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;FruitType&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;APPLE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;13&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;private&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;14&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;以上就是我做的最简单的demo，定义并应用了一个注解。我们来看看Fruit注解反编译的结果是什么就能大概知道这故事背后的作用。&lt;/p&gt;</description></item><item><title>Lambda表达式与函数式接口</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3/</link><pubDate>Fri, 02 Aug 2019 00:55:10 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3/</guid><description>
-&lt;h1 id="目录"&gt;目录&lt;/h1&gt;
-&lt;p&gt;[toc]&lt;/p&gt;
-&lt;h1 id="lambda表达式java函数式接口"&gt;Lambda表达式Java函数式接口&lt;/h1&gt;
-&lt;p&gt;都9012年了，这篇博文代码看看5000年前4012年发布的Java 8新引入的Lambda表达式到底是个什么鬼。&lt;/p&gt;
-&lt;h2 id="简述lambda表达式"&gt;简述Lambda表达式&lt;/h2&gt;
-&lt;p&gt;Lambda表达式并不是Java 8特有的特性，其设计初衷是用于一些特定代码中，已知固定入参和固定返回值的时候，动态生成的一种函数。&lt;/p&gt;
-&lt;p&gt;举个栗子：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-java" data-lang="java"&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;1&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="kd"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Var3&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;func&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Var1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;var1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Var2&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;var2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;2&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;Var3&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;var3&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;doSomeThing&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;var1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;var2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;3&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;var3&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;4&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;上述代码是我们常见的Java代码格式，假如说我们已经设定这个函数只会被在特定位置被调用，或者换种说法，我们假设&lt;code&gt;func&lt;/code&gt;函数仅仅只会作为&lt;code&gt;func2(Var3 var3)&lt;/code&gt;的入参。同时如果我们把&lt;code&gt;func&lt;/code&gt;这个函数的声明放到&lt;code&gt;func2&lt;/code&gt;的入参时声明，那此时我们此时调用时，其实这个函数是叫&lt;code&gt;func&lt;/code&gt;还是叫&lt;code&gt;funcA&lt;/code&gt;还是叫&lt;code&gt;ABCD&lt;/code&gt;已经无所谓了。&lt;/p&gt;
-&lt;p&gt;因此我们就可以省略这个函数名，将其替换成&lt;code&gt;-&amp;gt;&lt;/code&gt;，由此将上述函数省略为：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-java" data-lang="java"&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;1&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;Var3&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Var1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;var1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Var2&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;var2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;2&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;Var3&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;var3&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;doSomeThing&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;var1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;var2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;3&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;var3&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;4&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;接下来由于我们已知&lt;code&gt;func2(Var3 var3)&lt;/code&gt;的入参肯定为Var3类型，所以上述代码又可以进一步省略：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-java" data-lang="java"&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;1&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Var1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;var1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Var2&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;var2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;2&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;Var3&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;var3&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;doSomeThing&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;var1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;var2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;3&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;var3&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;4&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;同理由于我们已知&lt;code&gt;func&lt;/code&gt;的入参类型肯定为&lt;code&gt;Var1&lt;/code&gt;和&lt;code&gt;Var2&lt;/code&gt;，于是我们继续省略：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-java" data-lang="java"&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;1&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;var1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;var2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;2&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;Var3&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;var3&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;doSomeThing&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;var1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;var2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;3&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;var3&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;4&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后由于我们如果整个函数内部只有一行操作的话，则可以知道这个操作的返回值肯定是这一行的操作结果，因此我们继续省略：&lt;/p&gt;</description></item><item><title>Java的Integer类方法解读</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/java%E7%9A%84integer%E7%B1%BB%E6%96%B9%E6%B3%95%E8%A7%A3%E8%AF%BB/</link><pubDate>Fri, 19 Jul 2019 16:13:38 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/java%E7%9A%84integer%E7%B1%BB%E6%96%B9%E6%B3%95%E8%A7%A3%E8%AF%BB/</guid><description>
-&lt;h1 id="highestonebit"&gt;highestOneBit&lt;/h1&gt;
-&lt;p&gt;获取一个int类型的二进制取整&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-java" data-lang="java"&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;1&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="kd"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;static&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;highestOneBit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;2&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;// HD, Figure 3-1&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;3&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;|=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;4&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;|=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;5&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;|=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;4&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;6&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;|=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;8&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;7&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;|=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;16&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;8&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;9&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;上述代码粗看会不理解实现原理，但是跟着推导一次就能理解算法的思想。假定一个int的二进制表达式是&lt;code&gt;100001000&lt;/code&gt;，这个常数的迭代过程如下：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;第一次结束 &lt;code&gt;100001000&lt;/code&gt; -&amp;gt; &lt;code&gt;110001100&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;第二次结束 &lt;code&gt;110001100&lt;/code&gt; -&amp;gt; &lt;code&gt;111101111&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;第三次结束 &lt;code&gt;111101111&lt;/code&gt; -&amp;gt; &lt;code&gt;111111111&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;第四次结束 &lt;code&gt;111111111&lt;/code&gt; -&amp;gt; &lt;code&gt;111111111&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;第五次结束 &lt;code&gt;111111111&lt;/code&gt; -&amp;gt; &lt;code&gt;111111111&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;然后返回值为&lt;code&gt;111111111&lt;/code&gt;-&lt;code&gt;11111111&lt;/code&gt; = &lt;code&gt;100000000&lt;/code&gt;。&lt;/p&gt;</description></item><item><title>RFID实验三总结</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/rfid%E5%AE%9E%E9%AA%8C%E4%B8%89%E6%80%BB%E7%BB%93/</link><pubDate>Tue, 23 May 2017 01:19:42 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/rfid%E5%AE%9E%E9%AA%8C%E4%B8%89%E6%80%BB%E7%BB%93/</guid><description>
-&lt;blockquote&gt;
-&lt;p&gt;一次debug到哭泣的经历。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;strong&gt;龙云尧个人博客，转载请注明出处。&lt;/strong&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;CSDN地址：http://blog.csdn.net/michael753951
-个人blog地址：http://yaoyl.cn&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;在实验过程中，需要不断翻阅实验课PPT之**《04 电子钱包的功能》&lt;strong&gt;，word之&lt;/strong&gt;《实验3文档》**，以及不知名大佬的&lt;a href="http://www.tqcto.com/article/software/83894.html"&gt;课程总代码&lt;/a&gt;，CSDN大佬吕浪的&lt;a href="http://blog.csdn.net/lv_victor/article/details/51028930"&gt;Java card开发系列文章&lt;/a&gt;。&lt;/p&gt;
-&lt;p&gt;本次实验和前两次实验相比，代码量多&lt;strong&gt;很多&lt;/strong&gt;，并且&lt;strong&gt;实验思路稍有区别&lt;/strong&gt;。实验之前可以不太懂实验流程（主要是因为流程本身就太复杂了），但是一定要&lt;strong&gt;一遍又一遍阅读源代码&lt;/strong&gt;，只有在读源码的过程中，才能体会整个验证过程，对项目中涉及到的函数方法的使用才能有一个更加深入的了解。接着自己不断重写代码，理解整个实现过程，才能对这个课程实验有较为深入的了解。&lt;/p&gt;
-&lt;p&gt;最终的代码地址：https://github.com/LongyunYao/RFID_lab/&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;代码在未征得本人同意之前，请勿直接Ctrl+C，Ctrl+V，谢谢。&lt;/strong&gt;&lt;/p&gt;
-&lt;h1 id="正式实验"&gt;正式实验&lt;/h1&gt;
-&lt;h2 id="实验分析"&gt;实验分析&lt;/h2&gt;
-&lt;p&gt;首先我们在PPT中知道本次实验的主要需要实现的功能是：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;圈存&lt;/li&gt;
-&lt;li&gt;消费&lt;/li&gt;
-&lt;li&gt;余额查询&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;接下来我们开始看ppt《04 电子钱包的功能》和《实验3文档》。&lt;/p&gt;
-&lt;p&gt;首先是圈存功能的流程图。&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+&lt;h1 id="设计模式-观察者模式">设计模式-观察者模式&lt;/h1>
+&lt;h2 id="使用observer和observable组合实现观察者">使用Observer和Observable组合实现观察者&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="ln"> 1&lt;/span>&lt;span class="cl">&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">class&lt;/span> &lt;span class="nc">DataCenter&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">extends&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Observable&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 2&lt;/span>&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 3&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">private&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s">&amp;#34;Initial DataCenter&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 4&lt;/span>&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 5&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">void&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">change&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 6&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s">&amp;#34;DataCenter has changed&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 7&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 8&lt;/span>&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 9&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">void&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">changeSomething&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">10&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">change&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">11&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">setChanged&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1">// 需要首先改变自身的状态，才能提醒观察者自己的状态已经改变了&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">12&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">notifyObservers&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c1">// 表明这是一个拉取的方式，让观察者自己从被观察者中获取数据&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">13&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">14&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">getData&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">15&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">return&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">16&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">17&lt;/span>&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">18&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">void&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">setData&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">19&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">data&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">20&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">21&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">22&lt;/span>&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">23&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">class&lt;/span> &lt;span class="nc">DigitalDisplay&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">implements&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Observer&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">24&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">private&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;?&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">extends&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Observable&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">observables&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">25&lt;/span>&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">26&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">DigitalDisplay&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">List&lt;/span>&lt;span class="o">&amp;lt;?&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">extends&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Observable&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">observables&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">27&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">observables&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">observables&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">28&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">for&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Observable&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">obs&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">observables&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">29&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">obs&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">addObserver&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">30&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">31&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">32&lt;/span>&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">33&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nd">@Override&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">34&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">void&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">update&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Observable&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">o&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Object&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">arg&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">35&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">if&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">o&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">instanceof&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">DataCenter&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">36&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">DataCenter&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">dataCenter&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">DataCenter&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">o&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">37&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">display&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">dataCenter&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">getData&lt;/span>&lt;span class="p">());&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">38&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">39&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">40&lt;/span>&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">41&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">private&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">void&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">display&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">42&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">System&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Observed data: &amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">43&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">44&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="优点">优点&lt;/h3>
+&lt;p>优点显而意见，现成的Observable类已经装箱了注册、注销、主动推送消息以及提示观察者获取消息等基础功能，让使用者能够迅速上手完成观察者模式。&lt;/p></description></item><item><title>Spring的Bean管理</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/spring%E7%9A%84bean%E7%AE%A1%E7%90%86/</link><pubDate>Sat, 20 Jun 2020 15:45:49 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/spring%E7%9A%84bean%E7%AE%A1%E7%90%86/</guid><description>
+&lt;h1 id="目录">目录&lt;/h1>
+&lt;p>[toc]&lt;/p>
+&lt;h1 id="spring的bean管理">Spring的Bean管理&lt;/h1>
+&lt;blockquote>
+&lt;p>本博客基于&lt;a href="https://github.com/LongyunYao/SpringSourceCodeTest">SpringSourceCodeTest&lt;/a>仓库中【SpringDemo1.0】tag进行的编写。&lt;/p>&lt;/blockquote>
+&lt;p>基于配置文件进行bean管理的方案是Spring初期推行的方式，在历史比较悠久的Spring项目中比较常见。&lt;/p>
+&lt;h2 id="基于扫描的方式装载bean">基于扫描的方式装载bean&lt;/h2>
+&lt;p>一个比较典型的配置文件通常包含&lt;code>&amp;lt;context&amp;gt;&lt;/code>标签， &lt;code>&amp;lt;context&amp;gt;&lt;/code>用来表示该项目中哪些包中的bean需要被进行生命周期管理。&lt;/p>
+&lt;p>默认情况下，使用&lt;code>&amp;lt;context&amp;gt;&lt;/code>后，Spring会默认扫描定义的带有如下注解的bean：&lt;/p>
+&lt;ul>
+&lt;li>@Component&lt;/li>
+&lt;li>@Repository&lt;/li>
+&lt;li>@Service&lt;/li>
+&lt;li>@Controller&lt;/li>
+&lt;li>@RestController&lt;/li>
+&lt;li>@ControllerAdvice&lt;/li>
+&lt;li>@Configuration&lt;/li>
+&lt;/ul>
+&lt;p>参考项目src/main/resources/beans.xml，一个典型的&lt;code>&amp;lt;context&amp;gt;&lt;/code>文件如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="ln"> 1&lt;/span>&lt;span class="cl">&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 2&lt;/span>&lt;span class="cl">&amp;lt;beans xmlns=&amp;#34;http://www.springframework.org/schema/beans&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 3&lt;/span>&lt;span class="cl"> xmlns:context=&amp;#34;http://www.springframework.org/schema/context&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 4&lt;/span>&lt;span class="cl"> xmlns:xsi=&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 5&lt;/span>&lt;span class="cl"> xsi:schemaLocation=&amp;#34;http://www.springframework.org/schema/beans
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 6&lt;/span>&lt;span class="cl"> http://www.springframework.org/schema/beans/spring-beans.xsd
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 7&lt;/span>&lt;span class="cl"> http://www.springframework.org/schema/context
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 8&lt;/span>&lt;span class="cl"> http://www.springframework.org/schema/context/spring-context.xsd&amp;#34;&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 9&lt;/span>&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">10&lt;/span>&lt;span class="cl"> &amp;lt;!--默认会扫描包文件下的@Controller, @Service, @Repository, @Component等常见注解--&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">11&lt;/span>&lt;span class="cl"> &amp;lt;context:component-scan base-package=&amp;#34;com.springtest.demo&amp;#34;&amp;gt;&amp;lt;/context:component-scan&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">12&lt;/span>&lt;span class="cl">&amp;lt;/beans&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="xml格式解读">XML格式解读&lt;/h3>
+&lt;p>在这份xml中，我们可以稍微简单说明都是做了一些什么事情。&lt;/p>
+&lt;ol>
+&lt;li>首先我们定义了一个&lt;code>&amp;lt;beans&amp;gt;&lt;/code>的大标签，用于生命这个配置文件是用于Spring的生命周期管理，因此我们使用Spring-bean提供的命名空间，&lt;code>&amp;quot;xmlns=&amp;quot;http://www.springframework.org/schema/beans&amp;quot;&lt;/code>；&lt;/li>
+&lt;li>在下文中需要使用&lt;code>&amp;lt;context&amp;gt;&lt;/code>标签，因此我们定义context所使用的命名空间&lt;code>xmlns:context=&amp;quot;http://www.springframework.org/schema/context&amp;quot;&lt;/code>；&lt;/li>
+&lt;li>然后我们定义我们需要扫描的包的位置&lt;code>&amp;lt;context:component-scan base-package=&amp;quot;com.springtest.demo&amp;quot;&amp;gt;&amp;lt;/context:component-scan&amp;gt;&lt;/code>；&lt;/li>
+&lt;li>至此我们的xml其实就已经不会报错了，说明此事我们的xml从结构上已经没有明显问题；&lt;/li>
+&lt;li>但是此时启动Spring启动依然会失败并且报错&lt;code>Cannot find the declaration of element 'beans'.&lt;/code>，因此我们需要继续补充这份这份xml的schema文件，用来描述我们的xml中的标签行为；&lt;/li>
+&lt;li>此时我们就需要引入我们的&lt;code>xsi:schemaLocation&lt;/code>属性，为此我们首先需要引入&lt;code>xsi&lt;/code>的前缀命名空间&lt;code>xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;&lt;/code>&lt;/li>
+&lt;li>最后我们补充完整的&lt;code>xsi:schemaLocation&lt;/code>解析我们所引用的两个命名空间&lt;code>&amp;quot;http://www.springframework.org/schema/beans&amp;quot;&lt;/code>和&lt;code>&amp;quot;http://www.springframework.org/schema/context&amp;quot;&lt;/code>即可。&lt;/li>
+&lt;li>附：xmlns即xml namespace的缩写; xsi即xml schema instance的缩写; xsd即xml schema definition的缩写&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="ln"> 1&lt;/span>&lt;span class="cl">&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 2&lt;/span>&lt;span class="cl">&amp;lt;beans
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 3&lt;/span>&lt;span class="cl"> &amp;lt;!-- 表明整个beans标签使用的是xmlns所指向的命名空间 --&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 4&lt;/span>&lt;span class="cl"> xmlns=&amp;#34;http://www.springframework.org/schema/beans&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 5&lt;/span>&lt;span class="cl"> &amp;lt;!-- 表明子节点中context标签使用的是xmlns:contex所指向的命名空间 --&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 6&lt;/span>&lt;span class="cl"> xmlns:context=&amp;#34;http://www.springframework.org/schema/context&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 7&lt;/span>&lt;span class="cl"> &amp;lt;!-- 表明xsi属性标签使用的是xmlns:xsi所指向的命名空间 --&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 8&lt;/span>&lt;span class="cl"> xmlns:xsi=&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 9&lt;/span>&lt;span class="cl"> &amp;lt;!-- 表明每一个命名空间具体指向的描述文件(xsd文件) --&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">10&lt;/span>&lt;span class="cl"> xsi:schemaLocation=&amp;#34;http://www.springframework.org/schema/beans
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">11&lt;/span>&lt;span class="cl"> http://www.springframework.org/schema/beans/spring-beans.xsd
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">12&lt;/span>&lt;span class="cl"> http://www.springframework.org/schema/context
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">13&lt;/span>&lt;span class="cl"> http://www.springframework.org/schema/context/spring-context.xsd&amp;#34;&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">14&lt;/span>&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">15&lt;/span>&lt;span class="cl"> &amp;lt;!--默认会扫描包文件下的@Controller, @Service, @Repository, @Component等常见注解--&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">16&lt;/span>&lt;span class="cl"> &amp;lt;context:component-scan base-package=&amp;#34;com.springtest.demo&amp;#34;&amp;gt;&amp;lt;/context:component-scan&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">17&lt;/span>&lt;span class="cl">&amp;lt;/beans&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="xml内容解读">XML内容解读&lt;/h3>
+&lt;p>这里&lt;code>context:component-scan&lt;/code>定义了我们的组件扫描的范围，我们直接定义到整个项目的根节点&lt;code>com.springtest.demo&lt;/code>，这样这个包内所有的组件都会被扫描并且组装到上下文中供我们使用。&lt;/p></description></item><item><title>一点点手写Spring</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E4%B8%80%E7%82%B9%E7%82%B9%E6%89%8B%E5%86%99spring/</link><pubDate>Sat, 20 Jun 2020 10:02:28 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E4%B8%80%E7%82%B9%E7%82%B9%E6%89%8B%E5%86%99spring/</guid><description>
+&lt;h1 id="目录">目录&lt;/h1>
+&lt;p>[toc]&lt;/p>
+&lt;h1 id="一点点手写spring">一点点手写Spring&lt;/h1>
+&lt;p>一直有一个小小的计划，做一个完整的系列，从使用Spring，到模拟Spring，到“抄袭”Spring，一点点理解Spring的内在和机制，同时加深自己对Java机制以及设计模式等内在的理解。&lt;/p>
+&lt;p>因为Spring很大，模块很多，这里我计划只关注Spring的core包、bean包和context包，分别对应核心、bean的生命周期管理和Spring上下文的。&lt;/p>
+&lt;p>首先从Spring的基础配置开始，我们现在最经常使用Spring的Bean管理有两种方式：①通过配置文件管理bean; ②通过注解配置类进行bean的扫描管理。&lt;/p>
+&lt;p>我将尝试两种扫描方式都用一次，然后尝试各自复现。基于此来对Spring 使用-模拟-“抄袭”。&lt;/p>
+&lt;h2 id="关于仓库和分支">关于仓库和分支&lt;/h2>
+&lt;p>相关demo发布在我个人仓库的&lt;a href="https://github.com/LongyunYao/SpringSourceCodeTest">《SpringSourceCodeTest》&lt;/a> 中，当前已经完成了对Spring的初步使用和模拟。&lt;/p>
+&lt;p>每次有重大特性变动，或者有较大的刷新的时候，我都会打上tag，以此尽可能与博客描述的内容对齐。&lt;/p>
+&lt;p>&lt;em>注：当前博客对应的仓库中的tag为&lt;a href="">&lt;/a>，可以切换到这个tag同步阅读博客&lt;/em>&lt;/p>
+&lt;h2 id="关于博客分布">关于博客分布&lt;/h2>
+&lt;p>本次更新计划按照系列更新的方式进行更新，因此这篇文章只是作为综述，详细点在各个文章中更新。&lt;/p>
+&lt;p>相关文章：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;a href="https://blog.csdn.net/Michael753951/article/details/106578817">《自定义注解并且进行扫描解析》&lt;/a>&lt;/p>&lt;/blockquote></description></item><item><title>自定义注解并且进行扫描解析</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3%E5%B9%B6%E4%B8%94%E8%BF%9B%E8%A1%8C%E6%89%AB%E6%8F%8F%E8%A7%A3%E6%9E%90/</link><pubDate>Fri, 05 Jun 2020 22:52:22 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3%E5%B9%B6%E4%B8%94%E8%BF%9B%E8%A1%8C%E6%89%AB%E6%8F%8F%E8%A7%A3%E6%9E%90/</guid><description>
+&lt;p>[toc]&lt;/p>
+&lt;h1 id="注解背景">注解背景&lt;/h1>
+&lt;p>首先我们要知道背景知识：&lt;/p>
+&lt;ol>
+&lt;li>每一个注解其实就是一个特殊的接口(带着@符号，其实是语法糖，会被编译器自动编译成继承自Annotation接口)。我们反编译一下class文件就能看出来。&lt;/li>
+&lt;li>注解只是一个标记位，标记了某一个类，某一个字段或者某一个函数之后，我们就可以对被标记的属性进行我们期望的行为——比如运行时动态获取和修改被标记的属性，动态执行被标记的函数等等&lt;/li>
+&lt;li>基于第二点，我们在定义了自己的注解之后，还要定义自己注解的解析类，这样我们才能真正让注解发挥起作用（只标记而不做任何动作就和没标记没任何区别了）&lt;/li>
+&lt;/ol>
+&lt;h1 id="源码解析">源码解析&lt;/h1>
+&lt;p>废话不说上我自己定义的代码，然后一个一个说明。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="ln"> 1&lt;/span>&lt;span class="cl">&lt;span class="kn">package&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nn">com.springtest.demo.annotation&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 2&lt;/span>&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 3&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="kn">import&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nn">java.lang.annotation.Documented&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 4&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="kn">import&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nn">java.lang.annotation.ElementType&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 5&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="kn">import&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nn">java.lang.annotation.Retention&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 6&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="kn">import&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nn">java.lang.annotation.RetentionPolicy&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 7&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="kn">import&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nn">java.lang.annotation.Target&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 8&lt;/span>&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 9&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nd">@Target&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ElementType&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">FIELD&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">10&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nd">@Retention&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">RetentionPolicy&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">RUNTIME&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">11&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nd">@Documented&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">12&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nd">@interface&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Fruit&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">13&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">value&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">default&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">14&lt;/span>&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">15&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">name&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">default&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">16&lt;/span>&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">17&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">enum&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">FruitType&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">18&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">APPLE&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">PEACH&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">PEAR&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">WATERMELON&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">19&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">20&lt;/span>&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">21&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">FruitType&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">type&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">default&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">FruitType&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">APPLE&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">22&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="ln"> 1&lt;/span>&lt;span class="cl">&lt;span class="kn">package&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nn">com.springtest.demo.entity.fruit&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 2&lt;/span>&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 3&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="kn">import&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nn">com.springtest.demo.annotation.Fruit&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 4&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="kn">import&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nn">com.springtest.demo.annotation.Scope&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 5&lt;/span>&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 6&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nd">@Scope&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Scope&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">SCOPE_PROTOTYPE&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 7&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">class&lt;/span> &lt;span class="nc">Pear&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 8&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nd">@Fruit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">value&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s">&amp;#34;pear&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 9&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">private&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">10&lt;/span>&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">11&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nd">@Fruit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">type&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Fruit&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">FruitType&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">PEAR&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">12&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">private&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">type&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">13&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="ln"> 1&lt;/span>&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 2&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="kn">package&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nn">com.springtest.demo.entity.fruit&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 3&lt;/span>&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 4&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="kn">import&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nn">com.springtest.demo.annotation.Fruit&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 5&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="kn">import&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nn">com.springtest.demo.annotation.Scope&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 6&lt;/span>&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 7&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nd">@Scope&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Scope&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">SCOPE_PROTOTYPE&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 8&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">class&lt;/span> &lt;span class="nc">Apple&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 9&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nd">@Fruit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">value&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s">&amp;#34;apple&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">10&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">private&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">11&lt;/span>&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">12&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nd">@Fruit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">type&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Fruit&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">FruitType&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">APPLE&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">13&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">private&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">type&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">14&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>以上就是我做的最简单的demo，定义并应用了一个注解。我们来看看Fruit注解反编译的结果是什么就能大概知道这故事背后的作用。&lt;/p></description></item><item><title>Lambda表达式与函数式接口</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3/</link><pubDate>Fri, 02 Aug 2019 00:55:10 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3/</guid><description>
+&lt;h1 id="目录">目录&lt;/h1>
+&lt;p>[toc]&lt;/p>
+&lt;h1 id="lambda表达式java函数式接口">Lambda表达式Java函数式接口&lt;/h1>
+&lt;p>都9012年了，这篇博文代码看看5000年前4012年发布的Java 8新引入的Lambda表达式到底是个什么鬼。&lt;/p>
+&lt;h2 id="简述lambda表达式">简述Lambda表达式&lt;/h2>
+&lt;p>Lambda表达式并不是Java 8特有的特性，其设计初衷是用于一些特定代码中，已知固定入参和固定返回值的时候，动态生成的一种函数。&lt;/p>
+&lt;p>举个栗子：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="ln">1&lt;/span>&lt;span class="cl">&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Var3&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">func&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Var1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">var1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Var2&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">var2&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">2&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">Var3&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">var3&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">doSomeThing&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">var1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">var2&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">3&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">return&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">var3&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">4&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>上述代码是我们常见的Java代码格式，假如说我们已经设定这个函数只会被在特定位置被调用，或者换种说法，我们假设&lt;code>func&lt;/code>函数仅仅只会作为&lt;code>func2(Var3 var3)&lt;/code>的入参。同时如果我们把&lt;code>func&lt;/code>这个函数的声明放到&lt;code>func2&lt;/code>的入参时声明，那此时我们此时调用时，其实这个函数是叫&lt;code>func&lt;/code>还是叫&lt;code>funcA&lt;/code>还是叫&lt;code>ABCD&lt;/code>已经无所谓了。&lt;/p>
+&lt;p>因此我们就可以省略这个函数名，将其替换成&lt;code>-&amp;gt;&lt;/code>，由此将上述函数省略为：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="ln">1&lt;/span>&lt;span class="cl">&lt;span class="n">Var3&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Var1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">var1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Var2&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">var2&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">2&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">Var3&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">var3&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">doSomeThing&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">var1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">var2&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">3&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">return&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">var3&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">4&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>接下来由于我们已知&lt;code>func2(Var3 var3)&lt;/code>的入参肯定为Var3类型，所以上述代码又可以进一步省略：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="ln">1&lt;/span>&lt;span class="cl">&lt;span class="p">(&lt;/span>&lt;span class="n">Var1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">var1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Var2&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">var2&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">2&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">Var3&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">var3&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">doSomeThing&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">var1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">var2&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">3&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">return&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">var3&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">4&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>同理由于我们已知&lt;code>func&lt;/code>的入参类型肯定为&lt;code>Var1&lt;/code>和&lt;code>Var2&lt;/code>，于是我们继续省略：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="ln">1&lt;/span>&lt;span class="cl">&lt;span class="p">(&lt;/span>&lt;span class="n">var1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">var2&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">2&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">Var3&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">var3&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">doSomeThing&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">var1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">var2&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">3&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">return&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">var3&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">4&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后由于我们如果整个函数内部只有一行操作的话，则可以知道这个操作的返回值肯定是这一行的操作结果，因此我们继续省略：&lt;/p></description></item><item><title>Java的Integer类方法解读</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/java%E7%9A%84integer%E7%B1%BB%E6%96%B9%E6%B3%95%E8%A7%A3%E8%AF%BB/</link><pubDate>Fri, 19 Jul 2019 16:13:38 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/java%E7%9A%84integer%E7%B1%BB%E6%96%B9%E6%B3%95%E8%A7%A3%E8%AF%BB/</guid><description>
+&lt;h1 id="highestonebit">highestOneBit&lt;/h1>
+&lt;p>获取一个int类型的二进制取整&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="ln">1&lt;/span>&lt;span class="cl">&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">static&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">highestOneBit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">2&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c1">// HD, Figure 3-1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">3&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">&amp;gt;&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">1&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">4&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">&amp;gt;&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">2&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">5&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">&amp;gt;&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">4&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">6&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">&amp;gt;&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">8&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">7&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">|=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">&amp;gt;&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">16&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">8&lt;/span>&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">return&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">&amp;gt;&amp;gt;&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">1&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">9&lt;/span>&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>上述代码粗看会不理解实现原理，但是跟着推导一次就能理解算法的思想。假定一个int的二进制表达式是&lt;code>100001000&lt;/code>，这个常数的迭代过程如下：&lt;/p>
+&lt;ul>
+&lt;li>第一次结束 &lt;code>100001000&lt;/code> -&amp;gt; &lt;code>110001100&lt;/code>&lt;/li>
+&lt;li>第二次结束 &lt;code>110001100&lt;/code> -&amp;gt; &lt;code>111101111&lt;/code>&lt;/li>
+&lt;li>第三次结束 &lt;code>111101111&lt;/code> -&amp;gt; &lt;code>111111111&lt;/code>&lt;/li>
+&lt;li>第四次结束 &lt;code>111111111&lt;/code> -&amp;gt; &lt;code>111111111&lt;/code>&lt;/li>
+&lt;li>第五次结束 &lt;code>111111111&lt;/code> -&amp;gt; &lt;code>111111111&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>然后返回值为&lt;code>111111111&lt;/code>-&lt;code>11111111&lt;/code> = &lt;code>100000000&lt;/code>。&lt;/p></description></item><item><title>RFID实验三总结</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/rfid%E5%AE%9E%E9%AA%8C%E4%B8%89%E6%80%BB%E7%BB%93/</link><pubDate>Tue, 23 May 2017 01:19:42 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/rfid%E5%AE%9E%E9%AA%8C%E4%B8%89%E6%80%BB%E7%BB%93/</guid><description>
+&lt;blockquote>
+&lt;p>一次debug到哭泣的经历。&lt;/p>&lt;/blockquote>
+&lt;p>&lt;strong>龙云尧个人博客，转载请注明出处。&lt;/strong>&lt;/p>
+&lt;blockquote>
+&lt;p>CSDN地址：http://blog.csdn.net/michael753951
+个人blog地址：http://yaoyl.cn&lt;/p>&lt;/blockquote>
+&lt;p>在实验过程中，需要不断翻阅实验课PPT之**《04 电子钱包的功能》&lt;strong>，word之&lt;/strong>《实验3文档》**，以及不知名大佬的&lt;a href="http://www.tqcto.com/article/software/83894.html">课程总代码&lt;/a>，CSDN大佬吕浪的&lt;a href="http://blog.csdn.net/lv_victor/article/details/51028930">Java card开发系列文章&lt;/a>。&lt;/p>
+&lt;p>本次实验和前两次实验相比，代码量多&lt;strong>很多&lt;/strong>，并且&lt;strong>实验思路稍有区别&lt;/strong>。实验之前可以不太懂实验流程（主要是因为流程本身就太复杂了），但是一定要&lt;strong>一遍又一遍阅读源代码&lt;/strong>，只有在读源码的过程中，才能体会整个验证过程，对项目中涉及到的函数方法的使用才能有一个更加深入的了解。接着自己不断重写代码，理解整个实现过程，才能对这个课程实验有较为深入的了解。&lt;/p>
+&lt;p>最终的代码地址：https://github.com/LongyunYao/RFID_lab/&lt;/p>
+&lt;p>&lt;strong>代码在未征得本人同意之前，请勿直接Ctrl+C，Ctrl+V，谢谢。&lt;/strong>&lt;/p>
+&lt;h1 id="正式实验">正式实验&lt;/h1>
+&lt;h2 id="实验分析">实验分析&lt;/h2>
+&lt;p>首先我们在PPT中知道本次实验的主要需要实现的功能是：&lt;/p>
+&lt;ul>
+&lt;li>圈存&lt;/li>
+&lt;li>消费&lt;/li>
+&lt;li>余额查询&lt;/li>
+&lt;/ul>
+&lt;p>接下来我们开始看ppt《04 电子钱包的功能》和《实验3文档》。&lt;/p>
+&lt;p>首先是圈存功能的流程图。&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
 alt="圈存流程"
 class="image_figure image_internal image_unprocessed"
 src="https://yaoyl.cn/"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;流程图中我们可以分析出圈存一共有4个步骤：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;终端发送消息初始化&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;IC响应初始化，并且发送MAC1验证&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;终端验证MAC1，确认IC卡是否合法，然后发送包含MAC2的圈存命令&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;IC卡验证终端机的合法性，执行完成以后返回TAC响应操作完成&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;接下来我们将一步一步仔细分析圈存是如何实现的。&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>流程图中我们可以分析出圈存一共有4个步骤：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>终端发送消息初始化&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>IC响应初始化，并且发送MAC1验证&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>终端验证MAC1，确认IC卡是否合法，然后发送包含MAC2的圈存命令&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>IC卡验证终端机的合法性，执行完成以后返回TAC响应操作完成&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>接下来我们将一步一步仔细分析圈存是如何实现的。&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
 alt="圈存初始化命令"
 class="image_figure image_internal image_unprocessed"
 src="https://yaoyl.cn/"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;step1：圈存机发送的初始信息如下所示。消息中包含了&lt;strong&gt;秘钥标识符&lt;/strong&gt;，&lt;strong&gt;交易金额&lt;/strong&gt;，&lt;strong&gt;终端机编号&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>step1：圈存机发送的初始信息如下所示。消息中包含了&lt;strong>秘钥标识符&lt;/strong>，&lt;strong>交易金额&lt;/strong>，&lt;strong>终端机编号&lt;/strong>。&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
 alt="IC卡响应圈存初始化命令"
 class="image_figure image_internal image_unprocessed"
 src="https://yaoyl.cn/"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
 alt="IC卡处理圈存初始化信息流程"
 class="image_figure image_internal image_unprocessed"
 src="https://yaoyl.cn/"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;step2：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;IC卡根据秘钥标识符寻找圈存秘钥&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;生成过程秘钥。输入数据为[伪随机数||电子钱包联机交易序号||8000]，秘钥为圈存秘钥，使用3DES加密算法。&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;生成MAC1。输入数据为[电子钱包余额（交易前）||交易金额||交易类型标识||终端机编号]，秘钥为过程秘钥，使用我们在上一次实现的MAC生成函数gmac4，计算出MAC1用来表明身份。&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;IC卡返回[余额||联机交易序列号||秘钥版本号||算法标识||伪随机数||MAC1]。&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>step2：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>IC卡根据秘钥标识符寻找圈存秘钥&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>生成过程秘钥。输入数据为[伪随机数||电子钱包联机交易序号||8000]，秘钥为圈存秘钥，使用3DES加密算法。&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>生成MAC1。输入数据为[电子钱包余额（交易前）||交易金额||交易类型标识||终端机编号]，秘钥为过程秘钥，使用我们在上一次实现的MAC生成函数gmac4，计算出MAC1用来表明身份。&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>IC卡返回[余额||联机交易序列号||秘钥版本号||算法标识||伪随机数||MAC1]。&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
 alt="圈存指令"
 class="image_figure image_internal image_unprocessed"
 src="https://yaoyl.cn/"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
 alt="圈存指令流程"
 class="image_figure image_internal image_unprocessed"
 src="https://yaoyl.cn/"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;step3：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;圈存机对IC卡发挥的MAC1信息进行校验，如果正确就说明IC卡信息合法。&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;计算MAC2。输入信息为[交易金额||交易类型标识||终端机编号||交易日期（主机）||交易时间（主机）]，秘钥为过程秘钥，加密算法为依然为gmac4。用来表明自己的身份。&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;发送圈存指令。消息中包含[交易日期||交易时间||MAC2]。&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>step3：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>圈存机对IC卡发挥的MAC1信息进行校验，如果正确就说明IC卡信息合法。&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>计算MAC2。输入信息为[交易金额||交易类型标识||终端机编号||交易日期（主机）||交易时间（主机）]，秘钥为过程秘钥，加密算法为依然为gmac4。用来表明自己的身份。&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>发送圈存指令。消息中包含[交易日期||交易时间||MAC2]。&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
 alt="圈存TAC"
 class="image_figure image_internal image_unprocessed"
 src="https://yaoyl.cn/"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
 alt="TAC"
 class="image_figure image_internal image_unprocessed"
 src="https://yaoyl.cn/"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;step4：&lt;strong&gt;IC使用同样的算法计算MAC2，如果计算结果和终端返回的MAC2一致，就说明终端的身份合法。IC卡就会执行圈存命令。同时返回TAC。其中TAC计算时，输入数据为[电子钱包余额（交易后）||电子钱包联机交易序号（加１前）||交易金额||交易类型标识||终端机编号||交易日期（主机）||交易时间（主机）]，密钥为TAC密码最左8个字节与TAC密码最右8个字节异或的结果。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;到这里整个圈存过程就结束了。消费以及查询和圈存的实现原理一致，这里就不赘述了。&lt;/p&gt;
-&lt;h2 id="读代码"&gt;读代码&lt;/h2&gt;
-&lt;p&gt;前面的分析中，我们已经对本次实验有了大致的了解，接下来就是开始&lt;strong&gt;读源码&lt;/strong&gt;的过程了。不过本次实验中，因为我们只需要对IC卡的系统进行编程实现，而对终端机需要靠人脑完成，所以我们重心就会放在圈存的初始化和圈存的执行上面了。&lt;/p&gt;</description></item><item><title>RFID实验二总结</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/rfid%E5%AE%9E%E9%AA%8C%E4%BA%8C%E6%80%BB%E7%BB%93/</link><pubDate>Sun, 21 May 2017 02:55:05 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/rfid%E5%AE%9E%E9%AA%8C%E4%BA%8C%E6%80%BB%E7%BB%93/</guid><description>
-&lt;blockquote&gt;
-&lt;p&gt;没见过debug还这么麻烦的。。。。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;strong&gt;龙云尧个人博客，转载请注明出处。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;CSDN地址：http://blog.csdn.net/michael753951/article/details/70307683&lt;/p&gt;
-&lt;p&gt;个人blog地址：http://123.207.243.115:81/rfidshi-yan-er-zong-jie-2/&lt;/p&gt;
-&lt;p&gt;在实验过程中，需要不断翻阅实验课PPT之《03 电子钱包的安全管理》，《实验3文档》，以及不知名大佬的&lt;a href="http://www.tqcto.com/article/software/83894.html"&gt;课程总代码&lt;/a&gt;，CSDN大佬吕浪的&lt;a href="http://blog.csdn.net/lv_victor/article/details/51028930"&gt;Java card开发系列文章&lt;/a&gt;。&lt;/p&gt;
-&lt;p&gt;然后再自己不断重写代码，理解整个实现过程，才能对这个课程实验有较为深入的了解。&lt;/p&gt;
-&lt;p&gt;最终的代码地址：https://github.com/LongyunYao/RFID_lab/&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;代码在未征得本人同意之前，请勿直接Ctrl+C，Ctrl+V，谢谢。&lt;/strong&gt;&lt;/p&gt;
-&lt;h1 id="正式实验"&gt;正式实验&lt;/h1&gt;
-&lt;h2 id="实验分析"&gt;实验分析&lt;/h2&gt;
-&lt;p&gt;首先我们要知道本次实验中需要修改哪些函数，实现那哪些功能。&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>step4：&lt;strong>IC使用同样的算法计算MAC2，如果计算结果和终端返回的MAC2一致，就说明终端的身份合法。IC卡就会执行圈存命令。同时返回TAC。其中TAC计算时，输入数据为[电子钱包余额（交易后）||电子钱包联机交易序号（加１前）||交易金额||交易类型标识||终端机编号||交易日期（主机）||交易时间（主机）]，密钥为TAC密码最左8个字节与TAC密码最右8个字节异或的结果。&lt;/strong>&lt;/p></description></item><item><title>RFID实验二总结</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/rfid%E5%AE%9E%E9%AA%8C%E4%BA%8C%E6%80%BB%E7%BB%93/</link><pubDate>Sun, 21 May 2017 02:55:05 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/rfid%E5%AE%9E%E9%AA%8C%E4%BA%8C%E6%80%BB%E7%BB%93/</guid><description>
+&lt;blockquote>
+&lt;p>没见过debug还这么麻烦的。。。。&lt;/p>&lt;/blockquote>
+&lt;p>&lt;strong>龙云尧个人博客，转载请注明出处。&lt;/strong>&lt;/p>
+&lt;p>CSDN地址：http://blog.csdn.net/michael753951/article/details/70307683&lt;/p>
+&lt;p>个人blog地址：http://123.207.243.115:81/rfidshi-yan-er-zong-jie-2/&lt;/p>
+&lt;p>在实验过程中，需要不断翻阅实验课PPT之《03 电子钱包的安全管理》，《实验3文档》，以及不知名大佬的&lt;a href="http://www.tqcto.com/article/software/83894.html">课程总代码&lt;/a>，CSDN大佬吕浪的&lt;a href="http://blog.csdn.net/lv_victor/article/details/51028930">Java card开发系列文章&lt;/a>。&lt;/p>
+&lt;p>然后再自己不断重写代码，理解整个实现过程，才能对这个课程实验有较为深入的了解。&lt;/p>
+&lt;p>最终的代码地址：https://github.com/LongyunYao/RFID_lab/&lt;/p>
+&lt;p>&lt;strong>代码在未征得本人同意之前，请勿直接Ctrl+C，Ctrl+V，谢谢。&lt;/strong>&lt;/p>
+&lt;h1 id="正式实验">正式实验&lt;/h1>
+&lt;h2 id="实验分析">实验分析&lt;/h2>
+&lt;p>首先我们要知道本次实验中需要修改哪些函数，实现那哪些功能。&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
 alt="主要内容"
 class="image_figure image_internal image_unprocessed"
 src="https://yaoyl.cn/"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;首先我们在PPT中知道本次实验的主要目的是：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;过程密钥的生成&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;消息验证码MAC或交易验证码TAC的生成&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>首先我们在PPT中知道本次实验的主要目的是：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>过程密钥的生成&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>消息验证码MAC或交易验证码TAC的生成&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
 alt="过程秘钥的产生"
 class="image_figure image_internal image_unprocessed"
 src="https://yaoyl.cn/"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
 alt="3DES"
 class="image_figure image_internal image_unprocessed"
 src="https://yaoyl.cn/"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
 alt="MACorTAC"
 class="image_figure image_internal image_unprocessed"
 src="https://yaoyl.cn/"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
 alt="MACorTAC2"
 class="image_figure image_internal image_unprocessed"
 src="https://yaoyl.cn/"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;再看详细内容，我们大概可以捋清如下关系：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;过程密钥的生成
-&lt;ul&gt;
-&lt;li&gt;输入数据包括“伪随机数+电子钱包联机交易序列号+8000”&lt;/li&gt;
-&lt;li&gt;子密钥指的是圈存或消费密钥&lt;/li&gt;
-&lt;li&gt;秘钥8字节长密钥&lt;/li&gt;
-&lt;li&gt;秘钥生成过程由3次完成
-&lt;ul&gt;
-&lt;li&gt;子秘钥左半部分&lt;strong&gt;加密&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;子秘钥有半部分&lt;strong&gt;解密&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;子秘钥左半部分&lt;strong&gt;加密&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;MAC_TAC的生成
-&lt;ul&gt;
-&lt;li&gt;数组初始化为0&lt;/li&gt;
-&lt;li&gt;数据&lt;strong&gt;末尾填充0x80&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;数组&lt;strong&gt;补0x00直到数组长度为8的倍数&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;数组分割成数据块&lt;/li&gt;
-&lt;li&gt;按照PPT**《03 电子钱包的安全管理》P13**的过程，生成MAC或者TAC&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;在有了大概思路以后，我们开始阅读源代码。经过简单寻找，我们发现本次实验涉及的代码大多集中在PenCipher.java中。&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>再看详细内容，我们大概可以捋清如下关系：&lt;/p>
+&lt;ul>
+&lt;li>过程密钥的生成
+&lt;ul>
+&lt;li>输入数据包括“伪随机数+电子钱包联机交易序列号+8000”&lt;/li>
+&lt;li>子密钥指的是圈存或消费密钥&lt;/li>
+&lt;li>秘钥8字节长密钥&lt;/li>
+&lt;li>秘钥生成过程由3次完成
+&lt;ul>
+&lt;li>子秘钥左半部分&lt;strong>加密&lt;/strong>&lt;/li>
+&lt;li>子秘钥有半部分&lt;strong>解密&lt;/strong>&lt;/li>
+&lt;li>子秘钥左半部分&lt;strong>加密&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>MAC_TAC的生成
+&lt;ul>
+&lt;li>数组初始化为0&lt;/li>
+&lt;li>数据&lt;strong>末尾填充0x80&lt;/strong>&lt;/li>
+&lt;li>数组&lt;strong>补0x00直到数组长度为8的倍数&lt;/strong>&lt;/li>
+&lt;li>数组分割成数据块&lt;/li>
+&lt;li>按照PPT**《03 电子钱包的安全管理》P13**的过程，生成MAC或者TAC&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>在有了大概思路以后，我们开始阅读源代码。经过简单寻找，我们发现本次实验涉及的代码大多集中在PenCipher.java中。&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
 alt="PenCipher构造函数"
 class="image_figure image_internal image_unprocessed"
 src="https://yaoyl.cn/"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
 alt="des运算函数"
 class="image_figure image_internal image_unprocessed"
 src="https://yaoyl.cn/"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;基本的构造函数和对称加密des的运算函数，这部分函数在ppt上都有解释，推荐把ppt代码复制上来方便阅读和理解。&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>基本的构造函数和对称加密des的运算函数，这部分函数在ppt上都有解释，推荐把ppt代码复制上来方便阅读和理解。&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
 alt="需要填充"
 class="image_figure image_internal image_unprocessed"
 src="https://yaoyl.cn/"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;这几个函数就是我们本此实验需要填写的函数了。第一个gen_SESPK是过程秘钥生成函数，后面3个都是MAC或者TAC生成中需要使用的函数。&lt;/p&gt;
-&lt;h2 id="开始打码"&gt;开始打码&lt;/h2&gt;
-&lt;p&gt;前面的分析中，我们已经对本次实验有了大致的了解，接下来就是开始打码的过程了。&lt;/p&gt;
-&lt;h3 id="过程秘钥的产生"&gt;过程秘钥的产生&lt;/h3&gt;
-&lt;p&gt;我们在PPT《03 电子钱包的安全管理》中已经知道了过程秘钥分为3步，分别是&lt;strong&gt;子秘钥左半部分加密&lt;/strong&gt;，&lt;strong&gt;子秘钥右半部分解密&lt;/strong&gt;，&lt;strong&gt;子秘钥左半部分解密&lt;/strong&gt;。在仔细查看&lt;code&gt;gen_SESPK&lt;/code&gt;函数传入参数的各种意义，以及&lt;code&gt;cdes&lt;/code&gt;函数的参数意义以后，我们就可以调用cdes实现3步产生秘钥了。&lt;/p&gt;</description></item><item><title>RFID实验一总结</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/rfid%E5%AE%9E%E9%AA%8C%E4%B8%80%E6%80%BB%E7%BB%93/</link><pubDate>Sat, 20 May 2017 14:11:32 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/rfid%E5%AE%9E%E9%AA%8C%E4%B8%80%E6%80%BB%E7%BB%93/</guid><description>
-&lt;p&gt;刚接到这个课程项目的时候，是一脸懵逼的。毕竟是第一次接触JavaCard编程（其实就是自己没认真听课）。不过在围观各路大佬的博客之后，总算对整个项目有了较为深入的了解。&lt;/p&gt;
-&lt;p&gt;在实验过程中，需要不断翻阅实验课PPT之《01 Java智能卡之概述》，《02 电子钱包的文件系统》，《实验2文档》，以及不知名大佬的&lt;a href="http://www.tqcto.com/article/software/83894.html"&gt;课程总代码&lt;/a&gt;，CSDN大佬吕浪的&lt;a href="http://blog.csdn.net/lv_victor/article/details/51028930"&gt;Java card开发系列文章&lt;/a&gt;。&lt;/p&gt;
-&lt;p&gt;然后再自己不断重写代码，理解整个实现过程，才能对这个课程实验有较为深入的了解。&lt;/p&gt;
-&lt;p&gt;最终的代码地址：https://github.com/LongyunYao/RFID_lab/&lt;/p&gt;
-&lt;p&gt;代码在未征得本人同意之前，请勿直接Ctrl+C，Ctrl+V，谢谢。&lt;/p&gt;
-&lt;h1 id="正式实验"&gt;正式实验&lt;/h1&gt;
-&lt;h2 id="实验分析"&gt;实验分析&lt;/h2&gt;
-&lt;p&gt;首先我们要知道本次实验中需要修改哪些函数，实现那哪些功能。&lt;/p&gt;
-&lt;p&gt;首先我们在PPT最后知道本次实验的主要目的是：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;创建文件&lt;/li&gt;
-&lt;li&gt;写秘钥&lt;/li&gt;
-&lt;li&gt;读写二进制文件&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;再看详细内容，我们大概可以捋清如下关系：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;创建文件
-&lt;ul&gt;
-&lt;li&gt;卡片收到命令并且开始解析&lt;/li&gt;
-&lt;li&gt;所谓的解析就是判断是何种文件，然后再进行创建&lt;/li&gt;
-&lt;li&gt;异常处理&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;写秘钥
-&lt;ul&gt;
-&lt;li&gt;秘钥消息是一条一条接受的，每次只会写入一条秘钥&lt;/li&gt;
-&lt;li&gt;卡片收到命令以后，取出数据，然后写入秘钥文件&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;读写二进制文件
-&lt;ul&gt;
-&lt;li&gt;写指令只需要一条&lt;/li&gt;
-&lt;li&gt;根据指令内容获得需要的参数，然后将其写入持卡人文件或者应用文件中&lt;/li&gt;
-&lt;li&gt;注意：写入之前需要检查数据时候超过限定大小&lt;/li&gt;
-&lt;li&gt;读取和写类似&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;在有了大概思路以后，我们开始阅读源代码。经过简单寻找，我们发现本次实验涉及的代码大多集中在Purse.java中。&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>这几个函数就是我们本此实验需要填写的函数了。第一个gen_SESPK是过程秘钥生成函数，后面3个都是MAC或者TAC生成中需要使用的函数。&lt;/p>
+&lt;h2 id="开始打码">开始打码&lt;/h2>
+&lt;p>前面的分析中，我们已经对本次实验有了大致的了解，接下来就是开始打码的过程了。&lt;/p></description></item><item><title>RFID实验一总结</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/rfid%E5%AE%9E%E9%AA%8C%E4%B8%80%E6%80%BB%E7%BB%93/</link><pubDate>Sat, 20 May 2017 14:11:32 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/rfid%E5%AE%9E%E9%AA%8C%E4%B8%80%E6%80%BB%E7%BB%93/</guid><description>
+&lt;p>刚接到这个课程项目的时候，是一脸懵逼的。毕竟是第一次接触JavaCard编程（其实就是自己没认真听课）。不过在围观各路大佬的博客之后，总算对整个项目有了较为深入的了解。&lt;/p>
+&lt;p>在实验过程中，需要不断翻阅实验课PPT之《01 Java智能卡之概述》，《02 电子钱包的文件系统》，《实验2文档》，以及不知名大佬的&lt;a href="http://www.tqcto.com/article/software/83894.html">课程总代码&lt;/a>，CSDN大佬吕浪的&lt;a href="http://blog.csdn.net/lv_victor/article/details/51028930">Java card开发系列文章&lt;/a>。&lt;/p>
+&lt;p>然后再自己不断重写代码，理解整个实现过程，才能对这个课程实验有较为深入的了解。&lt;/p>
+&lt;p>最终的代码地址：https://github.com/LongyunYao/RFID_lab/&lt;/p>
+&lt;p>代码在未征得本人同意之前，请勿直接Ctrl+C，Ctrl+V，谢谢。&lt;/p>
+&lt;h1 id="正式实验">正式实验&lt;/h1>
+&lt;h2 id="实验分析">实验分析&lt;/h2>
+&lt;p>首先我们要知道本次实验中需要修改哪些函数，实现那哪些功能。&lt;/p>
+&lt;p>首先我们在PPT最后知道本次实验的主要目的是：&lt;/p>
+&lt;ul>
+&lt;li>创建文件&lt;/li>
+&lt;li>写秘钥&lt;/li>
+&lt;li>读写二进制文件&lt;/li>
+&lt;/ul>
+&lt;p>再看详细内容，我们大概可以捋清如下关系：&lt;/p>
+&lt;ul>
+&lt;li>创建文件
+&lt;ul>
+&lt;li>卡片收到命令并且开始解析&lt;/li>
+&lt;li>所谓的解析就是判断是何种文件，然后再进行创建&lt;/li>
+&lt;li>异常处理&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>写秘钥
+&lt;ul>
+&lt;li>秘钥消息是一条一条接受的，每次只会写入一条秘钥&lt;/li>
+&lt;li>卡片收到命令以后，取出数据，然后写入秘钥文件&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>读写二进制文件
+&lt;ul>
+&lt;li>写指令只需要一条&lt;/li>
+&lt;li>根据指令内容获得需要的参数，然后将其写入持卡人文件或者应用文件中&lt;/li>
+&lt;li>注意：写入之前需要检查数据时候超过限定大小&lt;/li>
+&lt;li>读取和写类似&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>在有了大概思路以后，我们开始阅读源代码。经过简单寻找，我们发现本次实验涉及的代码大多集中在Purse.java中。&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
@@ -578,13 +568,13 @@ class="image_figure image_external image_processed"
 width="372"
 height="127"
 src="https://yaoyl.cn/images/e80949d0-258b-11e7-96e2-89b3087741fc_7787092408133580828.png"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;上面四个元素指明了我们将要操作的几个对象。&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>上面四个元素指明了我们将要操作的几个对象。&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
@@ -593,13 +583,13 @@ class="image_figure image_external image_processed"
 width="509"
 height="159"
 src="https://yaoyl.cn/images/e7b2830c-258b-11e7-8911-d2b7e7fc9d0d_12307540848290659802.png"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;这个部分似乎用处不明。但是根据让我们填写的部分，可以看出这一块是卡片读取指令的地方，将其缓冲到papdu中，让我们得以进行后续分析。&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>这个部分似乎用处不明。但是根据让我们填写的部分，可以看出这一块是卡片读取指令的地方，将其缓冲到papdu中，让我们得以进行后续分析。&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
@@ -608,14 +598,14 @@ class="image_figure image_external image_processed"
 width="481"
 height="210"
 src="https://yaoyl.cn/images/e78315e0-258b-11e7-8c78-08555ef584ec_12537409608955670593.png"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;注释已经说明了，在《01 Java智能卡之概述》P30也有讲到该部分的作用，这里就是我们分析指令的地方，通过这个地方我们可以知道卡片当前接收的指令目的是什么。&lt;/p&gt;
-&lt;p&gt;将PPT上的操作内容先填进去，具体实现我们待会再说。&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>注释已经说明了，在《01 Java智能卡之概述》P30也有讲到该部分的作用，这里就是我们分析指令的地方，通过这个地方我们可以知道卡片当前接收的指令目的是什么。&lt;/p>
+&lt;p>将PPT上的操作内容先填进去，具体实现我们待会再说。&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
@@ -624,12 +614,12 @@ class="image_figure image_external image_processed"
 width="723"
 height="295"
 src="https://yaoyl.cn/images/e78578a8-258b-11e7-803f-d095709449d4_3479832271068198507.png"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
@@ -638,14 +628,14 @@ class="image_figure image_external image_processed"
 width="790"
 height="367"
 src="https://yaoyl.cn/images/a3f1f2b4-258c-11e7-8164-5433dd00f23e_2002550957571907844.png"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;我们发现这里还需要添加读二进制的常量。&lt;/p&gt;
-&lt;p&gt;再往下读，就是创建文件部分。&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>我们发现这里还需要添加读二进制的常量。&lt;/p>
+&lt;p>再往下读，就是创建文件部分。&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
@@ -654,18 +644,18 @@ class="image_figure image_external image_processed"
 width="472"
 height="439"
 src="https://yaoyl.cn/images/e8051338-258b-11e7-8a65-057b6f6674bf_12972044147358193561.png"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;注释和代码里已经说明，将会有4种文件可以被创建&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;电子钱包文件(EP_file，这个部分已经给出)&lt;/li&gt;
-&lt;li&gt;秘钥文件&lt;/li&gt;
-&lt;li&gt;持卡人基本文件&lt;/li&gt;
-&lt;li&gt;应用基本文件&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;剩下的就是圈存指令获取，初始化，以及一些其他操作，不是本次试验需要关心的部分。&lt;/p&gt;
-&lt;h2 id="开始打码"&gt;开始打码&lt;/h2&gt;
-&lt;p&gt;前面的分析中，我们已经对本次实验有了大致的了解，接下来就是开始打码的过程了。&lt;/p&gt;
-&lt;p&gt;我们在PPT《01 Java智能卡之概述》中已经知道了cAPDU的结构。&lt;/p&gt;</description></item></channel></rss>
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>注释和代码里已经说明，将会有4种文件可以被创建&lt;/p>
+&lt;ul>
+&lt;li>电子钱包文件(EP_file，这个部分已经给出)&lt;/li>
+&lt;li>秘钥文件&lt;/li>
+&lt;li>持卡人基本文件&lt;/li>
+&lt;li>应用基本文件&lt;/li>
+&lt;/ul>
+&lt;p>剩下的就是圈存指令获取，初始化，以及一些其他操作，不是本次试验需要关心的部分。&lt;/p>
+&lt;h2 id="开始打码">开始打码&lt;/h2>
+&lt;p>前面的分析中，我们已经对本次实验有了大致的了解，接下来就是开始打码的过程了。&lt;/p>
+&lt;p>我们在PPT《01 Java智能卡之概述》中已经知道了cAPDU的结构。&lt;/p></description></item></channel></rss>

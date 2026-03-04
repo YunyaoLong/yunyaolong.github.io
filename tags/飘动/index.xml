@@ -1,87 +1,87 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>飘动 on Chinese</title><link>https://yaoyl.cn/tags/%E9%A3%98%E5%8A%A8/</link><description>Recent content in 飘动 on Chinese</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>Copyright © 2017–2025, Yunyao Long and the Hugo Authors; 粤ICP备-17050867-1号</copyright><lastBuildDate>Fri, 12 May 2017 18:00:15 +0000</lastBuildDate><atom:link href="https://yaoyl.cn/tags/%E9%A3%98%E5%8A%A8/index.xml" rel="self" type="application/rss+xml"/><item><title>OpenGL学习笔记（九）</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/opengl%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%9D/</link><pubDate>Fri, 12 May 2017 18:00:15 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/opengl%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%9D/</guid><description>
-&lt;p&gt;&lt;strong&gt;龙云尧个人博客，转载请注明出处。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;CSDN地址：http://blog.csdn.net/michael753951/article/details/71750809&lt;/p&gt;
-&lt;p&gt;个人blog地址：http://yaoyl.cn/nehexue-xi-bi-ji-jiu/&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id="前言"&gt;前言&lt;/h1&gt;
-&lt;p&gt;本次笔记为nehe课程第11课的学习内容，通过实验，我们可以利用正弦函数绘制一个舞动的旗帜。在本次课程中，我们也将学习OpenGL中glPolygonMode函数对一个模型的正面和反面进行不同模式的绘图。&lt;/p&gt;
-&lt;h2 id="glpolygonmode-函数介绍"&gt;glPolygonMode 函数介绍&lt;/h2&gt;
-&lt;p&gt;本部分内容请先查看前人整理的博客&lt;a href="http://www.cnblogs.com/Clingingboy/archive/2010/10/18/1854255.html"&gt;【OpenGL学习笔记(7)多边形绘制】&lt;/a&gt;。请先仔细阅读该博客，理解如何区分模型中的正面反面（依然遵守右手定则，由描点的方向决定），以及3种填充方式（fill，line point）。&lt;/p&gt;
-&lt;h1 id="代码分析"&gt;代码分析&lt;/h1&gt;
-&lt;p&gt;好了，到这里新的基本知识就已经讲述完毕了，我们看看作者是如何实现一个舞动的旗帜的。（基本的代码我就不分析了，只挑重点）&lt;/p&gt;
-&lt;p&gt;InitGL中，在设置完纹理和透视的init之后，我们将插入glPolygonMode方法进行正反不同方式填充（以此从直观上区分正反面）。然后完成45*45个点阵的绘制。&lt;/p&gt;
-&lt;p&gt;绘制中，作者将45*45个点阵均匀分布到一个长为9个单位，宽为9个单位，并且中点放置在原点上的正方形中（通过-4.5将中点移动到原点）。Z轴上，作者绘制了一个以x为自变量的正弦函数（刚好一个周期，至于为什么需要一个周期，在看完本篇博客之后你将会有答案）。&lt;/p&gt;
-&lt;p&gt;接下来DrawGLScene开始进行图像旋转。这里我注释掉了作者的沿y轴和z轴旋转，仅仅保留沿x轴旋转，以方便观察。模型绘制和纹理绑定部分我不分析了，已经是很经典的代码了，就是利用45*45个点阵绘制44*44个正方形而已。&lt;/p&gt;
-&lt;p&gt;接下来就是本此实验的重点了。一个if判断，这个判断实现了旗帜的舞动。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-c" data-lang="c"&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 1&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="n"&gt;wiggle_count&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 2&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 3&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;45&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt; &lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 4&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 5&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;hold&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;points&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 6&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;44&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 7&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 8&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;points&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;points&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 9&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;10&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;points&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;44&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;hold&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;11&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;12&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;wiggle_count&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;13&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;仔细阅读代码我们可以发现，作者通过wiggle_count计数，每两帧画面，就将45*45点阵中的z值向左移动一位，最左边的z值放到最右边，实现循环。所以整个if实现的就是将一个正弦波向左移动，这也就是为什么我们在实验中旗帜的挥动，波纹向左走的原因。&lt;/p&gt;
-&lt;p&gt;剩下的代码就不用怎么解释了，都是和以前一样的代码了。&lt;/p&gt;
-&lt;p&gt;回到一开始的问题，为什么在设置45*45点阵的z值的时候，要使用2*pi将正弦波控制在一个周期。可不可以乘以n*pi，或者2*n*pi，或者其他值。（提示，if条件中左移的时候，左端点会被移动到右端，此时这个端点有可能是一个突变点造成波形尖锐或者畸形）。&lt;/p&gt;
-&lt;p&gt;最后附上效果图，首先是作者源代码的运行结果。&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+&lt;p>&lt;strong>龙云尧个人博客，转载请注明出处。&lt;/strong>&lt;/p>
+&lt;p>CSDN地址：http://blog.csdn.net/michael753951/article/details/71750809&lt;/p>
+&lt;p>个人blog地址：http://yaoyl.cn/nehexue-xi-bi-ji-jiu/&lt;/p>
+&lt;hr>
+&lt;h1 id="前言">前言&lt;/h1>
+&lt;p>本次笔记为nehe课程第11课的学习内容，通过实验，我们可以利用正弦函数绘制一个舞动的旗帜。在本次课程中，我们也将学习OpenGL中glPolygonMode函数对一个模型的正面和反面进行不同模式的绘图。&lt;/p>
+&lt;h2 id="glpolygonmode-函数介绍">glPolygonMode 函数介绍&lt;/h2>
+&lt;p>本部分内容请先查看前人整理的博客&lt;a href="http://www.cnblogs.com/Clingingboy/archive/2010/10/18/1854255.html">【OpenGL学习笔记(7)多边形绘制】&lt;/a>。请先仔细阅读该博客，理解如何区分模型中的正面反面（依然遵守右手定则，由描点的方向决定），以及3种填充方式（fill，line point）。&lt;/p>
+&lt;h1 id="代码分析">代码分析&lt;/h1>
+&lt;p>好了，到这里新的基本知识就已经讲述完毕了，我们看看作者是如何实现一个舞动的旗帜的。（基本的代码我就不分析了，只挑重点）&lt;/p>
+&lt;p>InitGL中，在设置完纹理和透视的init之后，我们将插入glPolygonMode方法进行正反不同方式填充（以此从直观上区分正反面）。然后完成45*45个点阵的绘制。&lt;/p>
+&lt;p>绘制中，作者将45*45个点阵均匀分布到一个长为9个单位，宽为9个单位，并且中点放置在原点上的正方形中（通过-4.5将中点移动到原点）。Z轴上，作者绘制了一个以x为自变量的正弦函数（刚好一个周期，至于为什么需要一个周期，在看完本篇博客之后你将会有答案）。&lt;/p>
+&lt;p>接下来DrawGLScene开始进行图像旋转。这里我注释掉了作者的沿y轴和z轴旋转，仅仅保留沿x轴旋转，以方便观察。模型绘制和纹理绑定部分我不分析了，已经是很经典的代码了，就是利用45*45个点阵绘制44*44个正方形而已。&lt;/p>
+&lt;p>接下来就是本此实验的重点了。一个if判断，这个判断实现了旗帜的舞动。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="ln"> 1&lt;/span>&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span> &lt;span class="n">wiggle_count&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">2&lt;/span> &lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 2&lt;/span>&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 3&lt;/span>&lt;span class="cl"> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span> &lt;span class="n">y&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">y&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">45&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="o">++&lt;/span> &lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 4&lt;/span>&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 5&lt;/span>&lt;span class="cl"> &lt;span class="n">hold&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">points&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 6&lt;/span>&lt;span class="cl"> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span> &lt;span class="n">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">x&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">44&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 7&lt;/span>&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 8&lt;/span>&lt;span class="cl"> &lt;span class="n">points&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">points&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 9&lt;/span>&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">10&lt;/span>&lt;span class="cl"> &lt;span class="n">points&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">44&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">hold&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">11&lt;/span>&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">12&lt;/span>&lt;span class="cl"> &lt;span class="n">wiggle_count&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">13&lt;/span>&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>仔细阅读代码我们可以发现，作者通过wiggle_count计数，每两帧画面，就将45*45点阵中的z值向左移动一位，最左边的z值放到最右边，实现循环。所以整个if实现的就是将一个正弦波向左移动，这也就是为什么我们在实验中旗帜的挥动，波纹向左走的原因。&lt;/p>
+&lt;p>剩下的代码就不用怎么解释了，都是和以前一样的代码了。&lt;/p>
+&lt;p>回到一开始的问题，为什么在设置45*45点阵的z值的时候，要使用2*pi将正弦波控制在一个周期。可不可以乘以n*pi，或者2*n*pi，或者其他值。（提示，if条件中左移的时候，左端点会被移动到右端，此时这个端点有可能是一个突变点造成波形尖锐或者畸形）。&lt;/p>
+&lt;p>最后附上效果图，首先是作者源代码的运行结果。&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
 alt="section9.1"
 class="image_figure image_internal image_unprocessed"
 src="https://yaoyl.cn/"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;然后是经过我注释掉y轴旋转，z轴旋转以及注释掉了整个if判断之后的图像。我们发现这个时候图像已经不能飘动了，而且上下两个边界呈现一种标准的正弦波的形式。&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>然后是经过我注释掉y轴旋转，z轴旋转以及注释掉了整个if判断之后的图像。我们发现这个时候图像已经不能飘动了，而且上下两个边界呈现一种标准的正弦波的形式。&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
 alt="section9.2"
 class="image_figure image_internal image_unprocessed"
 src="https://yaoyl.cn/"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;最后是没有注释if，单单注释掉y轴旋转和z轴旋转的图像。喜事已经能够正常的飘动了。&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-&lt;picture&gt;
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;p>最后是没有注释if，单单注释掉y轴旋转和z轴旋转的图像。喜事已经能够正常的飘动了。&lt;/p>
+&lt;p>&lt;figure>
+&lt;picture>
 &lt;img
 loading="lazy"
 decoding="async"
 alt="section9.3"
 class="image_figure image_internal image_unprocessed"
 src="https://yaoyl.cn/"
-/&gt;
-&lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;h1 id="显示列表"&gt;显示列表&lt;/h1&gt;
-&lt;p&gt;nehe教程第12课显示列表。&lt;/p&gt;
-&lt;p&gt;该课程主要讲解了glGenLists的使用样例。在使用之前，我们可以了解一下使用glGenLists能给你程序性能所带来的好处。这部分只是我们可以参考&lt;a href="http://blog.csdn.net/dcrmg/article/details/53133112"&gt;【OpenGL（八） 显示列表】&lt;/a&gt;以及&lt;a href="http://www.cnblogs.com/yxnchinahlj/archive/2010/11/19/1881426.html"&gt;【OpenGL显示列表】&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;本次课程需要使用的光、材质和光照模型，就比较符合glGenLists的使用环境。&lt;/p&gt;
-&lt;p&gt;我们来看看课程代码，作者首先定义了两个二位数组，boxcol用来存放立方体除了top之外，其他所有面的5种取，topcol用来存放立方体的顶部颜色。&lt;/p&gt;
-&lt;p&gt;接下来作者定义了BuildLists方法，在这个方法中，作者使用了本次课程的核心——显示列表。使用方法大致如下。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;首先调用glGenListst生成一个显示列表（连续地址的数组形式），本次实验中作者生成了包含2个元素的数组，返回数组的首地址给box（不过定义的时候并没有定义成指针，有些奇怪）&lt;/li&gt;
-&lt;li&gt;接着作者使用glNewList和glEndList定义显示列表中的每一个元素。
-&lt;ul&gt;
-&lt;li&gt;在GLNewList方法中，作者传入了box指向的第一个显示元素，同时传入了一个参数GL_COMPILE。（注意：按照【OpenGL显示列表】中所告诉我们的知识，glNewList的函数原型为&lt;code&gt;void glNewList(GLuint list,GLenum mode);&lt;/code&gt;说明一个显示列表的开始，其后的OpenGL函数存入显示列表中，直至调用结束表的函数（见下面）。参数list是一个正整数，它标志唯一的显示列表。参数mode的可能值有GL_COMPILE和GL_COMPILE_AND_EXECUTE。若要使后面的函数语句只存入而不执行，则用GL_COMPILE；若要使后面的函数语句存入表中且按瞬时方式执行一次，则用GL_COMPILE_AND_EXECUTE。）&lt;/li&gt;
-&lt;li&gt;glNewList和glEndList中间定义矩阵的语句我这里就不再分析，和之前一样。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;定义完显示列表中第一个元素之后，定义第二个元素时，需要将数组头指针向后移一位，所以代码中会有&lt;code&gt;top=box+1;&lt;/code&gt;一行。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;接着本次实验中作者修改了InitGL方法，他在Init的最后几行中，调用了3个glEnable方法，打开了GPU默认的灯光(GL_LIGHT0)，自定义的灯光(GL_LIGHTING)，以及颜色纹理(GL_COLOR_MATERIAL)，注意，如果不激活颜色纹理的话，在我们DrawGLScene中，将只能够贴上图片纹理，但是无法再往上添加颜色纹理（即之后的glColor3fv失效）。&lt;/p&gt;</description></item></channel></rss>
+/>
+&lt;/picture>
+&lt;/figure>
+&lt;/p>
+&lt;h1 id="显示列表">显示列表&lt;/h1>
+&lt;p>nehe教程第12课显示列表。&lt;/p>
+&lt;p>该课程主要讲解了glGenLists的使用样例。在使用之前，我们可以了解一下使用glGenLists能给你程序性能所带来的好处。这部分只是我们可以参考&lt;a href="http://blog.csdn.net/dcrmg/article/details/53133112">【OpenGL（八） 显示列表】&lt;/a>以及&lt;a href="http://www.cnblogs.com/yxnchinahlj/archive/2010/11/19/1881426.html">【OpenGL显示列表】&lt;/a>&lt;/p>
+&lt;p>本次课程需要使用的光、材质和光照模型，就比较符合glGenLists的使用环境。&lt;/p>
+&lt;p>我们来看看课程代码，作者首先定义了两个二位数组，boxcol用来存放立方体除了top之外，其他所有面的5种取，topcol用来存放立方体的顶部颜色。&lt;/p>
+&lt;p>接下来作者定义了BuildLists方法，在这个方法中，作者使用了本次课程的核心——显示列表。使用方法大致如下。&lt;/p>
+&lt;ul>
+&lt;li>首先调用glGenListst生成一个显示列表（连续地址的数组形式），本次实验中作者生成了包含2个元素的数组，返回数组的首地址给box（不过定义的时候并没有定义成指针，有些奇怪）&lt;/li>
+&lt;li>接着作者使用glNewList和glEndList定义显示列表中的每一个元素。
+&lt;ul>
+&lt;li>在GLNewList方法中，作者传入了box指向的第一个显示元素，同时传入了一个参数GL_COMPILE。（注意：按照【OpenGL显示列表】中所告诉我们的知识，glNewList的函数原型为&lt;code>void glNewList(GLuint list,GLenum mode);&lt;/code>说明一个显示列表的开始，其后的OpenGL函数存入显示列表中，直至调用结束表的函数（见下面）。参数list是一个正整数，它标志唯一的显示列表。参数mode的可能值有GL_COMPILE和GL_COMPILE_AND_EXECUTE。若要使后面的函数语句只存入而不执行，则用GL_COMPILE；若要使后面的函数语句存入表中且按瞬时方式执行一次，则用GL_COMPILE_AND_EXECUTE。）&lt;/li>
+&lt;li>glNewList和glEndList中间定义矩阵的语句我这里就不再分析，和之前一样。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>定义完显示列表中第一个元素之后，定义第二个元素时，需要将数组头指针向后移一位，所以代码中会有&lt;code>top=box+1;&lt;/code>一行。&lt;/li>
+&lt;/ul>
+&lt;p>接着本次实验中作者修改了InitGL方法，他在Init的最后几行中，调用了3个glEnable方法，打开了GPU默认的灯光(GL_LIGHT0)，自定义的灯光(GL_LIGHTING)，以及颜色纹理(GL_COLOR_MATERIAL)，注意，如果不激活颜色纹理的话，在我们DrawGLScene中，将只能够贴上图片纹理，但是无法再往上添加颜色纹理（即之后的glColor3fv失效）。&lt;/p></description></item></channel></rss>

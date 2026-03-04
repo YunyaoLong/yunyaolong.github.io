@@ -1,50 +1,47 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>腾讯 on Chinese</title><link>https://yaoyl.cn/tags/%E8%85%BE%E8%AE%AF/</link><description>Recent content in 腾讯 on Chinese</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>Copyright © 2017–2025, Yunyao Long and the Hugo Authors; 粤ICP备-17050867-1号</copyright><lastBuildDate>Wed, 11 Oct 2017 01:45:58 +0000</lastBuildDate><atom:link href="https://yaoyl.cn/tags/%E8%85%BE%E8%AE%AF/index.xml" rel="self" type="application/rss+xml"/><item><title>腾讯初试（技术面）</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E8%85%BE%E8%AE%AF%E5%88%9D%E8%AF%95%E6%8A%80%E6%9C%AF%E9%9D%A2/</link><pubDate>Wed, 11 Oct 2017 01:45:58 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E8%85%BE%E8%AE%AF%E5%88%9D%E8%AF%95%E6%8A%80%E6%9C%AF%E9%9D%A2/</guid><description>
-&lt;p&gt;腾讯笔试因为比较久远，而且最后的代码题没有成功AC，所以已经记不太清楚。这里主要讲一下面试经历吧。&lt;/p&gt;
-&lt;p&gt;（听说鹅厂的简历关和笔试关都很松，几乎不卡人。这大概是我认为已经失败的情况下依然受到面试通知的原因吧。）&lt;/p&gt;
-&lt;h1 id="面试"&gt;面试&lt;/h1&gt;
-&lt;p&gt;鹅厂的初试其实还是比较面向学生的，可能考虑到在校生没有接触太多工程项目，一般都是简单问一下项目经历，然后开始问智力题和简单编程题。&lt;/p&gt;
-&lt;p&gt;面试之前我还是准备了挺久，看了不上网上关于腾讯面试的面经，看了很多以前的面试题，大致准备的内容如下吧。&lt;/p&gt;
-&lt;p&gt;[外链图片转存中...(img-ACk3dKWt-1595021180397)]&lt;/p&gt;
-&lt;p&gt;图片来自抱团面试小队。&lt;/p&gt;
-&lt;p&gt;然而在我面试的时候，上面问题全部没有问到。。。可能是我最后花费的时间太长，表现的不好，面试官对我兴趣不大。也有可能是不同面试官问的问题不一样（因为小队里，有人面试鹅厂的被问到了该图中某几个问题）。&lt;/p&gt;
-&lt;h2 id="项目经历"&gt;项目经历&lt;/h2&gt;
-&lt;p&gt;项目经历这一块，个人感觉其实还是很重要的。因为在面试官和你开始讲话之前，ta对你可以说没有一点了解，你擅长什么，你做过什么，你能做什么，你团队能力之类的怎样，这些都是需要通过你的项目经历来了解的。&lt;/p&gt;
-&lt;p&gt;因为我在以前网易实习面试中，吃过项目经历删减太多，导致最后面试官已经没问题可问的尴尬。这次面试中我将大三之后，不是很水的项目经历，比赛经历，实验室项目经历都写在了简历上。&lt;strong&gt;一共一页半&lt;/strong&gt;（本来是两页，不过删掉了半页感觉太水的项目）。&lt;/p&gt;
-&lt;p&gt;到达酒店扫码签到之后，等待面试短信告知面试地点在哪（鹅厂还是挺壕的，一个面试官包了一个房间）。&lt;/p&gt;
-&lt;p&gt;上去首先递上自己的简历。面试官开始询问我的项目经历，我投的是后台开发岗位，所以讲的是大三下的时候，和3个小伙伴做的一个换课系统。我大致讲述了一下整个项目的创建目的，实现的功能（&lt;strong&gt;这部分我拿笔在草稿上将设备的部署，设备之间的连接以及通信方式全部画出来，以便解释说明，个人觉得这是个好习惯&lt;/strong&gt;），以及在整个项目中的难点和个人承担的角色。&lt;/p&gt;
-&lt;p&gt;面试官一边听我讲诉，中途会偶尔插一两句话，比如某个功能是怎样实现，以及这个功能实现的时候是否有什么难点和在实现这个项目的时候担任了什么功能。不过总体不是很难。&lt;/p&gt;
-&lt;p&gt;不知道是因为面试官对我的项目兴趣不大，或者对我负责的这一块不是很了解。这一部分面试官问的比较少。&lt;/p&gt;
-&lt;h2 id="智力题"&gt;智力题&lt;/h2&gt;
-&lt;p&gt;接下来是智力题。是我很不擅长的数字推理题。题目我在后来找到了原题，大致如下：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;AB两男士女奇问C女士年龄，C女士将给出11个可能答案，35，36，38，42，45，46，51，55，57，61，62。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;C女士将十位数告诉A，将个位数告诉B
+&lt;p>腾讯笔试因为比较久远，而且最后的代码题没有成功AC，所以已经记不太清楚。这里主要讲一下面试经历吧。&lt;/p>
+&lt;p>（听说鹅厂的简历关和笔试关都很松，几乎不卡人。这大概是我认为已经失败的情况下依然受到面试通知的原因吧。）&lt;/p>
+&lt;h1 id="面试">面试&lt;/h1>
+&lt;p>鹅厂的初试其实还是比较面向学生的，可能考虑到在校生没有接触太多工程项目，一般都是简单问一下项目经历，然后开始问智力题和简单编程题。&lt;/p>
+&lt;p>面试之前我还是准备了挺久，看了不上网上关于腾讯面试的面经，看了很多以前的面试题，大致准备的内容如下吧。&lt;/p>
+&lt;p>[外链图片转存中...(img-ACk3dKWt-1595021180397)]&lt;/p>
+&lt;p>图片来自抱团面试小队。&lt;/p>
+&lt;p>然而在我面试的时候，上面问题全部没有问到。。。可能是我最后花费的时间太长，表现的不好，面试官对我兴趣不大。也有可能是不同面试官问的问题不一样（因为小队里，有人面试鹅厂的被问到了该图中某几个问题）。&lt;/p>
+&lt;h2 id="项目经历">项目经历&lt;/h2>
+&lt;p>项目经历这一块，个人感觉其实还是很重要的。因为在面试官和你开始讲话之前，ta对你可以说没有一点了解，你擅长什么，你做过什么，你能做什么，你团队能力之类的怎样，这些都是需要通过你的项目经历来了解的。&lt;/p>
+&lt;p>因为我在以前网易实习面试中，吃过项目经历删减太多，导致最后面试官已经没问题可问的尴尬。这次面试中我将大三之后，不是很水的项目经历，比赛经历，实验室项目经历都写在了简历上。&lt;strong>一共一页半&lt;/strong>（本来是两页，不过删掉了半页感觉太水的项目）。&lt;/p>
+&lt;p>到达酒店扫码签到之后，等待面试短信告知面试地点在哪（鹅厂还是挺壕的，一个面试官包了一个房间）。&lt;/p>
+&lt;p>上去首先递上自己的简历。面试官开始询问我的项目经历，我投的是后台开发岗位，所以讲的是大三下的时候，和3个小伙伴做的一个换课系统。我大致讲述了一下整个项目的创建目的，实现的功能（&lt;strong>这部分我拿笔在草稿上将设备的部署，设备之间的连接以及通信方式全部画出来，以便解释说明，个人觉得这是个好习惯&lt;/strong>），以及在整个项目中的难点和个人承担的角色。&lt;/p>
+&lt;p>面试官一边听我讲诉，中途会偶尔插一两句话，比如某个功能是怎样实现，以及这个功能实现的时候是否有什么难点和在实现这个项目的时候担任了什么功能。不过总体不是很难。&lt;/p>
+&lt;p>不知道是因为面试官对我的项目兴趣不大，或者对我负责的这一块不是很了解。这一部分面试官问的比较少。&lt;/p>
+&lt;h2 id="智力题">智力题&lt;/h2>
+&lt;p>接下来是智力题。是我很不擅长的数字推理题。题目我在后来找到了原题，大致如下：&lt;/p>
+&lt;blockquote>
+&lt;p>AB两男士女奇问C女士年龄，C女士将给出11个可能答案，35，36，38，42，45，46，51，55，57，61，62。&lt;/p>&lt;/blockquote>
+&lt;blockquote>
+&lt;p>C女士将十位数告诉A，将个位数告诉B
 A男士说，我不知道C女士年龄，我想B也不知道。
 B男士说，原本我不知道C女士年龄，但现在知道了。
-A男士说现在我也知道了&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;请问C女士年龄多少&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;题目大致如此，我思考了一会，没有头绪，于是口头向面试官表示暂时可能解不出来，然后又大致讲了一下当前我已经思考到哪，以及我当前的推理逻辑。面试官听了一会，点了一下，然后开始让我做简单的代码实现题。&lt;/p&gt;
-&lt;p&gt;这时候我开始有点紧张了，因为担心这一关是不是没有发挥好，或者是否哪里有逻辑漏洞。&lt;/p&gt;
-&lt;h2 id="简单代码题"&gt;简单代码题&lt;/h2&gt;
-&lt;p&gt;题目确实很简单。&lt;/p&gt;
-&lt;p&gt;面试官从她的题库中挑选了两道题目，第一道题目是看代码让我描述这段代码的功能，以及生么样的输入会带来什么样的输出。感觉实在考验我们的代码阅读能力。整段代码不长，30行左右，大致功能是将一个long型十进制整数转成字符串，然后逐位取出，统计该位出现次数，如果为3就会有特定输出。就是一个简单的桶排思想，认真看懂的话不难。&lt;/p&gt;
-&lt;p&gt;第二道题是编程题，面试官让我实现一个功能函数，输入一个字符数组的头指针，让我实现一个功能函数将字符数组中的空格全部去掉。&lt;/p&gt;
-&lt;p&gt;很简单吧？然而我想复杂了。&lt;/p&gt;
-&lt;p&gt;太久没有写这种很基础的功能函数，加上有些紧张，我当时想的越来越复杂，以至于最后想出来的方法是&lt;strong&gt;开辟一个bool型的标志数组标识当前位是否为空格，然后重新开辟一个数组空间，将传入的字符串一个一个字符数组遍历一次，如果是空格就跳过，如果不是就取出来放进新的数组空间，最后free掉指针指向的以前的数组空间，重新指向当前开辟的新空间。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;其实这是一种舍近求远的想法，这种思路直接让本来码代码就不是很快的我写了差不多十分钟才写完（感觉面试官已经等的有点不耐烦），最后实现的代码量也是很冗长，同时其实最后还是有bug。函数中new的数组空间在返回后是会被del掉了（这部分栈空间被回收掉了），这样我们操作完成的数组其实已经不存在了，原始数组也不存在了。但是当时我想法太乱，明明知道会有这种问题，但还是硬着头皮写了。&lt;/p&gt;
-&lt;p&gt;写完面试官让我分析代码的时间复杂度和空间复杂度，然后问我还有什么问题想提问的，便让我回去等通知。&lt;/p&gt;
-&lt;p&gt;回来的路上，我和朋友一起回学校的时候，才想起来，明明去空格可以很简单的实现，&lt;strong&gt;只需将原数组中非空格的字符向前移动，直到遍历完成，然后手动添加\0结束&lt;/strong&gt;就行了，只是我当时想的太复杂。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-c" data-lang="c"&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;1&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;del_blank_space&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;char&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;pStr&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;2&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;temp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pStr&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;3&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;while&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;temp&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;4&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;temp&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="sc"&gt;&amp;#39; &amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="n"&gt;temp&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;continue&lt;/span&gt;&lt;span class="p"&gt;;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;5&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;pStr&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;temp&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;6&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;7&lt;/span&gt;&lt;span class="cl"&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;pStr&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="sc"&gt;&amp;#39;\0&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;8&lt;/span&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;就这么简单，然而我当时脑子蒙了。鹅厂面试也就只能草草收场。&lt;/p&gt;</description></item></channel></rss>
+A男士说现在我也知道了&lt;/p>&lt;/blockquote>
+&lt;blockquote>
+&lt;p>请问C女士年龄多少&lt;/p>&lt;/blockquote>
+&lt;p>题目大致如此，我思考了一会，没有头绪，于是口头向面试官表示暂时可能解不出来，然后又大致讲了一下当前我已经思考到哪，以及我当前的推理逻辑。面试官听了一会，点了一下，然后开始让我做简单的代码实现题。&lt;/p>
+&lt;p>这时候我开始有点紧张了，因为担心这一关是不是没有发挥好，或者是否哪里有逻辑漏洞。&lt;/p>
+&lt;h2 id="简单代码题">简单代码题&lt;/h2>
+&lt;p>题目确实很简单。&lt;/p>
+&lt;p>面试官从她的题库中挑选了两道题目，第一道题目是看代码让我描述这段代码的功能，以及生么样的输入会带来什么样的输出。感觉实在考验我们的代码阅读能力。整段代码不长，30行左右，大致功能是将一个long型十进制整数转成字符串，然后逐位取出，统计该位出现次数，如果为3就会有特定输出。就是一个简单的桶排思想，认真看懂的话不难。&lt;/p>
+&lt;p>第二道题是编程题，面试官让我实现一个功能函数，输入一个字符数组的头指针，让我实现一个功能函数将字符数组中的空格全部去掉。&lt;/p>
+&lt;p>很简单吧？然而我想复杂了。&lt;/p>
+&lt;p>太久没有写这种很基础的功能函数，加上有些紧张，我当时想的越来越复杂，以至于最后想出来的方法是&lt;strong>开辟一个bool型的标志数组标识当前位是否为空格，然后重新开辟一个数组空间，将传入的字符串一个一个字符数组遍历一次，如果是空格就跳过，如果不是就取出来放进新的数组空间，最后free掉指针指向的以前的数组空间，重新指向当前开辟的新空间。&lt;/strong>&lt;/p>
+&lt;p>其实这是一种舍近求远的想法，这种思路直接让本来码代码就不是很快的我写了差不多十分钟才写完（感觉面试官已经等的有点不耐烦），最后实现的代码量也是很冗长，同时其实最后还是有bug。函数中new的数组空间在返回后是会被del掉了（这部分栈空间被回收掉了），这样我们操作完成的数组其实已经不存在了，原始数组也不存在了。但是当时我想法太乱，明明知道会有这种问题，但还是硬着头皮写了。&lt;/p>
+&lt;p>写完面试官让我分析代码的时间复杂度和空间复杂度，然后问我还有什么问题想提问的，便让我回去等通知。&lt;/p>
+&lt;p>回来的路上，我和朋友一起回学校的时候，才想起来，明明去空格可以很简单的实现，&lt;strong>只需将原数组中非空格的字符向前移动，直到遍历完成，然后手动添加\0结束&lt;/strong>就行了，只是我当时想的太复杂。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="ln">1&lt;/span>&lt;span class="cl">&lt;span class="kt">void&lt;/span> &lt;span class="nf">del_blank_space&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">char&lt;/span>&lt;span class="o">*&lt;/span> &lt;span class="n">pStr&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">2&lt;/span>&lt;span class="cl"> &lt;span class="kt">char&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">temp&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">pStr&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">3&lt;/span>&lt;span class="cl"> &lt;span class="k">while&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">temp&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">4&lt;/span>&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">temp&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="sc">&amp;#39; &amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="n">temp&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">continue&lt;/span>&lt;span class="p">;}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">5&lt;/span>&lt;span class="cl"> &lt;span class="o">*&lt;/span>&lt;span class="n">pStr&lt;/span>&lt;span class="o">++&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">temp&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">6&lt;/span>&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">7&lt;/span>&lt;span class="cl"> &lt;span class="o">*&lt;/span>&lt;span class="n">pStr&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sc">&amp;#39;\0&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">8&lt;/span>&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>就这么简单，然而我当时脑子蒙了。鹅厂面试也就只能草草收场。&lt;/p></description></item></channel></rss>

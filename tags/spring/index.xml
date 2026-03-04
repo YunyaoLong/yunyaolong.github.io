@@ -1,81 +1,79 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Spring on Chinese</title><link>https://yaoyl.cn/tags/spring/</link><description>Recent content in Spring on Chinese</description><generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>Copyright © 2017–2025, Yunyao Long and the Hugo Authors; 粤ICP备-17050867-1号</copyright><lastBuildDate>Sat, 20 Jun 2020 15:45:49 +0000</lastBuildDate><atom:link href="https://yaoyl.cn/tags/spring/index.xml" rel="self" type="application/rss+xml"/><item><title>Spring的Bean管理</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/spring%E7%9A%84bean%E7%AE%A1%E7%90%86/</link><pubDate>Sat, 20 Jun 2020 15:45:49 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/spring%E7%9A%84bean%E7%AE%A1%E7%90%86/</guid><description>
-&lt;h1 id="目录"&gt;目录&lt;/h1&gt;
-&lt;p&gt;[toc]&lt;/p&gt;
-&lt;h1 id="spring的bean管理"&gt;Spring的Bean管理&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;本博客基于&lt;a href="https://github.com/LongyunYao/SpringSourceCodeTest"&gt;SpringSourceCodeTest&lt;/a&gt;仓库中【SpringDemo1.0】tag进行的编写。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;基于配置文件进行bean管理的方案是Spring初期推行的方式，在历史比较悠久的Spring项目中比较常见。&lt;/p&gt;
-&lt;h2 id="基于扫描的方式装载bean"&gt;基于扫描的方式装载bean&lt;/h2&gt;
-&lt;p&gt;一个比较典型的配置文件通常包含&lt;code&gt;&amp;lt;context&amp;gt;&lt;/code&gt;标签， &lt;code&gt;&amp;lt;context&amp;gt;&lt;/code&gt;用来表示该项目中哪些包中的bean需要被进行生命周期管理。&lt;/p&gt;
-&lt;p&gt;默认情况下，使用&lt;code&gt;&amp;lt;context&amp;gt;&lt;/code&gt;后，Spring会默认扫描定义的带有如下注解的bean：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;@Component&lt;/li&gt;
-&lt;li&gt;@Repository&lt;/li&gt;
-&lt;li&gt;@Service&lt;/li&gt;
-&lt;li&gt;@Controller&lt;/li&gt;
-&lt;li&gt;@RestController&lt;/li&gt;
-&lt;li&gt;@ControllerAdvice&lt;/li&gt;
-&lt;li&gt;@Configuration&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;参考项目src/main/resources/beans.xml，一个典型的&lt;code&gt;&amp;lt;context&amp;gt;&lt;/code&gt;文件如下：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 1&lt;/span&gt;&lt;span class="cl"&gt;&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 2&lt;/span&gt;&lt;span class="cl"&gt;&amp;lt;beans xmlns=&amp;#34;http://www.springframework.org/schema/beans&amp;#34;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 3&lt;/span&gt;&lt;span class="cl"&gt; xmlns:context=&amp;#34;http://www.springframework.org/schema/context&amp;#34;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 4&lt;/span&gt;&lt;span class="cl"&gt; xmlns:xsi=&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 5&lt;/span&gt;&lt;span class="cl"&gt; xsi:schemaLocation=&amp;#34;http://www.springframework.org/schema/beans
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 6&lt;/span&gt;&lt;span class="cl"&gt; http://www.springframework.org/schema/beans/spring-beans.xsd
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 7&lt;/span&gt;&lt;span class="cl"&gt; http://www.springframework.org/schema/context
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 8&lt;/span&gt;&lt;span class="cl"&gt; http://www.springframework.org/schema/context/spring-context.xsd&amp;#34;&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 9&lt;/span&gt;&lt;span class="cl"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;10&lt;/span&gt;&lt;span class="cl"&gt; &amp;lt;!--默认会扫描包文件下的@Controller, @Service, @Repository, @Component等常见注解--&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;11&lt;/span&gt;&lt;span class="cl"&gt; &amp;lt;context:component-scan base-package=&amp;#34;com.springtest.demo&amp;#34;&amp;gt;&amp;lt;/context:component-scan&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;12&lt;/span&gt;&lt;span class="cl"&gt;&amp;lt;/beans&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="xml格式解读"&gt;XML格式解读&lt;/h3&gt;
-&lt;p&gt;在这份xml中，我们可以稍微简单说明都是做了一些什么事情。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;首先我们定义了一个&lt;code&gt;&amp;lt;beans&amp;gt;&lt;/code&gt;的大标签，用于生命这个配置文件是用于Spring的生命周期管理，因此我们使用Spring-bean提供的命名空间，&lt;code&gt;&amp;quot;xmlns=&amp;quot;http://www.springframework.org/schema/beans&amp;quot;&lt;/code&gt;；&lt;/li&gt;
-&lt;li&gt;在下文中需要使用&lt;code&gt;&amp;lt;context&amp;gt;&lt;/code&gt;标签，因此我们定义context所使用的命名空间&lt;code&gt;xmlns:context=&amp;quot;http://www.springframework.org/schema/context&amp;quot;&lt;/code&gt;；&lt;/li&gt;
-&lt;li&gt;然后我们定义我们需要扫描的包的位置&lt;code&gt;&amp;lt;context:component-scan base-package=&amp;quot;com.springtest.demo&amp;quot;&amp;gt;&amp;lt;/context:component-scan&amp;gt;&lt;/code&gt;；&lt;/li&gt;
-&lt;li&gt;至此我们的xml其实就已经不会报错了，说明此事我们的xml从结构上已经没有明显问题；&lt;/li&gt;
-&lt;li&gt;但是此时启动Spring启动依然会失败并且报错&lt;code&gt;Cannot find the declaration of element 'beans'.&lt;/code&gt;，因此我们需要继续补充这份这份xml的schema文件，用来描述我们的xml中的标签行为；&lt;/li&gt;
-&lt;li&gt;此时我们就需要引入我们的&lt;code&gt;xsi:schemaLocation&lt;/code&gt;属性，为此我们首先需要引入&lt;code&gt;xsi&lt;/code&gt;的前缀命名空间&lt;code&gt;xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;最后我们补充完整的&lt;code&gt;xsi:schemaLocation&lt;/code&gt;解析我们所引用的两个命名空间&lt;code&gt;&amp;quot;http://www.springframework.org/schema/beans&amp;quot;&lt;/code&gt;和&lt;code&gt;&amp;quot;http://www.springframework.org/schema/context&amp;quot;&lt;/code&gt;即可。&lt;/li&gt;
-&lt;li&gt;附：xmlns即xml namespace的缩写; xsi即xml schema instance的缩写; xsd即xml schema definition的缩写&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 1&lt;/span&gt;&lt;span class="cl"&gt;&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 2&lt;/span&gt;&lt;span class="cl"&gt;&amp;lt;beans
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 3&lt;/span&gt;&lt;span class="cl"&gt; &amp;lt;!-- 表明整个beans标签使用的是xmlns所指向的命名空间 --&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 4&lt;/span&gt;&lt;span class="cl"&gt; xmlns=&amp;#34;http://www.springframework.org/schema/beans&amp;#34;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 5&lt;/span&gt;&lt;span class="cl"&gt; &amp;lt;!-- 表明子节点中context标签使用的是xmlns:contex所指向的命名空间 --&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 6&lt;/span&gt;&lt;span class="cl"&gt; xmlns:context=&amp;#34;http://www.springframework.org/schema/context&amp;#34;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 7&lt;/span&gt;&lt;span class="cl"&gt; &amp;lt;!-- 表明xsi属性标签使用的是xmlns:xsi所指向的命名空间 --&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 8&lt;/span&gt;&lt;span class="cl"&gt; xmlns:xsi=&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt; 9&lt;/span&gt;&lt;span class="cl"&gt; &amp;lt;!-- 表明每一个命名空间具体指向的描述文件(xsd文件) --&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;10&lt;/span&gt;&lt;span class="cl"&gt; xsi:schemaLocation=&amp;#34;http://www.springframework.org/schema/beans
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;11&lt;/span&gt;&lt;span class="cl"&gt; http://www.springframework.org/schema/beans/spring-beans.xsd
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;12&lt;/span&gt;&lt;span class="cl"&gt; http://www.springframework.org/schema/context
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;13&lt;/span&gt;&lt;span class="cl"&gt; http://www.springframework.org/schema/context/spring-context.xsd&amp;#34;&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;14&lt;/span&gt;&lt;span class="cl"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;15&lt;/span&gt;&lt;span class="cl"&gt; &amp;lt;!--默认会扫描包文件下的@Controller, @Service, @Repository, @Component等常见注解--&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;16&lt;/span&gt;&lt;span class="cl"&gt; &amp;lt;context:component-scan base-package=&amp;#34;com.springtest.demo&amp;#34;&amp;gt;&amp;lt;/context:component-scan&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="ln"&gt;17&lt;/span&gt;&lt;span class="cl"&gt;&amp;lt;/beans&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="xml内容解读"&gt;XML内容解读&lt;/h3&gt;
-&lt;p&gt;这里&lt;code&gt;context:component-scan&lt;/code&gt;定义了我们的组件扫描的范围，我们直接定义到整个项目的根节点&lt;code&gt;com.springtest.demo&lt;/code&gt;，这样这个包内所有的组件都会被扫描并且组装到上下文中供我们使用。&lt;/p&gt;</description></item><item><title>一点点手写Spring</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E4%B8%80%E7%82%B9%E7%82%B9%E6%89%8B%E5%86%99spring/</link><pubDate>Sat, 20 Jun 2020 10:02:28 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E4%B8%80%E7%82%B9%E7%82%B9%E6%89%8B%E5%86%99spring/</guid><description>
-&lt;h1 id="目录"&gt;目录&lt;/h1&gt;
-&lt;p&gt;[toc]&lt;/p&gt;
-&lt;h1 id="一点点手写spring"&gt;一点点手写Spring&lt;/h1&gt;
-&lt;p&gt;一直有一个小小的计划，做一个完整的系列，从使用Spring，到模拟Spring，到“抄袭”Spring，一点点理解Spring的内在和机制，同时加深自己对Java机制以及设计模式等内在的理解。&lt;/p&gt;
-&lt;p&gt;因为Spring很大，模块很多，这里我计划只关注Spring的core包、bean包和context包，分别对应核心、bean的生命周期管理和Spring上下文的。&lt;/p&gt;
-&lt;p&gt;首先从Spring的基础配置开始，我们现在最经常使用Spring的Bean管理有两种方式：①通过配置文件管理bean; ②通过注解配置类进行bean的扫描管理。&lt;/p&gt;
-&lt;p&gt;我将尝试两种扫描方式都用一次，然后尝试各自复现。基于此来对Spring 使用-模拟-“抄袭”。&lt;/p&gt;
-&lt;h2 id="关于仓库和分支"&gt;关于仓库和分支&lt;/h2&gt;
-&lt;p&gt;相关demo发布在我个人仓库的&lt;a href="https://github.com/LongyunYao/SpringSourceCodeTest"&gt;《SpringSourceCodeTest》&lt;/a&gt; 中，当前已经完成了对Spring的初步使用和模拟。&lt;/p&gt;
-&lt;p&gt;每次有重大特性变动，或者有较大的刷新的时候，我都会打上tag，以此尽可能与博客描述的内容对齐。&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;注：当前博客对应的仓库中的tag为&lt;a href=""&gt;&lt;/a&gt;，可以切换到这个tag同步阅读博客&lt;/em&gt;&lt;/p&gt;
-&lt;h2 id="关于博客分布"&gt;关于博客分布&lt;/h2&gt;
-&lt;p&gt;本次更新计划按照系列更新的方式进行更新，因此这篇文章只是作为综述，详细点在各个文章中更新。&lt;/p&gt;
-&lt;p&gt;相关文章：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;a href="https://blog.csdn.net/Michael753951/article/details/106578817"&gt;《自定义注解并且进行扫描解析》&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;</description></item></channel></rss>
+&lt;h1 id="目录">目录&lt;/h1>
+&lt;p>[toc]&lt;/p>
+&lt;h1 id="spring的bean管理">Spring的Bean管理&lt;/h1>
+&lt;blockquote>
+&lt;p>本博客基于&lt;a href="https://github.com/LongyunYao/SpringSourceCodeTest">SpringSourceCodeTest&lt;/a>仓库中【SpringDemo1.0】tag进行的编写。&lt;/p>&lt;/blockquote>
+&lt;p>基于配置文件进行bean管理的方案是Spring初期推行的方式，在历史比较悠久的Spring项目中比较常见。&lt;/p>
+&lt;h2 id="基于扫描的方式装载bean">基于扫描的方式装载bean&lt;/h2>
+&lt;p>一个比较典型的配置文件通常包含&lt;code>&amp;lt;context&amp;gt;&lt;/code>标签， &lt;code>&amp;lt;context&amp;gt;&lt;/code>用来表示该项目中哪些包中的bean需要被进行生命周期管理。&lt;/p>
+&lt;p>默认情况下，使用&lt;code>&amp;lt;context&amp;gt;&lt;/code>后，Spring会默认扫描定义的带有如下注解的bean：&lt;/p>
+&lt;ul>
+&lt;li>@Component&lt;/li>
+&lt;li>@Repository&lt;/li>
+&lt;li>@Service&lt;/li>
+&lt;li>@Controller&lt;/li>
+&lt;li>@RestController&lt;/li>
+&lt;li>@ControllerAdvice&lt;/li>
+&lt;li>@Configuration&lt;/li>
+&lt;/ul>
+&lt;p>参考项目src/main/resources/beans.xml，一个典型的&lt;code>&amp;lt;context&amp;gt;&lt;/code>文件如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="ln"> 1&lt;/span>&lt;span class="cl">&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 2&lt;/span>&lt;span class="cl">&amp;lt;beans xmlns=&amp;#34;http://www.springframework.org/schema/beans&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 3&lt;/span>&lt;span class="cl"> xmlns:context=&amp;#34;http://www.springframework.org/schema/context&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 4&lt;/span>&lt;span class="cl"> xmlns:xsi=&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 5&lt;/span>&lt;span class="cl"> xsi:schemaLocation=&amp;#34;http://www.springframework.org/schema/beans
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 6&lt;/span>&lt;span class="cl"> http://www.springframework.org/schema/beans/spring-beans.xsd
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 7&lt;/span>&lt;span class="cl"> http://www.springframework.org/schema/context
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 8&lt;/span>&lt;span class="cl"> http://www.springframework.org/schema/context/spring-context.xsd&amp;#34;&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 9&lt;/span>&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">10&lt;/span>&lt;span class="cl"> &amp;lt;!--默认会扫描包文件下的@Controller, @Service, @Repository, @Component等常见注解--&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">11&lt;/span>&lt;span class="cl"> &amp;lt;context:component-scan base-package=&amp;#34;com.springtest.demo&amp;#34;&amp;gt;&amp;lt;/context:component-scan&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">12&lt;/span>&lt;span class="cl">&amp;lt;/beans&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="xml格式解读">XML格式解读&lt;/h3>
+&lt;p>在这份xml中，我们可以稍微简单说明都是做了一些什么事情。&lt;/p>
+&lt;ol>
+&lt;li>首先我们定义了一个&lt;code>&amp;lt;beans&amp;gt;&lt;/code>的大标签，用于生命这个配置文件是用于Spring的生命周期管理，因此我们使用Spring-bean提供的命名空间，&lt;code>&amp;quot;xmlns=&amp;quot;http://www.springframework.org/schema/beans&amp;quot;&lt;/code>；&lt;/li>
+&lt;li>在下文中需要使用&lt;code>&amp;lt;context&amp;gt;&lt;/code>标签，因此我们定义context所使用的命名空间&lt;code>xmlns:context=&amp;quot;http://www.springframework.org/schema/context&amp;quot;&lt;/code>；&lt;/li>
+&lt;li>然后我们定义我们需要扫描的包的位置&lt;code>&amp;lt;context:component-scan base-package=&amp;quot;com.springtest.demo&amp;quot;&amp;gt;&amp;lt;/context:component-scan&amp;gt;&lt;/code>；&lt;/li>
+&lt;li>至此我们的xml其实就已经不会报错了，说明此事我们的xml从结构上已经没有明显问题；&lt;/li>
+&lt;li>但是此时启动Spring启动依然会失败并且报错&lt;code>Cannot find the declaration of element 'beans'.&lt;/code>，因此我们需要继续补充这份这份xml的schema文件，用来描述我们的xml中的标签行为；&lt;/li>
+&lt;li>此时我们就需要引入我们的&lt;code>xsi:schemaLocation&lt;/code>属性，为此我们首先需要引入&lt;code>xsi&lt;/code>的前缀命名空间&lt;code>xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;&lt;/code>&lt;/li>
+&lt;li>最后我们补充完整的&lt;code>xsi:schemaLocation&lt;/code>解析我们所引用的两个命名空间&lt;code>&amp;quot;http://www.springframework.org/schema/beans&amp;quot;&lt;/code>和&lt;code>&amp;quot;http://www.springframework.org/schema/context&amp;quot;&lt;/code>即可。&lt;/li>
+&lt;li>附：xmlns即xml namespace的缩写; xsi即xml schema instance的缩写; xsd即xml schema definition的缩写&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="ln"> 1&lt;/span>&lt;span class="cl">&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 2&lt;/span>&lt;span class="cl">&amp;lt;beans
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 3&lt;/span>&lt;span class="cl"> &amp;lt;!-- 表明整个beans标签使用的是xmlns所指向的命名空间 --&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 4&lt;/span>&lt;span class="cl"> xmlns=&amp;#34;http://www.springframework.org/schema/beans&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 5&lt;/span>&lt;span class="cl"> &amp;lt;!-- 表明子节点中context标签使用的是xmlns:contex所指向的命名空间 --&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 6&lt;/span>&lt;span class="cl"> xmlns:context=&amp;#34;http://www.springframework.org/schema/context&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 7&lt;/span>&lt;span class="cl"> &amp;lt;!-- 表明xsi属性标签使用的是xmlns:xsi所指向的命名空间 --&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 8&lt;/span>&lt;span class="cl"> xmlns:xsi=&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 9&lt;/span>&lt;span class="cl"> &amp;lt;!-- 表明每一个命名空间具体指向的描述文件(xsd文件) --&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">10&lt;/span>&lt;span class="cl"> xsi:schemaLocation=&amp;#34;http://www.springframework.org/schema/beans
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">11&lt;/span>&lt;span class="cl"> http://www.springframework.org/schema/beans/spring-beans.xsd
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">12&lt;/span>&lt;span class="cl"> http://www.springframework.org/schema/context
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">13&lt;/span>&lt;span class="cl"> http://www.springframework.org/schema/context/spring-context.xsd&amp;#34;&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">14&lt;/span>&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">15&lt;/span>&lt;span class="cl"> &amp;lt;!--默认会扫描包文件下的@Controller, @Service, @Repository, @Component等常见注解--&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">16&lt;/span>&lt;span class="cl"> &amp;lt;context:component-scan base-package=&amp;#34;com.springtest.demo&amp;#34;&amp;gt;&amp;lt;/context:component-scan&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">17&lt;/span>&lt;span class="cl">&amp;lt;/beans&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="xml内容解读">XML内容解读&lt;/h3>
+&lt;p>这里&lt;code>context:component-scan&lt;/code>定义了我们的组件扫描的范围，我们直接定义到整个项目的根节点&lt;code>com.springtest.demo&lt;/code>，这样这个包内所有的组件都会被扫描并且组装到上下文中供我们使用。&lt;/p></description></item><item><title>一点点手写Spring</title><link>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E4%B8%80%E7%82%B9%E7%82%B9%E6%89%8B%E5%86%99spring/</link><pubDate>Sat, 20 Jun 2020 10:02:28 +0000</pubDate><guid>https://yaoyl.cn/post/%E5%8E%86%E5%8F%B2/%E4%B8%80%E7%82%B9%E7%82%B9%E6%89%8B%E5%86%99spring/</guid><description>
+&lt;h1 id="目录">目录&lt;/h1>
+&lt;p>[toc]&lt;/p>
+&lt;h1 id="一点点手写spring">一点点手写Spring&lt;/h1>
+&lt;p>一直有一个小小的计划，做一个完整的系列，从使用Spring，到模拟Spring，到“抄袭”Spring，一点点理解Spring的内在和机制，同时加深自己对Java机制以及设计模式等内在的理解。&lt;/p>
+&lt;p>因为Spring很大，模块很多，这里我计划只关注Spring的core包、bean包和context包，分别对应核心、bean的生命周期管理和Spring上下文的。&lt;/p>
+&lt;p>首先从Spring的基础配置开始，我们现在最经常使用Spring的Bean管理有两种方式：①通过配置文件管理bean; ②通过注解配置类进行bean的扫描管理。&lt;/p>
+&lt;p>我将尝试两种扫描方式都用一次，然后尝试各自复现。基于此来对Spring 使用-模拟-“抄袭”。&lt;/p>
+&lt;h2 id="关于仓库和分支">关于仓库和分支&lt;/h2>
+&lt;p>相关demo发布在我个人仓库的&lt;a href="https://github.com/LongyunYao/SpringSourceCodeTest">《SpringSourceCodeTest》&lt;/a> 中，当前已经完成了对Spring的初步使用和模拟。&lt;/p>
+&lt;p>每次有重大特性变动，或者有较大的刷新的时候，我都会打上tag，以此尽可能与博客描述的内容对齐。&lt;/p>
+&lt;p>&lt;em>注：当前博客对应的仓库中的tag为&lt;a href="">&lt;/a>，可以切换到这个tag同步阅读博客&lt;/em>&lt;/p>
+&lt;h2 id="关于博客分布">关于博客分布&lt;/h2>
+&lt;p>本次更新计划按照系列更新的方式进行更新，因此这篇文章只是作为综述，详细点在各个文章中更新。&lt;/p>
+&lt;p>相关文章：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;a href="https://blog.csdn.net/Michael753951/article/details/106578817">《自定义注解并且进行扫描解析》&lt;/a>&lt;/p>&lt;/blockquote></description></item></channel></rss>
